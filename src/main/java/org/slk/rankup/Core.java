@@ -9,7 +9,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.reflections.Reflections;
 import org.slk.rankup.ranks.Rank;
-import org.slk.rankup.ranks.RanksManager;
 import org.slk.rankup.utils.ChatUtils;
 
 import java.lang.reflect.InvocationTargetException;
@@ -42,17 +41,15 @@ public final class Core extends JavaPlugin {
         (new BukkitRunnable() {
             public void run() {
                 for(Player player : Bukkit.getOnlinePlayers()){
-                    player.setPlayerListHeader(ChatUtils.colorize(
-                            "\n&a&lRANK UP\n"));
+                    player.setPlayerListHeader(ChatUtils.colorize("\n&a&lRANK UP\n"));
                     LocalDateTime date = Core.uptimeStartDate;
                     Duration diff = Duration.between(date, LocalDateTime.now());
                     int hours = (int) Math.floor((double) diff.getSeconds()/3600);
                     int minutes = (int) Math.floor((double) diff.getSeconds()/60);
                     int seconds = (int) diff.getSeconds()-(minutes*60)-(hours*3600);
-                    player.setPlayerListFooter(ChatUtils.colorize(
-                            "\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
+                    player.setPlayerListFooter(ChatUtils.colorize("\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
 
-                    Rank playerRank = RanksManager.getRank(player);
+                    Rank playerRank = Rank.getRank(player);
                     player.setPlayerListName(ChatUtils.colorize(playerRank.getPrefix() + " " + playerRank.getColor() + player.getName()));
 
                     if(!scoreboards.containsKey(player)){
@@ -74,7 +71,7 @@ public final class Core extends JavaPlugin {
     private void updateBoard(FastBoard board) {
         if(board.isDeleted()) return;
         Player player = board.getPlayer();
-        Rank rank = RanksManager.getRank(player);
+        Rank rank = Rank.getRank(player);
         board.updateLines(
                 "",
                 ChatUtils.colorize(" &fRank: " + rank.getPrefix()),
