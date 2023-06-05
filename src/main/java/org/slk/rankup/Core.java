@@ -46,7 +46,11 @@ public final class Core extends JavaPlugin {
                     Duration diff = Duration.between(date, LocalDateTime.now());
                     int hours = (int) Math.floor((double) diff.getSeconds()/3600);
                     int minutes = (int) Math.floor((double) diff.getSeconds()/60);
-                    int seconds = (int) diff.getSeconds()-(minutes*60)-(hours*3600);
+                    while(minutes > 60){
+                        minutes-=60;
+                        hours++;
+                    }
+                    int seconds = (int) diff.getSeconds()-(minutes*60);
                     player.setPlayerListFooter(ChatUtils.colorize("\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
 
                     Rank playerRank = Rank.getRank(player);
