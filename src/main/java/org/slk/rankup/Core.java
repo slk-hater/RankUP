@@ -75,10 +75,10 @@ public final class Core extends JavaPlugin {
         board.updateLines(
                 "",
                 ChatUtils.colorize(" &fRank: " + rank.getPrefix()),
-                ChatUtils.colorize(" &fProgresso (0%)"),
-                ChatUtils.colorize("     &7&l∎∎∎∎∎∎∎∎∎∎"),
+                ChatUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
+                ChatUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
                 "",
-                ChatUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$100"),
+                ChatUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$7,500.0"),
                 ChatUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
                 ChatUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
                 ""

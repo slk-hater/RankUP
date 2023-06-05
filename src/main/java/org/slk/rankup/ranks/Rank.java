@@ -4,6 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.nametags.TeamAction;
+import org.slk.rankup.utils.ChatUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,9 +50,25 @@ public enum Rank {
         return (Rank) vals[(getRank(player).ordinal() + 1) % vals.length];
     }
     public static Rank getDefaultRank() { return getRanks().filter(Rank::isDefault).findFirst().orElse(getRanks().findFirst().orElse(null)); }
-    public static int getNextRankProgress(Player player, int money){
+    public static int getNextRankProgressPercentage(Player player){
+        double money = 7500;
         Rank nextRank = getNextRank(player);
         if(nextRank != null) { return (int) ((money*100)/nextRank.getPrice()); }
         return -1;
+    }
+    public static String getNextRankProgressSymbols(Player player){
+        int percentage = getNextRankProgressPercentage(player);
+        int chars = 0;
+        StringBuilder sb = new StringBuilder();
+        while(percentage >= 10){
+            percentage -= 10;
+            sb.append(ChatUtils.colorize("&a&l∎"));
+            chars++;
+        }
+        while(chars < 10){
+            sb.append("&7&l∎");
+            chars++;
+        }
+        return sb.toString();
     }
 }
