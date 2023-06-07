@@ -3,6 +3,8 @@ package org.slk.rankup;
 import fr.mrmicky.fastboard.FastBoard;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -11,11 +13,10 @@ import org.reflections.Reflections;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
 
-import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public final class Core extends JavaPlugin {
     private static Core instance;
@@ -28,7 +29,7 @@ public final class Core extends JavaPlugin {
         instance = this;
         uptimeStartDate = LocalDateTime.now();
 
-        String packageName = getClass().getPackage().getName();
+        /*String packageName = getClass().getPackage().getName();
         for(Class<?> clazz : new Reflections(packageName + ".listeners").getSubTypesOf(Listener.class)){
             try {
                 Listener listener = (Listener) clazz.getDeclaredConstructor().newInstance();
@@ -36,7 +37,9 @@ public final class Core extends JavaPlugin {
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 throw new RuntimeException(e);
             }
-        }
+        }*/
+        loadEvents();
+        loadCommands();
 
         /*
         PlayerRankUPEvent event = new PlayerRankUPEvent(player, rank);
@@ -95,5 +98,45 @@ public final class Core extends JavaPlugin {
                 ChatUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
                 ""
         );
+    }
+
+    public void loadEvents(){
+        Set<Class<? extends Listener>> events;
+        Reflections reflector = new Reflections("org.slk.rankup.listeners");
+        try{
+            events = reflector.getSubTypesOf(Listener.class);
+        }catch (Exception e){
+            e.printStackTrace();
+            return;
+        }
+
+        for(Class<? extends Listener> cls : events){
+            try{
+                getServer().getPluginManager().registerEvents(cls.getDeclaredConstructor().newInstance(), this);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    public void loadCommands(){
+        CommandMap map = null;
+        try{
+            Field cmdMap = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
+            cmdMap.setAccessible(true);
+            map = (CommandMap) cmdMap.get(Bukkit.getPluginManager());
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        Reflections reflections = new Reflections("org.slk.rankup.commands");
+        Set<Class<? extends Command>> commands = reflections.getSubTypesOf(Command.class);
+        for(Class<?extends Command> cls : commands){
+            try{
+                Command command = cls.getDeclaredConstructor(new Class[]{}).newInstance(new Object[]{});
+                assert map != null;
+                map.register(cls.getSimpleName().toLowerCase(), command);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }
