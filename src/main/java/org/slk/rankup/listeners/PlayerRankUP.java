@@ -14,7 +14,6 @@ public class PlayerRankUP implements Listener {
         Player player = event.getPlayer();
         Rank rank = event.getRank();
         for(Player target : Bukkit.getOnlinePlayers()){
-            //Player#sendTitle(@Nullable String title, @Nullable String subtitle, int fadeIn, int stay, int fadeOut)
             target.sendTitle(ChatUtils.colorize(rank.getColor() + player.getName()),
                     ChatUtils.colorize("&fUpou para " + rank.getPrefix()),
                     3, 3, 3);
