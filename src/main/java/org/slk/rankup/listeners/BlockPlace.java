@@ -14,7 +14,7 @@ public class BlockPlace implements Listener {
         if(is.getItemMeta().getCustomModelData() == 1){ // is placeable
             IPlaceable placeable = (IPlaceable) is;
             PlaceableManager.addPlaceable(placeable, event.getBlockPlaced().getLocation());
-            placeable.place();
+            placeable.onPlaced();
         }
     }
 }
