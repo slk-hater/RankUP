@@ -19,12 +19,10 @@ public class FireworkBox extends IPlaceableComponents implements IPlaceable {
     }
 
     @Override
-    public void place() {
-        Bukkit.broadcastMessage("placed");
-    }
+    public void onPlaced() { Bukkit.broadcastMessage("placed"); }
 
     @Override
-    public void destroy() {
+    public void onDestroyed() {
         Bukkit.broadcastMessage("destroyed");
     }
 }
