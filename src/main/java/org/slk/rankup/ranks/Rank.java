@@ -1,7 +1,6 @@
 package org.slk.rankup.ranks;
 
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.nametags.TeamAction;
@@ -31,6 +30,10 @@ public enum Rank {
     public ChatColor getColor() { return ChatColor.of(color); }
     public double getPrice() { return this.price; }
     public boolean isDefault() { return getPrice() == 0; }
+    public Rank getNextRank(){
+        Object[] vals = getRanks().toArray();
+        return (Rank) vals[(this.ordinal() + 1) % vals.length];
+    }
 
     static final Map<Player, Rank> ranksMap = new HashMap<>();
     public static Rank getRank(Player player) {
@@ -46,14 +49,10 @@ public enum Rank {
         TagManager.changePlayerName(player, rank.getPrefix(), TeamAction.UPDATE);
     }
     public static Stream<Rank> getRanks() { return Stream.of(Rank.values()); }
-    public static Rank getNextRank(Player player) {
-        Object[] vals = getRanks().toArray();
-        return (Rank) vals[(getRank(player).ordinal() + 1) % vals.length];
-    }
     public static Rank getDefaultRank() { return getRanks().filter(Rank::isDefault).findFirst().orElse(getRanks().findFirst().orElse(null)); }
     public static int getNextRankProgressPercentage(Player player){
         double money = 7500;
-        Rank nextRank = getNextRank(player);
+        Rank nextRank = getRank(player).getNextRank();
         if(nextRank != null) { return (int) ((money*100)/nextRank.getPrice()); }
         return -1;
     }
