@@ -7,6 +7,7 @@ import org.slk.rankup.ranks.Rank;
 
 public class PlayerRankUPEvent extends Event {
     private static final HandlerList HANDLERS = new HandlerList();
+    public static HandlerList getHandlerList() { return HANDLERS; }
 
     private boolean isCancelled;
     private final Player player;

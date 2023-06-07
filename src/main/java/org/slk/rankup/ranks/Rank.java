@@ -81,11 +81,11 @@ public enum Rank {
         StringBuilder sb = new StringBuilder();
         while(percentage >= 10){
             percentage -= 10;
-            sb.append(progressed).append("&l∎");
+            sb.append(ColorUtils.colorize(progressed + "&l∎"));
             chars++;
         }
         while(chars < 10){
-            sb.append(notProgressed).append("&l∎");
+            sb.append(ColorUtils.colorize(notProgressed + "&l∎"));
             chars++;
         }
         return ColorUtils.colorize(sb.toString());

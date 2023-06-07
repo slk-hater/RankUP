@@ -20,7 +20,7 @@ public class WorldUtils {
         fw.setFireworkMeta(fwm);
         fw.detonate();
 
-        for(int i = 0;i<amount; i++){
+        for(int i = 0; i<amount; i++){
             Firework fw2 = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
             fw2.setFireworkMeta(fwm);
         }

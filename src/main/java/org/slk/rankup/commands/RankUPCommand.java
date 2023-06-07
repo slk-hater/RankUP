@@ -25,7 +25,7 @@ public class RankUPCommand extends Command {
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             // TODO
-            Bukkit.broadcastMessage("isCancelled: " + event.isCancelled());
+            Rank.setRank(player, rank.getNextRank());
         }
 
         return true;

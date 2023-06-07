@@ -18,9 +18,9 @@ public class PlayerRankUP implements Listener {
             target.sendTitle(
                     ColorUtils.colorize(rank.getColor() + player.getName()),
                     ColorUtils.colorize("&fUpou para " + rank.getPrefix()),
-                    3, 3, 3);
+                    3, 30, 3);
         }
-        player.sendMessage(ColorUtils.colorize(" &a&l# &fUpas-te para " + rank.getPrefix() + " &f, parabéns."));
+        player.sendMessage(ColorUtils.colorize("&a&l# &fParabéns! Upas-te para " + rank.getPrefix() + "&f."));
         WorldUtils.spawnFireworks(player.getLocation().add(0, 2, 0), 6);
     }
 }
