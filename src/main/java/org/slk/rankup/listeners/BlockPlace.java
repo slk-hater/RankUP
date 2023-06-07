@@ -12,7 +12,9 @@ public class BlockPlace implements Listener {
     public void onBlockPlace(BlockPlaceEvent event){
         ItemStack is = event.getItemInHand();
         if(is.getItemMeta().getCustomModelData() == 1){ // is placeable
-            PlaceableManager.addPlaceable((IPlaceable) is, event.getBlockPlaced().getLocation());
+            IPlaceable placeable = (IPlaceable) is;
+            PlaceableManager.addPlaceable(placeable, event.getBlockPlaced().getLocation());
+            placeable.place();
         }
     }
 }
