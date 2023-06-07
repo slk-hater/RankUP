@@ -55,7 +55,6 @@ public final class Core extends JavaPlugin {
                     }
                     int seconds = (int) diff.getSeconds()-(minutes*60);
                     player.setPlayerListFooter(ColorUtils.colorize(
-                            "\n&fProgresso próximo rank " + Rank.getNextRankProgressSymbols(player, ChatColor.YELLOW, ChatColor.GRAY) +
                             "\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
 
                     Rank playerRank = Rank.getRank(player);
@@ -81,17 +80,31 @@ public final class Core extends JavaPlugin {
         if(board.isDeleted()) return;
         Player player = board.getPlayer();
         Rank rank = Rank.getRank(player);
-        board.updateLines(
-                "",
-                ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
-                ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
-                ColorUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
-                "",
-                ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$7,500.0"),
-                ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
-                ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
-                ""
-        );
+
+        if(rank.getNextRank() == null) {
+            board.updateLines(
+                    "",
+                    ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
+                    "",
+                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$7,500.0"),
+                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
+                    ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
+                    ""
+            );
+        }
+        else{
+            board.updateLines(
+                    "",
+                    ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
+                    ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
+                    ColorUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
+                    "",
+                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$7,500.0"),
+                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
+                    ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
+                    ""
+            );
+        }
     }
 
     public void loadEvents(){

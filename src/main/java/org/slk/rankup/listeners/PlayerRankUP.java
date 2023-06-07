@@ -17,10 +17,10 @@ public class PlayerRankUP implements Listener {
         for(Player target : Bukkit.getOnlinePlayers()){
             target.sendTitle(
                     ColorUtils.colorize(rank.getColor() + player.getName()),
-                    ColorUtils.colorize("&fUpou para " + rank.getPrefix()),
+                    ColorUtils.colorize("&fSubiu para rank " + rank.getPrefix()),
                     3, 30, 3);
         }
-        player.sendMessage(ColorUtils.colorize("&a&l# &fParabéns! Upas-te para " + rank.getPrefix() + "&f."));
+        player.sendMessage(ColorUtils.colorize("&a&l# &fParabéns! Subis-te para o rank " + rank.getPrefix() + "&f."));
         WorldUtils.spawnFireworks(player.getLocation().add(0, 2, 0), 6);
     }
 }

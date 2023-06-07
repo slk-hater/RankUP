@@ -1,6 +1,7 @@
 package org.slk.rankup.commands;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -20,12 +21,17 @@ public class RankUPCommand extends Command {
         }
         Player player = (Player) sender;
         Rank rank = Rank.getRank(player);
+        Rank nextRank = rank.getNextRank();
+        if(nextRank == null){
+            player.sendMessage(ColorUtils.colorize("&c&l# &fJá estás no último rank!"));
+            return true;
+        }
 
-        PlayerRankUPEvent event = new PlayerRankUPEvent(player, rank.getNextRank());
+        PlayerRankUPEvent event = new PlayerRankUPEvent(player, nextRank);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             // TODO
-            Rank.setRank(player, rank.getNextRank());
+            Rank.setRank(player, nextRank);
         }
 
         return true;

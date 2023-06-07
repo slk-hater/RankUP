@@ -1,6 +1,7 @@
 package org.slk.rankup.ranks;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.nametags.TeamAction;
@@ -14,7 +15,7 @@ public enum Rank {
     BRONZE("BRONZE", "#CD7F32", 0.0D),
     SILVER("SILVER", "#C0C0C0", 15000.0D),
     GOLD("GOLD", "#D4AF37", 125000.0D),
-    DIAMOND("DIAMOND", "#b9f2ff", 540000.0D);
+    DIAMOND("DIAMOND", "#B9F2FF", 540000.0D);
 
     private final String prefix;
     private final String color;
@@ -36,7 +37,11 @@ public enum Rank {
     }
     public Rank getNextRank(){
         Object[] vals = getRanks().toArray();
-        return (Rank) vals[(this.ordinal() + 1) % vals.length];
+        Rank nextRank = null;
+        try {
+            nextRank = (Rank) vals[(this.ordinal() + 1)];
+        } catch(Exception ignored) {}
+        return nextRank;
     }
 
     static final Map<Player, Rank> ranksMap = new HashMap<>();
@@ -62,30 +67,20 @@ public enum Rank {
     }
     public static String getNextRankProgressSymbols(Player player){
         int percentage = getNextRankProgressPercentage(player);
+        if(percentage == -1) { return ColorUtils.colorize("&aCOMPLETO"); }
         int chars = 0;
         StringBuilder sb = new StringBuilder();
+        if(percentage > 10){
+            sb.append("&a&l");
+        }
         while(percentage >= 10){
             percentage -= 10;
-            sb.append("&a&l∎");
+            sb.append("∎");
             chars++;
         }
+        sb.append("&7&l");
         while(chars < 10){
-            sb.append("&7&l∎");
-            chars++;
-        }
-        return ColorUtils.colorize(sb.toString());
-    }
-    public static String getNextRankProgressSymbols(Player player, ChatColor progressed, ChatColor notProgressed){
-        int percentage = getNextRankProgressPercentage(player);
-        int chars = 0;
-        StringBuilder sb = new StringBuilder();
-        while(percentage >= 10){
-            percentage -= 10;
-            sb.append(ColorUtils.colorize(progressed + "&l∎"));
-            chars++;
-        }
-        while(chars < 10){
-            sb.append(ColorUtils.colorize(notProgressed + "&l∎"));
+            sb.append("∎");
             chars++;
         }
         return ColorUtils.colorize(sb.toString());
