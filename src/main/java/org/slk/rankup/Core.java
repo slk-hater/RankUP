@@ -1,12 +1,10 @@
 package org.slk.rankup;
 
-import com.google.common.reflect.ClassPath;
 import fr.mrmicky.fastboard.FastBoard;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
-import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -15,7 +13,6 @@ import org.reflections.Reflections;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
 
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -48,7 +45,7 @@ public final class Core extends JavaPlugin {
         PlayerRankUPEvent event = new PlayerRankUPEvent(player, rank);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
-            Bukkit.getServer().broadcastMessage(event.getMessage());
+            // TODO
         }
         */
 
@@ -65,7 +62,9 @@ public final class Core extends JavaPlugin {
                         hours++;
                     }
                     int seconds = (int) diff.getSeconds()-(minutes*60);
-                    player.setPlayerListFooter(ChatUtils.colorize("\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
+                    player.setPlayerListFooter(ChatUtils.colorize(
+                            "\n&fProgresso próximo rank " + Rank.getNextRankProgressSymbols(player, ChatColor.YELLOW, ChatColor.GRAY) +
+                            "\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
 
                     Rank playerRank = Rank.getRank(player);
                     player.setPlayerListName(ChatUtils.colorize(playerRank.getPrefix() + " " + playerRank.getColor() + player.getName()));

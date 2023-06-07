@@ -1,6 +1,7 @@
 package org.slk.rankup.ranks;
 
 import net.md_5.bungee.api.ChatColor;
+import org.bukkit.Color;
 import org.bukkit.entity.Player;
 import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.nametags.TeamAction;
@@ -62,13 +63,28 @@ public enum Rank {
         StringBuilder sb = new StringBuilder();
         while(percentage >= 10){
             percentage -= 10;
-            sb.append(ChatUtils.colorize("&a&l∎"));
+            sb.append("&a&l∎");
             chars++;
         }
         while(chars < 10){
             sb.append("&7&l∎");
             chars++;
         }
-        return sb.toString();
+        return ChatUtils.colorize(sb.toString());
+    }
+    public static String getNextRankProgressSymbols(Player player, ChatColor progressed, ChatColor notProgressed){
+        int percentage = getNextRankProgressPercentage(player);
+        int chars = 0;
+        StringBuilder sb = new StringBuilder();
+        while(percentage >= 10){
+            percentage -= 10;
+            sb.append(progressed).append("&l∎");
+            chars++;
+        }
+        while(chars < 10){
+            sb.append(notProgressed).append("&l∎");
+            chars++;
+        }
+        return ChatUtils.colorize(sb.toString());
     }
 }
