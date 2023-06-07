@@ -38,6 +38,11 @@ public final class Core extends JavaPlugin {
             }
         }
 
+        /*
+        PlayerRankUPEvent event = new PlayerRankUPEvent(player, rank);
+        Bukkit.getPluginManager().callEvent(event);
+        */
+
         (new BukkitRunnable() {
             public void run() {
                 for(Player player : Bukkit.getOnlinePlayers()){
