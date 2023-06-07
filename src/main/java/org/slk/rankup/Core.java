@@ -41,6 +41,9 @@ public final class Core extends JavaPlugin {
         /*
         PlayerRankUPEvent event = new PlayerRankUPEvent(player, rank);
         Bukkit.getPluginManager().callEvent(event);
+        if (!event.isCancelled()) {
+            Bukkit.getServer().broadcastMessage(event.getMessage());
+        }
         */
 
         (new BukkitRunnable() {
