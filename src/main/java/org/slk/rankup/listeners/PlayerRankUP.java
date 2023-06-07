@@ -18,6 +18,6 @@ public class PlayerRankUP implements Listener {
                     ChatUtils.colorize("&fUpou para " + rank.getPrefix()),
                     3, 3, 3);
         }
-        player.sendMessage(ChatUtils.colorize(" &a&l# &fUpas-te para " + rank.getPrefix() + " &fcom sucesso."));
+        player.sendMessage(ChatUtils.colorize(" &a&l# &fUpas-te para " + rank.getPrefix() + " &f, parabéns."));
     }
 }
