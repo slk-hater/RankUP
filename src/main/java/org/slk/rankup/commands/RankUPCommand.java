@@ -6,7 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.slk.rankup.events.PlayerRankUPEvent;
 import org.slk.rankup.ranks.Rank;
-import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.ColorUtils;
 
 public class RankUPCommand extends Command {
     public RankUPCommand(){
@@ -15,7 +15,7 @@ public class RankUPCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
         if(!(sender instanceof Player)){
-            sender.sendMessage(ChatUtils.colorize("&cApenas jogadores podem utilizar este comando!"));
+            sender.sendMessage(ColorUtils.colorize("&cApenas jogadores podem utilizar este comando!"));
             return true;
         }
         Player player = (Player) sender;

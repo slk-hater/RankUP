@@ -6,7 +6,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.slk.rankup.events.PlayerRankUPEvent;
 import org.slk.rankup.ranks.Rank;
-import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.ColorUtils;
 import org.slk.rankup.utils.WorldUtils;
 
 public class PlayerRankUP implements Listener {
@@ -16,11 +16,11 @@ public class PlayerRankUP implements Listener {
         Rank rank = event.getRank();
         for(Player target : Bukkit.getOnlinePlayers()){
             target.sendTitle(
-                    ChatUtils.colorize(rank.getColor() + player.getName()),
-                    ChatUtils.colorize("&fUpou para " + rank.getPrefix()),
+                    ColorUtils.colorize(rank.getColor() + player.getName()),
+                    ColorUtils.colorize("&fUpou para " + rank.getPrefix()),
                     3, 3, 3);
         }
-        player.sendMessage(ChatUtils.colorize(" &a&l# &fUpas-te para " + rank.getPrefix() + " &f, parabéns."));
+        player.sendMessage(ColorUtils.colorize(" &a&l# &fUpas-te para " + rank.getPrefix() + " &f, parabéns."));
         WorldUtils.spawnFireworks(player.getLocation().add(0, 2, 0), 6);
     }
 }

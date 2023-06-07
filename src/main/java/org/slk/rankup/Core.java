@@ -11,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.reflections.Reflections;
 import org.slk.rankup.ranks.Rank;
-import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.ColorUtils;
 
 import java.lang.reflect.Field;
 import java.time.Duration;
@@ -44,7 +44,7 @@ public final class Core extends JavaPlugin {
         (new BukkitRunnable() {
             public void run() {
                 for(Player player : Bukkit.getOnlinePlayers()){
-                    player.setPlayerListHeader(ChatUtils.colorize("\n&a&lRANK UP\n"));
+                    player.setPlayerListHeader(ColorUtils.colorize("\n&a&lRANK UP\n"));
                     LocalDateTime date = Core.uptimeStartDate;
                     Duration diff = Duration.between(date, LocalDateTime.now());
                     int hours = (int) Math.floor((double) diff.getSeconds()/3600);
@@ -54,16 +54,16 @@ public final class Core extends JavaPlugin {
                         hours++;
                     }
                     int seconds = (int) diff.getSeconds()-(minutes*60);
-                    player.setPlayerListFooter(ChatUtils.colorize(
+                    player.setPlayerListFooter(ColorUtils.colorize(
                             "\n&fProgresso próximo rank " + Rank.getNextRankProgressSymbols(player, ChatColor.YELLOW, ChatColor.GRAY) +
                             "\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
 
                     Rank playerRank = Rank.getRank(player);
-                    player.setPlayerListName(ChatUtils.colorize(playerRank.getPrefix() + " " + playerRank.getColor() + player.getName()));
+                    player.setPlayerListName(ColorUtils.colorize(playerRank.getPrefix() + " " + playerRank.getColor() + player.getName()));
 
                     if(!scoreboards.containsKey(player)){
                         FastBoard board = new FastBoard(player);
-                        board.updateTitle(ChatUtils.colorize("&a&lRANK UP"));
+                        board.updateTitle(ColorUtils.colorize("&a&lRANK UP"));
                         Core.scoreboards.put(player, board);
                     }
                 }
@@ -83,16 +83,16 @@ public final class Core extends JavaPlugin {
         Rank rank = Rank.getRank(player);
         board.updateLines(
                 "",
-                ChatUtils.colorize(" &fRank: " + rank.getPrefix()),
-                ChatUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
-                ChatUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
+                ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
+                ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
+                ColorUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
                 "",
-                ChatUtils.colorize(" &fImposto do Bazar: &c67%"),
-                ChatUtils.colorize(" &fDisponibilidade Mercado: &cOK"),
+                ColorUtils.colorize(" &fImposto do Bazar: &c67%"),
+                ColorUtils.colorize(" &fDisponibilidade Mercado: &cOK"),
                 "",
-                ChatUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$7,500.0"),
-                ChatUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
-                ChatUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
+                ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$7,500.0"),
+                ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
+                ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
                 ""
         );
     }

@@ -10,7 +10,7 @@ import org.slk.rankup.Core;
 import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.nametags.TeamAction;
 import org.slk.rankup.ranks.Rank;
-import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.ColorUtils;
 
 public class PlayerJoin implements Listener {
     @EventHandler
@@ -20,10 +20,10 @@ public class PlayerJoin implements Listener {
         Rank rank = Rank.getRank(player);
         player.setDisplayName(player.getName());
         TagManager.changePlayerName(player, rank.getPrefix(), TeamAction.CREATE);
-        Bukkit.broadcastMessage(ChatUtils.colorize("&e" + player.getName() + " entrou no servidor."));
+        Bukkit.broadcastMessage(ColorUtils.colorize("&e" + player.getName() + " entrou no servidor."));
 
         FastBoard board = new FastBoard(player);
-        board.updateTitle(ChatUtils.colorize("&a&lRANK UP"));
+        board.updateTitle(ColorUtils.colorize("&a&lRANK UP"));
         Core.scoreboards.put(player, board);
     }
 }

@@ -12,7 +12,7 @@ import org.slk.rankup.Core;
 import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.nametags.TeamAction;
 import org.slk.rankup.ranks.Rank;
-import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.ColorUtils;
 
 public class PlayerQuit implements Listener {
     @EventHandler
@@ -21,7 +21,7 @@ public class PlayerQuit implements Listener {
         Player player = event.getPlayer();
         Rank rank = Rank.getRank(player);
         TagManager.changePlayerName(player, rank.getPrefix(), TeamAction.DESTROY);
-        Bukkit.broadcastMessage(ChatUtils.colorize("&c" + player.getName() + " saiu do servidor."));
+        Bukkit.broadcastMessage(ColorUtils.colorize("&c" + player.getName() + " saiu do servidor."));
 
         Scoreboard scoreboard = Bukkit.getScoreboardManager().getMainScoreboard();
         Team team = scoreboard.getTeam(player.getName());

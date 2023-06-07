@@ -4,7 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.Team;
-import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.ColorUtils;
 
 import java.util.Objects;
 
@@ -24,7 +24,7 @@ public class TagManager {
         }
 
         team = scoreboard.getTeam("TAG" + player.getName());
-        team.setPrefix(ChatUtils.colorize(prefix));
+        team.setPrefix(ColorUtils.colorize(prefix));
         team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
 
         switch (action) {
@@ -35,7 +35,7 @@ public class TagManager {
                 team.unregister();
                 scoreboard.registerNewTeam("TAG" + player.getName());
                 team = scoreboard.getTeam("TAG" + player.getName());
-                team.setPrefix(ChatUtils.colorize(prefix));
+                team.setPrefix(ColorUtils.colorize(prefix));
                 team.setOption(Team.Option.NAME_TAG_VISIBILITY, Team.OptionStatus.ALWAYS);
                 team.addPlayer(player);
                 break;

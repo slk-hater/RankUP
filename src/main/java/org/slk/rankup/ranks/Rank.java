@@ -4,7 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.entity.Player;
 import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.nametags.TeamAction;
-import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.ColorUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +73,7 @@ public enum Rank {
             sb.append("&7&l∎");
             chars++;
         }
-        return ChatUtils.colorize(sb.toString());
+        return ColorUtils.colorize(sb.toString());
     }
     public static String getNextRankProgressSymbols(Player player, ChatColor progressed, ChatColor notProgressed){
         int percentage = getNextRankProgressPercentage(player);
@@ -88,6 +88,6 @@ public enum Rank {
             sb.append(notProgressed).append("&l∎");
             chars++;
         }
-        return ChatUtils.colorize(sb.toString());
+        return ColorUtils.colorize(sb.toString());
     }
 }
