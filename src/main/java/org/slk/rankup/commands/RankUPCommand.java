@@ -14,7 +14,10 @@ public class RankUPCommand extends Command {
     }
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
-        if(!(sender instanceof Player)){ sender.sendMessage(ChatUtils.colorize("&cApenas jogadores podem utilizar este comando!")); }
+        if(!(sender instanceof Player)){
+            sender.sendMessage(ChatUtils.colorize("&cApenas jogadores podem utilizar este comando!"));
+            return true;
+        }
         Player player = (Player) sender;
         Rank rank = Rank.getRank(player);
 

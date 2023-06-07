@@ -30,6 +30,10 @@ public enum Rank {
     public ChatColor getColor() { return ChatColor.of(color); }
     public double getPrice() { return this.price; }
     public boolean isDefault() { return getPrice() == 0; }
+    public Rank getPreviousRank(){
+        Object[] vals = getRanks().toArray();
+        return (Rank) vals[(this.ordinal() - 1) % vals.length];
+    }
     public Rank getNextRank(){
         Object[] vals = getRanks().toArray();
         return (Rank) vals[(this.ordinal() + 1) % vals.length];
