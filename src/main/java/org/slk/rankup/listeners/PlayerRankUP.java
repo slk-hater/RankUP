@@ -7,6 +7,7 @@ import org.bukkit.event.Listener;
 import org.slk.rankup.events.PlayerRankUPEvent;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.WorldUtils;
 
 public class PlayerRankUP implements Listener {
     @EventHandler
@@ -20,5 +21,6 @@ public class PlayerRankUP implements Listener {
                     3, 3, 3);
         }
         player.sendMessage(ChatUtils.colorize(" &a&l# &fUpas-te para " + rank.getPrefix() + " &f, parabéns."));
+        WorldUtils.spawnFireworks(player.getLocation().add(0, 2, 0), 6);
     }
 }
