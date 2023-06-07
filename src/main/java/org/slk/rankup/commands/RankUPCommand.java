@@ -3,7 +3,6 @@ package org.slk.rankup.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.slk.rankup.Core;
 import org.slk.rankup.utils.ChatUtils;
 
 public class RankUPCommand extends Command {
