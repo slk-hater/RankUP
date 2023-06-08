@@ -1,4 +1,4 @@
-package org.slk.rankup.interfaces;
+package org.slk.rankup.placeables;
 
 public interface IPlaceable {
     void onPlaced();

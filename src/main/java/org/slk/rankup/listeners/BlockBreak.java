@@ -4,8 +4,8 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.slk.rankup.interfaces.IPlaceable;
-import org.slk.rankup.managers.PlaceableManager;
+import org.slk.rankup.placeables.IPlaceable;
+import org.slk.rankup.placeables.PlaceableManager;
 
 import java.util.Map;
 

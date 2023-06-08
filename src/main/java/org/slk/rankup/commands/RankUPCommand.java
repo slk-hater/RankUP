@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.slk.rankup.events.PlayerRankUPEvent;
+import org.slk.rankup.itemstacks.FireworkBox;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ColorUtils;
 
@@ -23,14 +24,16 @@ public class RankUPCommand extends Command {
         Rank rank = Rank.getRank(player);
         Rank nextRank = rank.getNextRank();
         if(nextRank == null){
+            player.getInventory().addItem(new FireworkBox().IS);
             player.sendMessage(ColorUtils.colorize("&c&l# &fJá estás no último rank!"));
             return true;
         }
+        // TODO : Check player's money
 
         PlayerRankUPEvent event = new PlayerRankUPEvent(player, nextRank);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
-            // TODO
+            // TODO : Finalization
             Rank.setRank(player, nextRank);
         }
 

@@ -33,7 +33,11 @@ public enum Rank {
     public boolean isDefault() { return getPrice() == 0; }
     public Rank getPreviousRank(){
         Object[] vals = getRanks().toArray();
-        return (Rank) vals[(this.ordinal() - 1) % vals.length];
+        Rank prevRank = null;
+        try{
+            prevRank = (Rank) vals[(this.ordinal() - 1)];
+        } catch(Exception ignored) {}
+        return prevRank;
     }
     public Rank getNextRank(){
         Object[] vals = getRanks().toArray();

@@ -1,7 +1,6 @@
-package org.slk.rankup.managers;
+package org.slk.rankup.placeables;
 
 import org.bukkit.Location;
-import org.slk.rankup.interfaces.IPlaceable;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -1,4 +1,4 @@
-package org.slk.rankup.interfaces;
+package org.slk.rankup.placeables;
 
 public abstract class IPlaceableComponents {
     protected boolean canBeDestroyed = true;
