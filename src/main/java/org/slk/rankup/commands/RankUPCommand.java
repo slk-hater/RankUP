@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.slk.rankup.events.PlayerRankUPEvent;
 import org.slk.rankup.itemstacks.FireworkBox;
 import org.slk.rankup.ranks.Rank;
+import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.ColorUtils;
 
 public class RankUPCommand extends Command {
@@ -17,7 +18,7 @@ public class RankUPCommand extends Command {
     @Override
     public boolean execute(CommandSender sender, String s, String[] args) {
         if(!(sender instanceof Player)){
-            sender.sendMessage(ColorUtils.colorize("&cApenas jogadores podem utilizar este comando!"));
+            sender.sendMessage(ChatUtils.error("Apenas jogadores podem utilizar este comando!"));
             return true;
         }
         Player player = (Player) sender;
@@ -25,7 +26,7 @@ public class RankUPCommand extends Command {
         Rank nextRank = rank.getNextRank();
         if(nextRank == null){
             player.getInventory().addItem(new FireworkBox().IS);
-            player.sendMessage(ColorUtils.colorize("&c&l# &fJá estás no último rank!"));
+            player.sendMessage(ChatUtils.error("Já estás no último rank!"));
             return true;
         }
         // TODO : Check player's money
