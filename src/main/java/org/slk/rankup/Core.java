@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.reflections.Reflections;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ColorUtils;
+import org.slk.rankup.utils.NumberUtils;
 
 import java.lang.reflect.Field;
 import java.time.Duration;
@@ -86,7 +87,7 @@ public final class Core extends JavaPlugin {
                     "",
                     ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
                     "",
-                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$7,500.0"),
+                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(7500)),
                     ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
                     ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
                     ""
