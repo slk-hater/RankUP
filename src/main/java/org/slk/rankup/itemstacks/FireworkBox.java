@@ -1,14 +1,16 @@
 package org.slk.rankup.itemstacks;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.slk.rankup.placeables.IPlaceable;
 import org.slk.rankup.placeables.IPlaceableComponents;
+import org.slk.rankup.utils.ColorUtils;
+import org.slk.rankup.utils.ItemStackBuilder;
 
 public class FireworkBox extends IPlaceableComponents implements IPlaceable {
-    public ItemStack IS = new ItemStack(Material.PLAYER_HEAD, 1);
+    public ItemStack IS = ItemStackBuilder.getSkull("http://textures.minecraft.net/texture/b55ea43e592785d016acdeea9a4a6f9cf22c2753e695405e8c83d2e09ebcf647");
 
     public FireworkBox() {
         this.canBeDestroyed = true;
@@ -16,6 +18,8 @@ public class FireworkBox extends IPlaceableComponents implements IPlaceable {
 
         // TODO : Define as a placeable item
         ItemMeta meta = IS.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(ColorUtils.colorize(ChatColor.of("#F46D75") + "Caixa de foguetes"));
         meta.setCustomModelData(1); // placeable?!
         IS.setItemMeta(meta);
     }
