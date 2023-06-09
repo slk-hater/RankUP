@@ -6,6 +6,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.slk.rankup.events.PlayerRankUPEvent;
+import org.slk.rankup.itemstacks.EnchantingBook;
 import org.slk.rankup.itemstacks.FireworkBox;
 import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.ranks.Rank;
@@ -27,6 +28,9 @@ public class RankUPCommand extends Command {
         Rank nextRank = rank.getNextRank();
         if(nextRank == null){
             player.getInventory().addItem(new FireworkBox().IS);
+            player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.COMMON, EnchantingBook.ModifierType.EFFICIENCY).getItemStack());
+            player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.UNCOMMON, EnchantingBook.ModifierType.FORTUNE).getItemStack());
+            player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.RARE, EnchantingBook.ModifierType.UNBREAKABLE).getItemStack());
             player.sendMessage(ChatUtils.error("Já estás no último rank!"));
             return true;
         }
@@ -36,7 +40,8 @@ public class RankUPCommand extends Command {
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             // TODO : Finalization
-            TagManager.updateTag(player);
+            //TagManager.updateTag(player);
+
             Rank.setRank(player, nextRank);
         }
 

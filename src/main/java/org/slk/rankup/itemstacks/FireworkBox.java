@@ -2,6 +2,7 @@ package org.slk.rankup.itemstacks;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.slk.rankup.placeables.IPlaceable;
@@ -20,7 +21,8 @@ public class FireworkBox extends IPlaceableComponents implements IPlaceable {
         ItemMeta meta = IS.getItemMeta();
         assert meta != null;
         meta.setDisplayName(ColorUtils.colorize(ChatColor.of("#F46D75") + "Caixa de foguetes"));
-        meta.setCustomModelData(1); // placeable?!
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        meta.setCustomModelData(CustomModelDataEnum.FIREWORK_BOX.get()); // placeable?!
         IS.setItemMeta(meta);
     }
 

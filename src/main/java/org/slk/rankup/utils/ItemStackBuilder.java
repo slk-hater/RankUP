@@ -17,7 +17,8 @@ public class ItemStackBuilder {
         ItemMeta im = is.getItemMeta();
         assert im != null;
         im.setDisplayName(ColorUtils.colorize(name));
-        List<String> loreRes = new ArrayList<>(Collections.singletonList(ColorUtils.colorize(Arrays.toString(lore.split("\n")))));
+        List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
+        loreRes.replaceAll(ColorUtils::colorize);
         im.setLore(loreRes);
         is.setItemMeta(im);
         return is;
@@ -29,6 +30,29 @@ public class ItemStackBuilder {
             return skull;
         SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
         GameProfile profile = new GameProfile(UUID.randomUUID(), null);
+        byte[] encodedData = Base64.encodeBase64(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
+        profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
+        Field profileField = null;
+        try {
+            profileField = skullMeta.getClass().getDeclaredField("profile");
+        } catch (NoSuchFieldException | SecurityException e) {
+            e.printStackTrace();
+        }
+        profileField.setAccessible(true);
+        try {
+            profileField.set(skullMeta, profile);
+        } catch (IllegalArgumentException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        skull.setItemMeta(skullMeta);
+        return skull;
+    }
+    public static ItemStack getSkull(String url, UUID uuid) {
+        ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
+        if (url == null || url.isEmpty())
+            return skull;
+        SkullMeta skullMeta = (SkullMeta) skull.getItemMeta();
+        GameProfile profile = new GameProfile(uuid, null);
         byte[] encodedData = Base64.encodeBase64(String.format("{textures:{SKIN:{url:\"%s\"}}}", url).getBytes());
         profile.getProperties().put("textures", new Property("textures", new String(encodedData)));
         Field profileField = null;
