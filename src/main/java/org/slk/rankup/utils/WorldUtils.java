@@ -10,31 +10,21 @@ import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.util.Vector;
 
 import java.util.Objects;
+import java.util.Random;
 
 public class WorldUtils {
     public static void spawnFireworks(Location location, int amount) {
-        // TODO : Check if code works ;-;
         if (location == null || amount <= 0) return;
-        int diameter = 10; //Diameter of the circle centered on loc
-
-        for (int i = 0; i < 3; i++)
+        int diameter = 4;
+        Random random = new Random();
+        for (int i = 0; i < amount; i++)
         {
-            Location newLocation = location.add(new Vector(Math.random()-0.5, 0, Math.random()-0.5).multiply(diameter));
-            location.getWorld().spawnEntity(newLocation, EntityType.FIREWORK);
+            Firework fw = (Firework) location.getWorld().spawnEntity(location.add(new Vector(Math.random()-0.5, 1, Math.random()-0.5).multiply(diameter)), EntityType.FIREWORK);
+            FireworkMeta fwm = fw.getFireworkMeta();
+            fwm.setPower(1);
+            fwm.addEffect(FireworkEffect.builder().withColor(Color.fromRGB(random.nextInt(255), random.nextInt(255), random.nextInt(255))).flicker(true).build());
+            fwm.addEffect(FireworkEffect.builder().withColor(Color.fromRGB(random.nextInt(255), random.nextInt(255), random.nextInt(255))).flicker(true).build());
+            fw.setFireworkMeta(fwm);
         }
-
-        /*Firework fw = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
-        FireworkMeta fwm = fw.getFireworkMeta();
-
-        fwm.setPower(2);
-        fwm.addEffect(FireworkEffect.builder().withColor(Color.LIME).flicker(true).build());
-
-        fw.setFireworkMeta(fwm);
-        fw.detonate();
-
-        for (int i = 0; i < amount; i++) {
-            Firework fw2 = (Firework) location.getWorld().spawnEntity(location, EntityType.FIREWORK);
-            fw2.setFireworkMeta(fwm);
-        }*/
     }
 }
