@@ -10,6 +10,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.slk.rankup.Core;
 import org.slk.rankup.itemstacks.CustomModelDataEnum;
+import org.slk.rankup.itemstacks.FireworkBox;
 import org.slk.rankup.utils.WorldUtils;
 
 import java.util.Objects;
@@ -28,7 +29,7 @@ public class BlockPlace implements Listener {
                     public void run() {
                         tick++;
                         if(block.getType() == Material.AIR){ this.cancel(); }
-                        if(tick >= 25) {
+                        if(tick >= FireworkBox.DURATION) {
                             block.setType(Material.AIR);
                             block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.GUNPOWDER, new Random().nextInt(3)));
                             this.cancel();
