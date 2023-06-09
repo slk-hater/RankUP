@@ -3,7 +3,10 @@ package org.slk.rankup.nametags;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import com.comphenix.protocol.events.ListenerPriority;
+import com.comphenix.protocol.events.PacketAdapter;
 import com.comphenix.protocol.events.PacketContainer;
+import com.comphenix.protocol.events.PacketEvent;
 import com.comphenix.protocol.reflect.StructureModifier;
 import com.comphenix.protocol.wrappers.*;
 import com.mojang.authlib.GameProfile;
@@ -22,6 +25,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 
 public class TagManager {
@@ -55,7 +59,7 @@ public class TagManager {
             ((CraftPlayer)onlinePlayer).getHandle().b.sendPacket(new PacketPlayOutNamedEntitySpawn(((CraftPlayer)player).getHandle()));
         }*/
         Rank rank = Rank.getRank(player);
-        PacketContainer packet = protocolManager.createPacket(PacketType.Play.Server.PLAYER_INFO);
+        /*PacketContainer packet = protocolManager.createPacket(PacketType.Play.Server.PLAYER_INFO);
         packet.getPlayerInfoAction().write(0, EnumWrappers.PlayerInfoAction.UPDATE_DISPLAY_NAME);
         List<WrappedWatchableObject> dataWatcher = Collections.singletonList(new WrappedWatchableObject(
                 new WrappedDataWatcher.WrappedDataWatcherObject(2, WrappedDataWatcher.Registry.getChatComponentSerializer(true)),
@@ -63,6 +67,6 @@ public class TagManager {
         ));
         packet.getWatchableCollectionModifier().write(0, dataWatcher);
 
-        protocolManager.sendServerPacket(player, packet);
+        protocolManager.sendServerPacket(player, packet);*/
     }
 }
