@@ -1,10 +1,7 @@
 package org.slk.rankup.ranks;
 
 import net.md_5.bungee.api.ChatColor;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.slk.rankup.nametags.TagManager;
-import org.slk.rankup.nametags.TeamAction;
 import org.slk.rankup.utils.ColorUtils;
 
 import java.util.HashMap;
@@ -59,7 +56,6 @@ public enum Rank {
     }
     public static void setRank(Player player, Rank rank) {
         ranksMap.put(player, rank);
-        TagManager.changePlayerName(player, rank.getPrefix(), TeamAction.UPDATE);
     }
     public static Stream<Rank> getRanks() { return Stream.of(Rank.values()); }
     public static Rank getDefaultRank() { return getRanks().filter(Rank::isDefault).findFirst().orElse(getRanks().findFirst().orElse(null)); }

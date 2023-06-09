@@ -17,9 +17,8 @@ public class PlayerJoin implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event){
         event.setJoinMessage("");
         Player player = event.getPlayer();
-        Rank rank = Rank.getRank(player);
+        //Rank rank = Rank.getRank(player);
         player.setDisplayName(player.getName());
-        TagManager.changePlayerName(player, rank.getPrefix(), TeamAction.CREATE);
         Bukkit.broadcastMessage(ColorUtils.colorize("&e" + player.getName() + " entrou no servidor."));
 
         FastBoard board = new FastBoard(player);
