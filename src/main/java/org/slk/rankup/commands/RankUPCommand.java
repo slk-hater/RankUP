@@ -27,7 +27,7 @@ public class RankUPCommand extends Command {
         Rank rank = Rank.getRank(player);
         Rank nextRank = rank.getNextRank();
         if(nextRank == null){
-            player.getInventory().addItem(new FireworkBox().IS);
+            player.getInventory().addItem(new FireworkBox().getItemStack());
             player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.COMMON, EnchantingBook.ModifierType.EFFICIENCY).getItemStack());
             player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.UNCOMMON, EnchantingBook.ModifierType.FORTUNE).getItemStack());
             player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.RARE, EnchantingBook.ModifierType.UNBREAKABLE).getItemStack());
