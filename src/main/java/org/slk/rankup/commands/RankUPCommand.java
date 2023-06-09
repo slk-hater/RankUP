@@ -7,6 +7,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.slk.rankup.events.PlayerRankUPEvent;
 import org.slk.rankup.itemstacks.FireworkBox;
+import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.ColorUtils;
@@ -35,6 +36,7 @@ public class RankUPCommand extends Command {
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             // TODO : Finalization
+            TagManager.updateTag(player);
             Rank.setRank(player, nextRank);
         }
 
