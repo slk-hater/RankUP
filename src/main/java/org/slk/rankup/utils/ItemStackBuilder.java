@@ -17,9 +17,11 @@ public class ItemStackBuilder {
         ItemMeta im = is.getItemMeta();
         assert im != null;
         im.setDisplayName(ColorUtils.colorize(name));
-        List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
-        loreRes.replaceAll(ColorUtils::colorize);
-        im.setLore(loreRes);
+        if(!Objects.equals(lore, "")) {
+            List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
+            loreRes.replaceAll(ColorUtils::colorize);
+            im.setLore(loreRes);
+        }
         is.setItemMeta(im);
         return is;
     }
