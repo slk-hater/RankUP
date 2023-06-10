@@ -1,6 +1,7 @@
 package org.slk.rankup.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -31,10 +32,11 @@ public class BlockPlace implements Listener {
                         if(block.getType() == Material.AIR){ this.cancel(); }
                         if(tick >= FireworkBox.DURATION) {
                             block.setType(Material.AIR);
-                            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.GUNPOWDER, new Random().nextInt(3)));
+                            block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.GUNPOWDER, new Random().nextInt(1,3)));
                             this.cancel();
                         }
-
+                        //Objects.requireNonNull(block.getLocation().getWorld()).spawnParticle(Particle.ASH, block.getLocation().add(1,0,0), 2);
+                        //Objects.requireNonNull(block.getLocation().getWorld()).spawnParticle(Particle.ASH, block.getLocation().add(0,0,1), 2);
                         WorldUtils.spawnFireworks(block.getLocation(), 4);
                     }
                 }).runTaskTimer(Core.getInstance(), 20L*4, 20L);

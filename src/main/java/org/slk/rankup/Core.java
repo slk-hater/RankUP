@@ -40,6 +40,7 @@ public final class Core extends JavaPlugin {
             }
         }*/
         loadEvents();
+        loadEvents("org.slk.rankup.customanvil.listeners");
         loadCommands();
 
         (new BukkitRunnable() {
@@ -54,7 +55,7 @@ public final class Core extends JavaPlugin {
                         minutes-=60;
                         hours++;
                     }
-                    int seconds = (int) diff.getSeconds()-(minutes*60);
+                    int seconds = (int) diff.getSeconds()-(minutes*60)-(hours*3600);
                     player.setPlayerListFooter(ColorUtils.colorize(
                             "\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
 
@@ -111,6 +112,24 @@ public final class Core extends JavaPlugin {
     public void loadEvents(){
         Set<Class<? extends Listener>> events;
         Reflections reflector = new Reflections("org.slk.rankup.listeners");
+        try{
+            events = reflector.getSubTypesOf(Listener.class);
+        }catch (Exception e){
+            e.printStackTrace();
+            return;
+        }
+
+        for(Class<? extends Listener> cls : events){
+            try{
+                getServer().getPluginManager().registerEvents(cls.getDeclaredConstructor().newInstance(), this);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+    public void loadEvents(String packageName){
+        Set<Class<? extends Listener>> events;
+        Reflections reflector = new Reflections(packageName);
         try{
             events = reflector.getSubTypesOf(Listener.class);
         }catch (Exception e){
