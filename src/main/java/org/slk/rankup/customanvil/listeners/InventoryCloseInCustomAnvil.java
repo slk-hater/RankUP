@@ -1,5 +1,6 @@
 package org.slk.rankup.customanvil.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,10 +17,10 @@ public class InventoryCloseInCustomAnvil implements Listener {
         int[] keepSlots = {19, 22, 24};
         for(int keepSlot : keepSlots){
             ItemStack keepIS = topInventory.getItem(keepSlot);
-            if(keepIS == null || keepIS.getType().equals(Material.AIR)) { continue; }
+            if(keepIS == null || keepIS.getType().equals(Material.AIR)) continue;
 
-            if(player.getInventory().getSize() != -1){ player.getInventory().addItem(keepIS); }
-            else { player.getWorld().dropItemNaturally(player.getLocation(), keepIS); }
+            if(player.getInventory().firstEmpty() != -1) player.getInventory().addItem(keepIS);
+            else player.getWorld().dropItemNaturally(player.getLocation(), keepIS);
         }
     }
 }

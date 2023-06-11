@@ -1,6 +1,7 @@
 package org.slk.rankup.customanvil.listeners;
 
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -16,8 +17,10 @@ public class PlayerInteractOnAnvil implements Listener {
         Action action = event.getAction();
         Block block = event.getClickedBlock();
         assert block != null;
-        if(!(action.equals(Action.RIGHT_CLICK_BLOCK) && block.getType().equals(Material.ANVIL))) { return; }
+
+        if(!(action.equals(Action.RIGHT_CLICK_BLOCK) && block.getType().equals(Material.ANVIL))) return;
         event.setCancelled(true);
+        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
         player.openInventory(CustomAnvilInventory.cloneInventory());
     }
 }
