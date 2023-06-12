@@ -71,13 +71,15 @@ public final class Core extends JavaPlugin {
     }
 
     private void updateBoard(FastBoard board) {
-        if(board.isDeleted()) return;
+        assert board.isDeleted();
+        //if(board.isDeleted()) return;
         Player player = board.getPlayer();
         Rank rank = Rank.getRank(player);
 
         if(rank.getNextRank() == null) {
             board.updateLines(
                     "",
+                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ 0"),
                     ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
                     "",
                     ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(7500)),
@@ -89,6 +91,7 @@ public final class Core extends JavaPlugin {
         else{
             board.updateLines(
                     "",
+                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ 0"),
                     ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
                     ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
                     ColorUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
