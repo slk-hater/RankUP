@@ -1,17 +1,14 @@
 package org.slk.rankup.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Color;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.slk.rankup.events.PlayerRankUPEvent;
+import org.slk.rankup.ranks.events.PlayerRankUPEvent;
 import org.slk.rankup.itemstacks.EnchantingBook;
 import org.slk.rankup.itemstacks.FireworkBox;
-import org.slk.rankup.nametags.TagManager;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
-import org.slk.rankup.utils.ColorUtils;
 
 public class RankUPCommand extends Command {
     public RankUPCommand(){

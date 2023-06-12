@@ -1,10 +1,10 @@
-package org.slk.rankup.listeners;
+package org.slk.rankup.ranks.listeners;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.slk.rankup.events.PlayerRankUPEvent;
+import org.slk.rankup.ranks.events.PlayerRankUPEvent;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.ColorUtils;

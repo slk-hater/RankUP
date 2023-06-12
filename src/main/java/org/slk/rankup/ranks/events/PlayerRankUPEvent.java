@@ -1,4 +1,4 @@
-package org.slk.rankup.events;
+package org.slk.rankup.ranks.events;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
