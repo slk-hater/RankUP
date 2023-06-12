@@ -2,5 +2,4 @@ name: RankUP
 version: '${project.version}'
 main: org.slk.rankup.Core
 api-version: 1.13
-depend:
-  - ProtocolLib
+depend: [ProtocolLib]
