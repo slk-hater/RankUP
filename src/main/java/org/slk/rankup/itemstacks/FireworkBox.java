@@ -7,6 +7,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.slk.rankup.utils.ColorUtils;
 import org.slk.rankup.utils.ItemStackBuilder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -19,7 +20,7 @@ public class FireworkBox {
         assert meta != null;
         meta.setDisplayName(ColorUtils.colorize(ChatColor.of("#F46D75") + "Caixa de foguetes"));
         String lore = "&7Duração &f" + DURATION + "s";
-        List<String> loreRes = new List<>(List.of(lore.split("\n")));
+        List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
         loreRes.replaceAll(ColorUtils::colorize);
         meta.setLore(loreRes);
         meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);

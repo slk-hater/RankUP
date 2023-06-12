@@ -1,7 +1,6 @@
 package org.slk.rankup.listeners;
 
 import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
