@@ -1,9 +1,10 @@
-package org.slk.rankup.commands;
+package org.slk.rankup.ranks.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.slk.rankup.ranks.events.PlayerPrestigeEvent;
 import org.slk.rankup.ranks.events.PlayerRankUPEvent;
 import org.slk.rankup.itemstacks.EnchantingBook;
 import org.slk.rankup.itemstacks.FireworkBox;
@@ -28,7 +29,15 @@ public class RankUPCommand extends Command {
             player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.COMMON, EnchantingBook.ModifierType.EFFICIENCY).getItemStack());
             player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.UNCOMMON, EnchantingBook.ModifierType.FORTUNE).getItemStack());
             player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.RARE, EnchantingBook.ModifierType.UNBREAKABLE).getItemStack());
-            player.sendMessage(ChatUtils.error("Já estás no último rank!"));
+            //player.sendMessage(ChatUtils.error("Já estás no último rank!"));
+
+            PlayerPrestigeEvent event = new PlayerPrestigeEvent(player, 1);
+            Bukkit.getPluginManager().callEvent(event);
+            if (!event.isCancelled()) {
+                // TODO
+                Rank.setRank(player, Rank.getDefaultRank());
+            }
+
             return true;
         }
         // TODO : Check player's money
@@ -36,7 +45,7 @@ public class RankUPCommand extends Command {
         PlayerRankUPEvent event = new PlayerRankUPEvent(player, nextRank);
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
-            // TODO : Finalization
+            // TODO
             //TagManager.updateTag(player);
 
             Rank.setRank(player, nextRank);

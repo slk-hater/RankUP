@@ -1,4 +1,4 @@
-package org.slk.rankup.commands;
+package org.slk.rankup.ranks.commands;
 
 import com.sun.istack.internal.NotNull;
 import net.md_5.bungee.api.ChatColor;
