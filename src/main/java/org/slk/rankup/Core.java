@@ -18,6 +18,7 @@ import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public final class Core extends JavaPlugin {
     private static Core instance;
@@ -30,17 +31,8 @@ public final class Core extends JavaPlugin {
         instance = this;
         uptimeStartDate = LocalDateTime.now();
 
-        /*String packageName = getClass().getPackage().getName();
-        for(Class<?> clazz : new Reflections(packageName + ".listeners").getSubTypesOf(Listener.class)){
-            try {
-                Listener listener = (Listener) clazz.getDeclaredConstructor().newInstance();
-                getServer().getPluginManager().registerEvents(listener, this);
-            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                throw new RuntimeException(e);
-            }
-        }*/
         loadEvents();
-        loadEvents("org.slk.rankup.customanvil.listeners");
+        //loadEvents("org.slk.rankup.customanvil.listeners");
         loadCommands();
 
         (new BukkitRunnable() {
@@ -110,10 +102,29 @@ public final class Core extends JavaPlugin {
     }
 
     public void loadEvents(){
-        Set<Class<? extends Listener>> events;
+        List<String> packages = Arrays.stream(Package.getPackages())
+                .map(Package::getName)
+                .filter(p -> p.endsWith("listeners"))
+                .collect(Collectors.toList());
+
+        for(String pckg : packages){
+            Bukkit.broadcastMessage(pckg);
+            Reflections reflector = new Reflections(pckg);
+            try{
+                for(Class<? extends Listener> cls : reflector.getSubTypesOf(Listener.class)){
+                    getServer().getPluginManager().registerEvents(cls.getDeclaredConstructor().newInstance(), this);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
+            }
+        }
+        /*
         Reflections reflector = new Reflections("org.slk.rankup.listeners");
         try{
-            events = reflector.getSubTypesOf(Listener.class);
+            for(Class<? extends Listener> cls : reflector.getSubTypesOf(Listener.class)){
+                getServer().getPluginManager().registerEvents(cls.getDeclaredConstructor().newInstance(), this);
+            }
         }catch (Exception e){
             e.printStackTrace();
             return;
@@ -126,6 +137,7 @@ public final class Core extends JavaPlugin {
                 e.printStackTrace();
             }
         }
+        */
     }
     public void loadEvents(String packageName){
         Set<Class<? extends Listener>> events;
@@ -154,6 +166,7 @@ public final class Core extends JavaPlugin {
         }catch (Exception e){
             e.printStackTrace();
         }
+        /*
         Reflections reflections = new Reflections("org.slk.rankup.commands");
         Set<Class<? extends Command>> commands = reflections.getSubTypesOf(Command.class);
         for(Class<?extends Command> cls : commands){
@@ -163,6 +176,25 @@ public final class Core extends JavaPlugin {
                 map.register(cls.getSimpleName().toLowerCase(), command);
             }catch (Exception e){
                 e.printStackTrace();
+            }
+        }
+        */
+        List<String> packages = Arrays.stream(Package.getPackages())
+                .map(Package::getName)
+                .filter(p -> p.endsWith("commands"))
+                .collect(Collectors.toList());
+        for(String pckg : packages){
+            Bukkit.broadcastMessage(pckg);
+            Reflections reflector = new Reflections(pckg);
+            try{
+                for(Class<? extends Command> cls : reflector.getSubTypesOf(Command.class)){
+                    Command command = cls.getDeclaredConstructor(new Class[]{}).newInstance();
+                    assert map != null;
+                    map.register(cls.getSimpleName().toLowerCase(), command);
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                return;
             }
         }
     }
