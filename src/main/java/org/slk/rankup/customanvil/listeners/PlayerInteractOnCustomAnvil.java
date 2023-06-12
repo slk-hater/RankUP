@@ -10,7 +10,7 @@ import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.slk.rankup.customanvil.inventories.CustomAnvilInventory;
 
-public class PlayerInteractOnAnvil implements Listener {
+public class PlayerInteractOnCustomAnvil implements Listener {
     @EventHandler
     public void onPlayerInteractOnAnvil(PlayerInteractEvent event){
         Player player = event.getPlayer();
