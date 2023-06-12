@@ -69,7 +69,7 @@ public final class Core extends JavaPlugin {
     }
 
     private void updateBoard(FastBoard board) {
-        assert board.isDeleted();
+        assert !board.isDeleted();
         //if(board.isDeleted()) return;
         Player player = board.getPlayer();
         Rank rank = Rank.getRank(player);
