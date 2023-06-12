@@ -16,11 +16,13 @@ public class InventoryCloseInCustomAnvil implements Listener {
     public void onInventoryCloseInCustomAnvil(InventoryCloseEvent event){
         Player player = (Player) event.getPlayer();
         Inventory topInventory = event.getView().getTopInventory();
+
+        if(!topInventory.equals(CustomAnvilInventory.getInventory())) return;
         List<Integer> keepSlots = CustomAnvilInventory.KEEP_SLOTS;
 
         for(int keepSlot : keepSlots){
             ItemStack keepIS = topInventory.getItem(keepSlot);
-            assert keepIS != null && !keepIS.getType().equals(Material.AIR);
+            if(keepIS == null || keepIS.getType().equals(Material.AIR)) continue;
 
             if(player.getInventory().firstEmpty() != -1) player.getInventory().addItem(keepIS);
             else player.getWorld().dropItemNaturally(player.getLocation(), keepIS);
