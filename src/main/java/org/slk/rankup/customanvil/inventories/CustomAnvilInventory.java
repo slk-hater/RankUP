@@ -12,12 +12,13 @@ import java.util.List;
 public class CustomAnvilInventory {
     public static int SIZE = 9*5;
     public static String NAME = "Forja";
-    public static List<Integer> EMPTY_SLOTS = new ArrayList<>(List.of(19, 22, 24));
+    public static List<Integer> KEEP_SLOTS = new List<>(List.of(19, 22));
+    public static List<Integer> EMPTY_SLOTS = new List<>(List.of(24));
     public static ItemStack FILL_ITEMSTACK = ItemStackBuilder.build(Material.GRAY_STAINED_GLASS_PANE, 1, "", "");
     static Inventory inv = Bukkit.createInventory(null, SIZE, NAME);
     static{
         for(int i=0; i<SIZE; i++) {
-            if (!EMPTY_SLOTS.contains(i)) {
+            if (!KEEP_SLOTS.contains(i) && !EMPTY_SLOTS.contains(i)) {
                 inv.setItem(i, FILL_ITEMSTACK);
             }
         }
