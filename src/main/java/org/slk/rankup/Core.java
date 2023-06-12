@@ -22,14 +22,13 @@ import java.util.stream.Collectors;
 
 public final class Core extends JavaPlugin {
     private static Core instance;
-    public static LocalDateTime uptimeStartDate;
+    public static LocalDateTime uptimeStartDate = LocalDateTime.now();
     public static Map<Player, FastBoard> scoreboards = new HashMap<>();
 
     public static Core getInstance() { return instance; }
     public void onEnable() {
         super.onEnable();
         instance = this;
-        uptimeStartDate = LocalDateTime.now();
 
         loadEvents();
         //loadEvents("org.slk.rankup.customanvil.listeners");
@@ -38,18 +37,16 @@ public final class Core extends JavaPlugin {
         (new BukkitRunnable() {
             public void run() {
                 for(Player player : Bukkit.getOnlinePlayers()){
-                    player.setPlayerListHeader(ColorUtils.colorize("\n&a&lRANK UP\n"));
-                    LocalDateTime date = Core.uptimeStartDate;
-                    Duration diff = Duration.between(date, LocalDateTime.now());
-                    int hours = (int) Math.floor((double) diff.getSeconds()/3600);
-                    int minutes = (int) Math.floor((double) diff.getSeconds()/60);
-                    while(minutes > 60){
-                        minutes-=60;
-                        hours++;
-                    }
-                    int seconds = (int) diff.getSeconds()-(minutes*60)-(hours*3600);
+                    player.setPlayerListHeader(ColorUtils.colorize(
+                            "\n&a&lRANK UP\n"
+                    ));
+                    Duration duration = Duration.between(uptimeStartDate, LocalDateTime.now());
+                    long hours = duration.toHours();
+                    long minutes = duration.toMinutesPart();
+                    long seconds = duration.toSecondsPart();
                     player.setPlayerListFooter(ColorUtils.colorize(
-                            "\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"));
+                            "\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"
+                    ));
 
                     Rank playerRank = Rank.getRank(player);
                     player.setPlayerListName(ColorUtils.colorize(playerRank.getPrefix() + " " + playerRank.getColor() + player.getName()));
@@ -65,6 +62,7 @@ public final class Core extends JavaPlugin {
         }).runTaskTimer(getInstance(), 20L, 20L);
     }
     public void onDisable() {
+        super.onDisable();
         /*for(Player player : Bukkit.getOnlinePlayers()){
             player.kickPlayer(ChatUtils.colorize("\n&a&lRANK UP\n\n&fO servidor está a reiniciar!"));
         }*/

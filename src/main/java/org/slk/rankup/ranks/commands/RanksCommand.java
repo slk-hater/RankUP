@@ -1,6 +1,5 @@
 package org.slk.rankup.ranks.commands;
 
-import com.sun.istack.internal.NotNull;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
