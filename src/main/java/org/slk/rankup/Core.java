@@ -89,73 +89,27 @@ public final class Core extends JavaPlugin {
         else{
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fPrestígo " + ChatColor.of("#3498DB") + "★ 0"),
-                    ColorUtils.colorize(" &fRank " + rank.getPrefix()),
+                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#3498DB") + "★ 0"),
+                    ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
                     ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
                     ColorUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
                     "",
-                    ColorUtils.colorize(" &fDinheiro " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(7500)),
-                    ColorUtils.colorize(" &fGemas " + ChatColor.of("#625589") + "0"),
-                    ColorUtils.colorize(" &fCristais " + ChatColor.of("#5BB2FF") + "0"),
+                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(7500)),
+                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
+                    ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
                     ""
             );
         }
     }
 
     public void loadEvents(){
-        List<String> packages = Arrays.stream(Package.getPackages())
-                .map(Package::getName)
-                .filter(p -> p.endsWith("listeners"))
-                .collect(Collectors.toList());
-
-        for(String pckg : packages){
-            Bukkit.broadcastMessage(pckg);
-            Reflections reflector = new Reflections(pckg);
-            try{
-                for(Class<? extends Listener> cls : reflector.getSubTypesOf(Listener.class)){
-                    getServer().getPluginManager().registerEvents(cls.getDeclaredConstructor().newInstance(), this);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return;
-            }
-        }
-        /*
-        Reflections reflector = new Reflections("org.slk.rankup.listeners");
+        Reflections reflector = new Reflections("org.slk.rankup");
         try{
             for(Class<? extends Listener> cls : reflector.getSubTypesOf(Listener.class)){
                 getServer().getPluginManager().registerEvents(cls.getDeclaredConstructor().newInstance(), this);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
-            return;
-        }
-
-        for(Class<? extends Listener> cls : events){
-            try{
-                getServer().getPluginManager().registerEvents(cls.getDeclaredConstructor().newInstance(), this);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-        }
-        */
-    }
-    public void loadEvents(String packageName){
-        Set<Class<? extends Listener>> events;
-        Reflections reflector = new Reflections(packageName);
-        try{
-            events = reflector.getSubTypesOf(Listener.class);
-        }catch (Exception e){
-            e.printStackTrace();
-            return;
-        }
-
-        for(Class<? extends Listener> cls : events){
-            try{
-                getServer().getPluginManager().registerEvents(cls.getDeclaredConstructor().newInstance(), this);
-            }catch (Exception e){
-                e.printStackTrace();
-            }
         }
     }
     public void loadCommands(){
@@ -167,36 +121,16 @@ public final class Core extends JavaPlugin {
         }catch (Exception e){
             e.printStackTrace();
         }
-        /*
-        Reflections reflections = new Reflections("org.slk.rankup.commands");
-        Set<Class<? extends Command>> commands = reflections.getSubTypesOf(Command.class);
-        for(Class<?extends Command> cls : commands){
-            try{
-                Command command = cls.getDeclaredConstructor(new Class[]{}).newInstance(new Object[]{});
+
+        Reflections reflector = new Reflections("org.slk.rankup");
+        try{
+            for(Class<? extends Command> cls : reflector.getSubTypesOf(Command.class)){
+                Command command = cls.getDeclaredConstructor(new Class[]{}).newInstance();
                 assert map != null;
                 map.register(cls.getSimpleName().toLowerCase(), command);
-            }catch (Exception e){
-                e.printStackTrace();
             }
-        }
-        */
-        List<String> packages = Arrays.stream(Package.getPackages())
-                .map(Package::getName)
-                .filter(p -> p.endsWith("commands"))
-                .collect(Collectors.toList());
-        for(String pckg : packages){
-            Bukkit.broadcastMessage(pckg);
-            Reflections reflector = new Reflections(pckg);
-            try{
-                for(Class<? extends Command> cls : reflector.getSubTypesOf(Command.class)){
-                    Command command = cls.getDeclaredConstructor(new Class[]{}).newInstance();
-                    assert map != null;
-                    map.register(cls.getSimpleName().toLowerCase(), command);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                return;
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
