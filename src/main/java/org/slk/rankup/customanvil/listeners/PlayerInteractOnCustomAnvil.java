@@ -18,7 +18,7 @@ public class PlayerInteractOnCustomAnvil implements Listener {
         Block block = event.getClickedBlock();
         assert block != null;
 
-        if(!(action.equals(Action.RIGHT_CLICK_BLOCK) && block.getType().equals(Material.ANVIL))) return;
+        if(!(block.getType().equals(Material.ANVIL) && action.equals(Action.RIGHT_CLICK_BLOCK))) return;
         event.setCancelled(true);
         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
         player.openInventory(CustomAnvilInventory.cloneInventory());
