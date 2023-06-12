@@ -9,7 +9,7 @@ public class ServerListPing implements Listener {
     @EventHandler
     public void onServerListPing(ServerListPingEvent event){
         event.setMotd(ColorUtils.colorize(
-                "&a&lRANK UP\n&dPalelo banana"
+                "&a&lRANK UP 1.19.3\n&dPalelo banana"
         ));
     }
 }
