@@ -44,6 +44,7 @@ public enum Rank {
         } catch(Exception ignored) {}
         return nextRank;
     }
+    public boolean isGreaterThan(Rank rank){ return this.ordinal() > rank.ordinal(); }
 
     static final Map<Player, Rank> ranksMap = new HashMap<>();
     public static Rank getRank(Player player) {

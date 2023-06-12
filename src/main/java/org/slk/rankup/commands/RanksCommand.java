@@ -1,5 +1,6 @@
 package org.slk.rankup.commands;
 
+import com.sun.istack.internal.NotNull;
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -28,9 +29,12 @@ public class RanksCommand extends Command {
         Inventory inv = Bukkit.createInventory(player, 9*5, "Ranks");
         int index = 10;
         for(Rank rankVal : Rank.values()){
-            inv.setItem(index, ItemStackBuilder.build(Material.COAL_BLOCK, 1,
+            int count=0;
+            if(rank.isGreaterThan(rankVal)) count=1;
+            inv.setItem(index, ItemStackBuilder.build(Material.COAL_BLOCK, count,
                     rankVal.getPrefix(),
-                    ChatColor.of("#85bb65") + "$" + NumberUtils.format((long)rankVal.getPrice())));
+                    "&fPreço " + ChatColor.of("#85bb65") + "$" + NumberUtils.format((long)rankVal.getPrice()))
+            );
             index++;
         }
         inv.setItem(40, ItemStackBuilder.build(Material.ARROW, 1, "&cFechar", ""));
