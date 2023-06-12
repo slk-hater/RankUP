@@ -91,14 +91,14 @@ public final class Core extends JavaPlugin {
         else{
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#3498DB") + "★ 0"),
-                    ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
+                    ColorUtils.colorize(" &fPrestígio " + ChatColor.of("#3498DB") + "★ 0"),
+                    ColorUtils.colorize(" &fRank " + rank.getPrefix()),
                     ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
                     ColorUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
                     "",
-                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(7500)),
-                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
-                    ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "0"),
+                    ColorUtils.colorize(" &fDinheiro " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(7500)),
+                    ColorUtils.colorize(" &fGemas " + ChatColor.of("#625589") + "0"),
+                    ColorUtils.colorize(" &fCristais " + ChatColor.of("#5BB2FF") + "0"),
                     ""
             );
         }
