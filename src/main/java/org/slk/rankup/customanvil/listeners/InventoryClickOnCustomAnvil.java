@@ -15,7 +15,6 @@ public class InventoryClickOnCustomAnvil implements Listener {
         Inventory topInventory = event.getView().getTopInventory();
         ItemStack clickedItem = event.getCurrentItem();
         int clickedSlot = event.getSlot();
-
         assert clickedInventory != null;
         assert clickedInventory == topInventory;
         assert clickedItem != null;
