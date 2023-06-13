@@ -11,6 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.reflections.Reflections;
 import org.slk.rankup.ranks.Rank;
+import org.slk.rankup.treasures.TreasuresManager;
 import org.slk.rankup.utils.ColorUtils;
 import org.slk.rankup.utils.NumberUtils;
 
@@ -31,8 +32,9 @@ public final class Core extends JavaPlugin {
         instance = this;
 
         loadEvents();
-        //loadEvents("org.slk.rankup.customanvil.listeners");
         loadCommands();
+
+        TreasuresManager.resetWorld();
 
         (new BukkitRunnable() {
             public void run() {

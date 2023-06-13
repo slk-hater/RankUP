@@ -125,7 +125,7 @@
         <dependency>
             <groupId>com.nametagedit</groupId>
             <artifactId>nametagedit</artifactId>
-            <version>4.4.16</version>
+            <version>4.5.18</version>
         </dependency>
     </dependencies>
 </project>
