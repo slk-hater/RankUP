@@ -72,9 +72,6 @@ public final class Core extends JavaPlugin {
             player.teleport(getServer().getWorlds().get(0).getSpawnLocation());
             player.getInventory().addItem(TreasuresManager.TICKET);
         }
-        /*for(Player player : Bukkit.getOnlinePlayers()){
-            player.kickPlayer(ChatUtils.colorize("\n&a&lRANK UP\n\n&fO servidor está a reiniciar!"));
-        }*/
     }
 
     private void updateBoard(FastBoard board) {
@@ -86,7 +83,7 @@ public final class Core extends JavaPlugin {
         if(player.getWorld().equals(TreasuresManager.getWorld())){
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fTesouros encontrados: " + ChatColor.of("#95D4FF") + "0"),
+                    ColorUtils.colorize(" &fTesouros encontrados: " + ChatColor.of("#95D4FF") + "☘ 0"),
                     ColorUtils.colorize(" &fTempo restante: &e" + TreasuresManager.getTimeLeft(player).toMinutes() + "m"),
                     ""
             );

@@ -21,7 +21,7 @@ public class TreasuresManager {
     public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
     static Timer TIMER = new Timer();
 
-    public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#B7FF27") + "Passagem", "&7Destino &fTesouros\n&7Duração &f" + MINUTES + " minutos");
+    public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fTesouros\n&7Duração &f" + MINUTES + " minutos");
 
     public static Duration getTimeLeft(Player player){ return Duration.between(TIME_MAP.get(player), LocalDateTime.now()); }
     static void createWorld(){
