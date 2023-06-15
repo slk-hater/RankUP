@@ -83,8 +83,10 @@ public final class Core extends JavaPlugin {
         if(player.getWorld().equals(TreasuresManager.getWorld())){
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fTesouros encontrados: " + ChatColor.of("#95D4FF") + "☘ 0"),
                     ColorUtils.colorize(" &fTempo restante: &e" + TreasuresManager.getTimeLeft(player).toMinutes() + "m"),
+                    "",
+                    ColorUtils.colorize(" &fT. Tesouros: " + ChatColor.of("#95D4FF") + "☘ 0"),
+                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
                     ""
             );
             return;
