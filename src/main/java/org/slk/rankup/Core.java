@@ -95,7 +95,8 @@ public final class Core extends JavaPlugin {
             board.updateTitle(ColorUtils.colorize("&a&lRANK UP - TESOUROS"));
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fTempo restante: &e" + TreasuresManager.getTimeLeft(player).toMinutes() + "m"),
+                    ColorUtils.colorize(" &fTempo restante:"),
+                    ColorUtils.colorize("  &e" + TreasuresManager.getTimeLeft(player).toMinutesPart() + "m e " + TreasuresManager.getTimeLeft(player).toSecondsPart() + "s"),
                     "",
                     ColorUtils.colorize(" &fT. Tesouros: " + ChatColor.of("#95D4FF") + "☘ 0"),
                     ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
