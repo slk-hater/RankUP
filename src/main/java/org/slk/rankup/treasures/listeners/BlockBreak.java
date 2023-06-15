@@ -35,6 +35,7 @@ public class BlockBreak implements Listener {
                 return;
             }
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te um tesouro!")));
+            player.playSound(player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.3f, 1f);
         }
 
         double chance = Math.random();
