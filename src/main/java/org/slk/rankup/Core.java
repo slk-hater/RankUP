@@ -70,13 +70,13 @@ public final class Core extends JavaPlugin {
         super.onDisable();
 
         //region Kick players from Treasures world
-        for(Player player : TreasuresManager.getWorld().getPlayers()){
+        for (Player player : TreasuresManager.getWorld().getPlayers()) {
             player.sendMessage(ChatUtils.error(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw()));
             player.teleport(getServer().getWorlds().get(0).getSpawnLocation());
 
             ItemStack ticketClone = TreasuresManager.TICKET.clone();
             ItemMeta meta = ticketClone.getItemMeta();
-            if(meta == null || meta.getLore() == null) return;
+            if (meta == null || meta.getLore() == null) return;
             meta.getLore().set(1, meta.getLore().get(1).replace(
                     String.valueOf(TreasuresManager.DURATION_MINUTES),
                     String.valueOf(Math.round(TreasuresManager.getTimeLeft(player).toMinutes()))

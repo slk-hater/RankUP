@@ -29,6 +29,6 @@ public class PlayerInteractWithCompass implements Listener {
             return;
         }
         player.setCompassTarget(loc);
-        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize("&aA apontar para o tesouro")));
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize("&aA apontar para o tesouro (" + Math.round(loc.distance(player.getLocation())) + " blocos)")));
     }
 }

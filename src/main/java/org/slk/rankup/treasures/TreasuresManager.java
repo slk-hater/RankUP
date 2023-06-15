@@ -1,16 +1,20 @@
 package org.slk.rankup.treasures;
 
 import net.md_5.bungee.api.ChatColor;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import org.slk.rankup.Core;
 import org.slk.rankup.itemstacks.CustomModelDataEnum;
 import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.ItemStackBuilder;
 
+import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -20,12 +24,12 @@ public class TreasuresManager {
     static World TREASURES_WORLD;
     public static int DURATION_MINUTES = 10;
     public static int WARNING_MINUTE = 3;
-    public static double CHANCE_TREASURE = 0.35D; // 65%
-    public static double CHANCE_GEM = 0.2D; // 80%
+    public static double CHANCE_TREASURE = 0.4D; // 60%
+    public static double CHANCE_GEM = 0.8D; // 20%
 
     public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
     public static HashMap<Player, Integer> CUSTOM_DURATION_MAP = new HashMap<>();
-    static Timer TIMER;
+    static BukkitTask TIMER;
     public static HashMap<Player, Location> LOCKED_TREASURE = new HashMap<>();
 
     public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fMundo dos Tesouros\n&7Duração &f" + DURATION_MINUTES + " minutos\n\n&8Clica com o botão direito para usar");
@@ -38,7 +42,7 @@ public class TreasuresManager {
 
     public static Duration getTimeLeft(Player player){
         if(!CUSTOM_DURATION_MAP.containsKey(player)) return Duration.between(LocalDateTime.now(), TIME_MAP.get(player).plusMinutes(DURATION_MINUTES));
-        else return Duration.between(LocalDateTime.now(), TIME_MAP.get(player).plusMinutes(DURATION_MINUTES).minusMinutes(CUSTOM_DURATION_MAP.get(player)));
+        else return Duration.between(LocalDateTime.now(), TIME_MAP.get(player).plusMinutes(CUSTOM_DURATION_MAP.get(player)));
     }
     static void createWorld(){
         World world = Bukkit.getServer().getWorld(NAME);
@@ -53,15 +57,22 @@ public class TreasuresManager {
         wc.generateStructures(false);
         wc.type(WorldType.FLAT);
         wc.generatorSettings("{\"layers\": [{\"block\": \"bedrock\", \"height\": 1}, {\"block\": \"packed_mud\", \"height\": 180}], \"biome\":\"plains\"}");
-        Bukkit.getServer().createWorld(wc);
+        TREASURES_WORLD = Bukkit.getServer().createWorld(wc);
+        if(TREASURES_WORLD == null) return;
+        TREASURES_WORLD.setTime(1000L);
+        TREASURES_WORLD.setDifficulty(Difficulty.PEACEFUL);
+        TREASURES_WORLD.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+        TREASURES_WORLD.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+        TREASURES_WORLD.setGameRule(GameRule.DO_MOB_SPAWNING, false);
     }
-    static void deleteWorld(){
+    static void deleteWorld() {
         World world = Bukkit.getServer().getWorld(NAME);
-        if(world == null) return;
+        if(world != null) Bukkit.unloadWorld(world, false);
 
         Core.getInstance().getLogger().info("A deletar o mundo de Tesouros...");
-        Bukkit.unloadWorld(world, false);
-        world.getWorldFolder().delete();
+        try {
+            FileUtils.deleteDirectory(world.getWorldFolder());
+        }catch(Exception ignored) { }
     }
     public static void setup(){
         deleteWorld();
@@ -70,8 +81,7 @@ public class TreasuresManager {
     public static void setupTimer(){
         if(TIMER != null) return;
 
-        TIMER = new Timer();
-        TIMER.scheduleAtFixedRate(new TimerTask() {
+        TIMER = new BukkitRunnable() {
             final Random rnd = new Random();
             @Override
             public void run() {
@@ -80,26 +90,23 @@ public class TreasuresManager {
                     TIMER = null;
                 }
 
-                // TODO : idk if this works
-                getWorld().getPlayers().forEach(player -> {
-                    player.sendMessage("debug: timer tick");
-
+                for(Player player : getWorld().getPlayers()){
                     //region Check time left
                     Duration diff = getTimeLeft(player);
 
                     if(!CUSTOM_DURATION_MAP.containsKey(player)) {
-                        if (diff.toMinutes() >= DURATION_MINUTES / 2 && diff.toMinutes() < DURATION_MINUTES)
+                        /*if (diff.toMinutes() == DURATION_MINUTES / 2 && diff.toMinutes() < DURATION_MINUTES)
                             player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
-                        else if (diff.toMinutes() >= DURATION_MINUTES) {
+                        else*/if (diff.toMinutes() >= DURATION_MINUTES) {
                             TIME_MAP.remove(player);
                             player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
                             player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
                         }
                     } else {
                         int minutes = CUSTOM_DURATION_MAP.get(player);
-                        if (diff.toMinutes() >= minutes / 2 && diff.toMinutes() < minutes)
+                        /*if (diff.toMinutes() <= minutes / 2 && diff.toMinutes() < minutes)
                             player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
-                        else if (diff.toMinutes() >= minutes) {
+                        else*/if (diff.toMinutes() >= minutes) {
                             TIME_MAP.remove(player);
                             CUSTOM_DURATION_MAP.remove(player);
                             player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
@@ -112,19 +119,22 @@ public class TreasuresManager {
                     if(!LOCKED_TREASURE.containsKey(player)){
                         double chance = Math.random();
                         if (chance > CHANCE_TREASURE) {
-                            Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 400)), rnd.nextInt(18, 25), rnd.nextInt((int) (player.getLocation().getZ() + 400)));
-                            double btwn = loc.distance(player.getLocation());
-                            player.sendMessage("debug: " + btwn + " blocks far away");
+                            Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 200)), rnd.nextInt(92, 103), rnd.nextInt((int) (player.getLocation().getZ() + 200)));
                             getWorld().getBlockAt(loc).setType(Material.SAND);
                             LOCKED_TREASURE.put(player, loc);
                         }
                     }
                     //endregion
-                });
+                }
             }
-        }, 20L*5, 20L*5);
+        }.runTaskTimer(Core.getInstance(), 20L*5, 20L*5);
     }
-    public static World getWorld(){ return TREASURES_WORLD; }
+    public static World getWorld(){
+        World world = Bukkit.getServer().getWorld(NAME);
+        if(TREASURES_WORLD == null && world != null)
+            TREASURES_WORLD = world;
+        return TREASURES_WORLD;
+    }
     public static List<ItemStack> getItems() {
         List<ItemStack> items = new ArrayList<>();
 

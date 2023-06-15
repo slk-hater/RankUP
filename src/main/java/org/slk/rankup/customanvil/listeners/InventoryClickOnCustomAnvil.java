@@ -27,7 +27,7 @@ public class InventoryClickOnCustomAnvil implements Listener {
 
         if(clickedInventory == null) return;
         //if(clickedInventory != topInventory) return;
-        //if(!view.getTitle().equals(CustomAnvilInventory.NAME)) return;
+        if(!view.getTitle().equals(CustomAnvilInventory.NAME)) return;
         if(event.isShiftClick()) {
             player.playSound(player, Sound.ENTITY_VILLAGER_NO, 0.3f, 1f);
             event.setCancelled(true);

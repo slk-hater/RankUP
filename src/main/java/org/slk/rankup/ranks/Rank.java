@@ -63,7 +63,11 @@ public enum Rank {
     public static int getNextRankProgressPercentage(Player player){
         double money = 25000;
         Rank nextRank = getRank(player).getNextRank();
-        if(nextRank != null) { return (int) ((money*100)/nextRank.getPrice()); }
+        if(nextRank != null) {
+            int percentage = (int) ((money*100)/nextRank.getPrice());
+            if(percentage > 100) return 100;
+            return percentage;
+        }
         return -1;
     }
     public static String getNextRankProgressSymbols(Player player){

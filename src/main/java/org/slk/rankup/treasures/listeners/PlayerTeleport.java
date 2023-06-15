@@ -26,10 +26,12 @@ public class PlayerTeleport implements Listener {
             TreasuresManager.setupTimer();
             TreasuresManager.TIME_MAP.put(player, LocalDateTime.now());
 
-            player.sendMessage(ChatUtils.good(TreasuresMessages.JOIN_WORLD.get(player)));
+            player.sendMessage("\n"+ChatUtils.good(TreasuresMessages.JOIN_WORLD.get(player))+"\n\n");
             player.getInventory().clear();
-            for(ItemStack item : TreasuresManager.getItems())
-                player.getInventory().addItem(item);
+            player.setFoodLevel(20);
+            player.setHealth(20);
+            for(int i=0; i<TreasuresManager.getItems().size(); i++)
+                player.getInventory().setItem(i, TreasuresManager.getItems().get(i));
         }
         if(from.getWorld().equals(TreasuresManager.getWorld()))
             player.getInventory().clear();

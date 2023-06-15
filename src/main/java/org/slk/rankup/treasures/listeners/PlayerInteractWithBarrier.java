@@ -12,6 +12,8 @@ import org.slk.rankup.treasures.TreasuresManager;
 import org.slk.rankup.treasures.TreasuresMessages;
 import org.slk.rankup.utils.ChatUtils;
 
+import java.util.List;
+
 public class PlayerInteractWithBarrier implements Listener {
     @EventHandler
     public void onPlayerInteractWithBarrier(PlayerInteractEvent event){
@@ -30,10 +32,13 @@ public class PlayerInteractWithBarrier implements Listener {
             ItemStack ticketClone = TreasuresManager.TICKET.clone();
             ItemMeta meta = ticketClone.getItemMeta();
             if(meta == null || meta.getLore() == null) return;
-            meta.getLore().set(1, meta.getLore().get(1).replace(
+
+            List<String> lore = meta.getLore();
+            lore.set(1, meta.getLore().get(1).replace(
                     String.valueOf(TreasuresManager.DURATION_MINUTES),
-                    String.valueOf(Math.round(TreasuresManager.getTimeLeft(player).toMinutes()))
+                    String.valueOf(Math.round(Math.floor(TreasuresManager.getTimeLeft(player).toMinutes())))
             ));
+            meta.setLore(lore);
             ticketClone.setItemMeta(meta);
             player.getInventory().addItem(ticketClone);
         }

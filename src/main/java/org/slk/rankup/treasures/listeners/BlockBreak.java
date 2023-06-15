@@ -3,10 +3,7 @@ package org.slk.rankup.treasures.listeners;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,7 +20,9 @@ public class BlockBreak implements Listener {
         World world = event.getBlock().getWorld();
         Block block = event.getBlock();
 
-        event.setDropItems(world.equals(TreasuresManager.getWorld()));
+        if(!world.equals(TreasuresManager.getWorld())) return;
+
+        event.setDropItems(false);
 
         switch(block.getType()){
             case SAND:
@@ -33,21 +32,22 @@ public class BlockBreak implements Listener {
                         owner = p;
                 if(owner == null || !owner.equals(player)){
                     player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
-                    assert owner != null;
-                    player.sendMessage("debug: " + owner.getName());
+                    if(owner != null)
+                        player.sendMessage("debug: " + owner.getName());
                     return;
                 }
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#95D4FF") + "Encontras-te um tesouro!")));
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.3f, 1f);
+                TreasuresManager.LOCKED_TREASURE.remove(player);
                 break;
-            case AMETHYST_BLOCK:
+            case AMETHYST_CLUSTER:
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te uma gema!")));
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 0.3f, 1f);
                 break;
             default:
                 double chance = Math.random();
-                if(chance > TreasuresManager.CHANCE_GEM)
-                    player.getTargetBlock(null, 4).setType(Material.AMETHYST_BLOCK);
+                if(chance >= TreasuresManager.CHANCE_GEM)
+                    player.getTargetBlock(null, 4).setType(Material.AMETHYST_CLUSTER);
                 break;
         }
     }

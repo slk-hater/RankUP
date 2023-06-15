@@ -26,15 +26,15 @@ public class PlayerInteractWithTicket implements Listener {
         if(!action.toString().contains("RIGHT_CLICK")) return;
         if(!heldItem.getItemMeta().hasCustomModelData() || heldItem.getItemMeta().getCustomModelData() != CustomModelDataEnum.TICKET.get()) return;
 
-        int duration = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(1).replaceAll("[^0-9]", "")));
-        player.sendMessage("duration of ticket is " + duration);
+        int duration = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(1)).replaceAll("[^0-9]", ""));
         if(duration != TreasuresManager.DURATION_MINUTES)
             TreasuresManager.CUSTOM_DURATION_MAP.put(player, duration);
+
+        if(player.getInventory().getItemInMainHand().getAmount()>1) player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
+        else player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 
         Random rnd = new Random();
         Location loc = new Location(TreasuresManager.getWorld(), rnd.nextInt(0, 4000), 0, rnd.nextInt(0, 4000));
         player.teleport(loc.add(0, TreasuresManager.getWorld().getHighestBlockYAt(loc),0));
-        if(player.getInventory().getItemInMainHand().getAmount()>1) player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
-        else player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
     }
 }
