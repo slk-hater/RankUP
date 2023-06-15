@@ -135,7 +135,7 @@ public class TreasuresManager {
         pickaxe.setItemMeta(meta);
         items.add(pickaxe);
 
-        items.add(ItemStackBuilder.build(Material.COMPASS, 1, "&eBússola", "&8A bússola aponta para o tesouro"));
+        items.add(ItemStackBuilder.build(Material.COMPASS, 1, "&eBússola", "&8Clica com o botão direito para localizar o tesouro"));
 
         for(int i=0; i<6; i++)
             items.add(new ItemStack(Material.RED_STAINED_GLASS_PANE, 1));
