@@ -46,11 +46,8 @@ public final class Core extends JavaPlugin {
                             "\n&a&lRANK UP\n"
                     ));
                     Duration duration = Duration.between(uptimeStartDate, LocalDateTime.now());
-                    long hours = duration.toHours();
-                    long minutes = duration.toMinutesPart();
-                    long seconds = duration.toSecondsPart();
                     player.setPlayerListFooter(ColorUtils.colorize(
-                            "\n&fUptime &e"+hours+"h " + minutes + "m " + seconds +"s\n"
+                            "\n&fUptime &e" + duration.toHoursPart() + "h " + duration.toMinutesPart() + "m " + duration.toSecondsPart() +"s\n"
                     ));
 
                     Rank playerRank = Rank.getRank(player);
