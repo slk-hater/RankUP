@@ -71,12 +71,24 @@ public class TreasuresManager {
                     player.sendMessage("timer tick");
                     Duration diff = getTimeLeft(player);
 
-                    if(diff.toMinutes() >= DURATION_MINUTES/2 && diff.toMinutes() < DURATION_MINUTES)
-                        player.sendMessage(TreasuresMessages.TIME_LEFT.get(player));
-                    else if(diff.toMinutes() >= DURATION_MINUTES){
-                        TIME_MAP.remove(player);
-                        player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                        player.sendMessage(TreasuresMessages.LEAVE_WORLD_TIME.getRaw());
+                    if(!CUSTOM_DURATION_MAP.containsKey(player)) {
+                        if (diff.toMinutes() >= DURATION_MINUTES / 2 && diff.toMinutes() < DURATION_MINUTES)
+                            player.sendMessage(TreasuresMessages.TIME_LEFT.get(player));
+                        else if (diff.toMinutes() >= DURATION_MINUTES) {
+                            TIME_MAP.remove(player);
+                            player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
+                            player.sendMessage(TreasuresMessages.LEAVE_WORLD_TIME.getRaw());
+                        }
+                    } else {
+                        int minutes = CUSTOM_DURATION_MAP.get(player);
+                        if (diff.toMinutes() >= minutes / 2 && diff.toMinutes() < minutes)
+                            player.sendMessage(TreasuresMessages.TIME_LEFT.get(player));
+                        else if (diff.toMinutes() >= minutes) {
+                            TIME_MAP.remove(player);
+                            CUSTOM_DURATION_MAP.remove(player);
+                            player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
+                            player.sendMessage(TreasuresMessages.LEAVE_WORLD_TIME.getRaw());
+                        }
                     }
                 });
             }
