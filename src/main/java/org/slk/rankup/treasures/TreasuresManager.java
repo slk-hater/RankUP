@@ -19,6 +19,7 @@ public class TreasuresManager {
     static Timer TIMER = new Timer();
     public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
 
+    public static Duration getTimeLeft(Player player){ return Duration.between(TIME_MAP.get(player), LocalDateTime.now()); }
     static void createWorld(){
         World world = Bukkit.getServer().getWorld(NAME);
         if(world != null){
@@ -56,9 +57,7 @@ public class TreasuresManager {
                 // TODO : idk if this works
                 getWorld().getPlayers().forEach(player -> {
                     player.sendMessage("timer tick");
-                    LocalDateTime bef = TIME_MAP.get(player);
-                    LocalDateTime now = LocalDateTime.now();
-                    Duration diff = Duration.between(bef, now);
+                    Duration diff = getTimeLeft(player);
 
                     if(diff.toMinutes() >= MINUTES/2 && diff.toMinutes() < MINUTES)
                         player.sendMessage(TreasuresMessages.TIME_LEFT.get(player));
@@ -71,7 +70,6 @@ public class TreasuresManager {
             }
         }, 20L*5, 20L*5);
     }
-
     public static World getWorld(){ return TREASURES_WORLD; }
     public static List<ItemStack> getItems() {
         List<ItemStack> items = new ArrayList<>();
