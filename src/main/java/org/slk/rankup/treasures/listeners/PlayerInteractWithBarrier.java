@@ -26,6 +26,7 @@ public class PlayerInteractWithBarrier implements Listener {
         if(!heldItem.isSimilar(TreasuresManager.getItems().get(8))) return;
 
         if(TreasuresManager.getTimeLeft(player).toMinutes() > TreasuresManager.WARNING_MINUTE){
+            TreasuresManager.LOCKED_TREASURE.remove(player);
             player.sendMessage(ChatUtils.error(TreasuresMessages.LEAVE_WORLD_OPTIONAL.getRaw()));
             player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 
