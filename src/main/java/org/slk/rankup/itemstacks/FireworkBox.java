@@ -4,6 +4,7 @@ import net.md_5.bungee.api.ChatColor;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.slk.rankup.placeables.IPlaceable;
 import org.slk.rankup.utils.ColorUtils;
 import org.slk.rankup.utils.ItemStackBuilder;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class FireworkBox {
+public class FireworkBox implements IPlaceable {
     static ItemStack IS = ItemStackBuilder.getSkull("http://textures.minecraft.net/texture/b55ea43e592785d016acdeea9a4a6f9cf22c2753e695405e8c83d2e09ebcf647", UUID.fromString("4db1d6a8-0975-4b1c-bc5e-ea61edf2a11b"));
     public static final int DURATION = 25;
 
@@ -29,4 +30,14 @@ public class FireworkBox {
     }
 
     public ItemStack getItemStack() { return IS; }
+
+    @Override
+    public void onPlaced() {
+
+    }
+
+    @Override
+    public void onDestroyed() {
+
+    }
 }

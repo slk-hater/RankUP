@@ -1,5 +1,6 @@
 package org.slk.rankup.listeners;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -11,6 +12,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.slk.rankup.Core;
 import org.slk.rankup.itemstacks.CustomModelDataEnum;
 import org.slk.rankup.itemstacks.FireworkBox;
+import org.slk.rankup.placeables.IPlaceable;
+import org.slk.rankup.placeables.PlaceableManager;
 import org.slk.rankup.utils.WorldUtils;
 
 import java.util.Objects;
@@ -23,6 +26,8 @@ public class BlockPlace implements Listener {
         ItemStack is = event.getItemInHand();
         ItemMeta meta = is.getItemMeta();
         if(Objects.requireNonNull(meta).hasCustomModelData()){
+            IPlaceable placeable = (IPlaceable) is;
+            Bukkit.broadcastMessage(placeable.toString());
             if(meta.getCustomModelData() == CustomModelDataEnum.FIREWORK_BOX.get()){
                 (new BukkitRunnable() {
                     public int tick = 0;
@@ -40,9 +45,8 @@ public class BlockPlace implements Listener {
                     }
                 }).runTaskTimer(Core.getInstance(), 20L*4, 20L);
             }
-            else if(meta.getCustomModelData() == CustomModelDataEnum.ENCHATING_BOOK.get()){
+            else if(meta.getCustomModelData() == CustomModelDataEnum.ENCHATING_BOOK.get())
                 event.setCancelled(true);
-            }
         }
     }
 }
