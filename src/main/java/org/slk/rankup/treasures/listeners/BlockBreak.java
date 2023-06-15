@@ -32,6 +32,7 @@ public class BlockBreak implements Listener {
                     if(TreasuresManager.LOCKED_TREASURE.get(p).equals(block.getLocation()))
                         owner = p;
                 if(owner == null || !owner.equals(player)){
+                    player.sendMessage("debug: " + owner.getName());
                     player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
                     return;
                 }
@@ -44,7 +45,7 @@ public class BlockBreak implements Listener {
                 break;
             default:
                 double chance = Math.random();
-                if(chance > 0.2D) // 80% chance to spawn gem
+                if(chance > TreasuresManager.CHANCE_GEM)
                     player.getTargetBlock(null, 4).setType(Material.AMETHYST_BLOCK);
                 break;
         }

@@ -19,6 +19,8 @@ public class TreasuresManager {
     static String NAME = "Treasures";
     static World TREASURES_WORLD;
     public static int DURATION_MINUTES = 10;
+    public static double CHANCE_TREASURE = 0.35D; // 65%
+    public static double CHANCE_GEM = 0.2D; // 80%
 
     public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
     public static HashMap<Player, Integer> CUSTOM_DURATION_MAP = new HashMap<>();
@@ -105,7 +107,7 @@ public class TreasuresManager {
                     //region Spawn treasure
                     if(!LOCKED_TREASURE.containsKey(player)){
                         double chance = Math.random();
-                        if (chance > 0.4D) { // 60% chance to spawn treasure
+                        if (chance > CHANCE_TREASURE) {
                             Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 400)), rnd.nextInt(18, 25), rnd.nextInt((int) (player.getLocation().getZ() + 400)));
                             double btwn = loc.distance(player.getLocation());
                             player.sendMessage("debug: " + btwn + " blocks far away");
