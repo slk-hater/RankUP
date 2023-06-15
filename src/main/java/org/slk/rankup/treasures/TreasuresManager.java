@@ -65,7 +65,7 @@ public class TreasuresManager {
 
         TIMER = new Timer();
         TIMER.scheduleAtFixedRate(new TimerTask() {
-            Random rnd = new Random();
+            final Random rnd = new Random();
             @Override
             public void run() {
             if(getWorld().getPlayers().size() == 0) {
