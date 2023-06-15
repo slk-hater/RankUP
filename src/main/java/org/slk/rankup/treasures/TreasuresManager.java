@@ -140,7 +140,7 @@ public class TreasuresManager {
         for(int i=0; i<6; i++)
             items.add(new ItemStack(Material.RED_STAINED_GLASS_PANE, 1));
 
-        items.add(ItemStackBuilder.build(Material.BARRIER, 1, "&cSair", "&8Clica com o botão direito para sair do mundo\n&8Recebes uma passagem de volta com a restante duração"));
+        items.add(ItemStackBuilder.build(Material.BARRIER, 1, "&cSair", "&8Clica com o botão direito para sair do mundo dos Tesouros\n&8Recebes uma passagem de volta com a restante duração"));
 
         return items;
     }
