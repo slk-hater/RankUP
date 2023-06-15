@@ -1,6 +1,5 @@
 package org.slk.rankup.temphorse.listeners;
 
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -15,8 +14,9 @@ public class VehicleExit implements Listener {
         if(!(event.getVehicle() instanceof Horse horse)) return;
 
         HorsesManager.getMap().remove(player);
+        horse.getInventory().clear();
         horse.setInvisible(true);
-        horse.setHealth(0);
         horse.setSilent(true);
+        horse.setHealth(0);
     }
 }

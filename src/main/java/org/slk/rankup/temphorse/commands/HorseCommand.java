@@ -1,11 +1,16 @@
 package org.slk.rankup.temphorse.commands;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.slk.rankup.temphorse.HorsesManager;
 import org.slk.rankup.utils.ChatUtils;
 
@@ -32,6 +37,7 @@ public class HorseCommand extends Command {
         horse.setStyle(Horse.Style.values()[random.nextInt(Horse.Style.values().length)]);
         horse.setCustomName("Cavalo de " + player.getName());
         horse.setCustomNameVisible(true);
+        horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue()+0.1);
         horse.setAI(false);
         horse.setAdult();
         horse.setTamed(true);
