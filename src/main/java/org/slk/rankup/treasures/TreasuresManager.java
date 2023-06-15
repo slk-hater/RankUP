@@ -76,7 +76,7 @@ public class TreasuresManager {
 
                 // TODO : idk if this works
                 getWorld().getPlayers().forEach(player -> {
-                    player.sendMessage("timer tick");
+                    player.sendMessage("debug: timer tick");
 
                     //region Check time left
                     Duration diff = getTimeLeft(player);
@@ -107,6 +107,8 @@ public class TreasuresManager {
                         double chance = Math.random();
                         if (chance > 0.4D) { // 60% chance to spawn treasure
                             Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 400)), rnd.nextInt(18, 25), rnd.nextInt((int) (player.getLocation().getZ() + 400)));
+                            double btwn = loc.distance(player.getLocation());
+                            player.sendMessage("debug: " + btwn + " blocks far away");
                             getWorld().getBlockAt(loc).setType(Material.SAND);
                             LOCKED_TREASURE.put(player, loc);
                         }
