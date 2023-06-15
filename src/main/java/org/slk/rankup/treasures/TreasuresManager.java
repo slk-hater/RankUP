@@ -21,7 +21,7 @@ public class TreasuresManager {
 
     public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
     public static HashMap<Player, Integer> CUSTOM_DURATION_MAP = new HashMap<>();
-    static Timer TIMER = new Timer();
+    static Timer TIMER;
 
     public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fTesouros\n&7Duração &f" + DURATION_MINUTES + " minutos");
     static{
@@ -60,11 +60,16 @@ public class TreasuresManager {
         createWorld();
     }
     public static void setupTimer(){
+        if(TIMER != null) return;
+
+        TIMER = new Timer();
         TIMER.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
-                if(getWorld().getPlayers().size() == 0)
+                if(getWorld().getPlayers().size() == 0) {
                     this.cancel();
+                    TIMER = null;
+                }
 
                 // TODO : idk if this works
                 getWorld().getPlayers().forEach(player -> {
