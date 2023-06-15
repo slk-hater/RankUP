@@ -42,10 +42,11 @@ public class BlockBreak implements Listener {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te uma gema!")));
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 0.3f, 1f);
                 break;
+            default:
+                double chance = Math.random();
+                if(chance > 0.2D) // 80% chance to spawn gem
+                    player.getTargetBlock(null, 4).setType(Material.AMETHYST_BLOCK);
+                break;
         }
-
-        double chance = Math.random();
-        if(chance > 0.2D) // 80% chance
-            player.getTargetBlock(null, 4).setType(Material.AMETHYST_BLOCK);
     }
 }
