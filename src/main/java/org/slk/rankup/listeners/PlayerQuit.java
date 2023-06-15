@@ -14,7 +14,6 @@ public class PlayerQuit implements Listener {
     public void onPlayerQuit(PlayerQuitEvent event){
         event.setQuitMessage("");
         Player player = event.getPlayer();
-        //Rank rank = Rank.getRank(player);
         Bukkit.broadcastMessage(ColorUtils.colorize("&c" + player.getName() + " saiu do servidor."));
 
         FastBoard board = Core.scoreboards.get(player);
