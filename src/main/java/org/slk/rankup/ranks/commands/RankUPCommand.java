@@ -40,8 +40,6 @@ public class RankUPCommand extends Command {
         Bukkit.getPluginManager().callEvent(event);
         if (!event.isCancelled()) {
             // TODO
-            //TagManager.updateTag(player);
-
             Rank.setRank(player, nextRank);
         }
 

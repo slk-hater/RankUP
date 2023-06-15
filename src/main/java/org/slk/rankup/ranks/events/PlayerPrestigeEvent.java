@@ -10,7 +10,7 @@ public class PlayerPrestigeEvent extends Event {
 
     private boolean isCancelled;
     private final Player player;
-    private int prestige;
+    private final int prestige;
 
     public PlayerPrestigeEvent(Player player, int prestige) {
         this.player = player;
