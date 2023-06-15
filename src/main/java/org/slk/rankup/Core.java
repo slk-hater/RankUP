@@ -58,7 +58,6 @@ public final class Core extends JavaPlugin {
 
                     if(!scoreboards.containsKey(player)){
                         FastBoard board = new FastBoard(player);
-                        board.updateTitle(ColorUtils.colorize("&a&lRANK UP"));
                         Core.scoreboards.put(player, board);
                     }
                 }
@@ -93,6 +92,7 @@ public final class Core extends JavaPlugin {
         Rank rank = Rank.getRank(player);
 
         if(player.getWorld().equals(TreasuresManager.getWorld())){
+            board.updateTitle(ColorUtils.colorize("&a&lRANK UP - TESOUROS"));
             board.updateLines(
                     "",
                     ColorUtils.colorize(" &fTempo restante: &e" + TreasuresManager.getTimeLeft(player).toMinutes() + "m"),
@@ -105,6 +105,7 @@ public final class Core extends JavaPlugin {
         }
 
         if(rank.getNextRank() == null) {
+            board.updateTitle(ColorUtils.colorize("&a&lRANK UP"));
             board.updateLines(
                     "",
                     ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ 0"),
@@ -117,6 +118,7 @@ public final class Core extends JavaPlugin {
             );
         }
         else{
+            board.updateTitle(ColorUtils.colorize("&a&lRANK UP"));
             board.updateLines(
                     "",
                     ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#3498DB") + "★ 0"),
