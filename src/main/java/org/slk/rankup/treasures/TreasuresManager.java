@@ -127,7 +127,7 @@ public class TreasuresManager {
     public static List<ItemStack> getItems() {
         List<ItemStack> items = new ArrayList<>();
 
-        ItemStack pickaxe = ItemStackBuilder.build(Material.NETHERITE_PICKAXE, 1, "&ePicareta", "");
+        ItemStack pickaxe = ItemStackBuilder.build(Material.NETHERITE_PICKAXE, 1, "&ePicareta", "&8Sem modificadores aplicados");
         ItemMeta meta = pickaxe.getItemMeta();
         assert meta != null;
         meta.setUnbreakable(true);
@@ -135,7 +135,7 @@ public class TreasuresManager {
         pickaxe.setItemMeta(meta);
         items.add(pickaxe);
 
-        items.add(ItemStackBuilder.build(Material.COMPASS, 1, "&eBússola", ""));
+        items.add(ItemStackBuilder.build(Material.COMPASS, 1, "&eBússola", "&8A bússola aponta para o tesouro"));
 
         for(int i=0; i<6; i++)
             items.add(new ItemStack(Material.RED_STAINED_GLASS_PANE, 1));
