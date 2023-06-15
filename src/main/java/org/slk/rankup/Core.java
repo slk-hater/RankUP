@@ -79,7 +79,7 @@ public final class Core extends JavaPlugin {
             if(meta == null || meta.getLore() == null) return;
             meta.getLore().set(1, meta.getLore().get(1).replace(
                     String.valueOf(TreasuresManager.DURATION_MINUTES),
-                    String.valueOf(TreasuresManager.getTimeLeft(player).toMinutes())
+                    String.valueOf(Math.round(TreasuresManager.getTimeLeft(player).toMinutes()))
             ));
             ticketClone.setItemMeta(meta);
             player.getInventory().addItem(ticketClone);

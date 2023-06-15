@@ -135,8 +135,12 @@ public class TreasuresManager {
         pickaxe.setItemMeta(meta);
         items.add(pickaxe);
 
-        ItemStack compass = ItemStackBuilder.build(Material.COMPASS, 1, "&eBússola", "");
-        items.add(compass);
+        items.add(ItemStackBuilder.build(Material.COMPASS, 1, "&eBússola", ""));
+
+        for(int i=0; i<6; i++)
+            items.add(new ItemStack(Material.RED_STAINED_GLASS_PANE, 1));
+
+        items.add(ItemStackBuilder.build(Material.BARRIER, 1, "&cSair", "&8Recebe passagem de volta com a restante duração"));
 
         return items;
     }
