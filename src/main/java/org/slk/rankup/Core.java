@@ -39,6 +39,7 @@ public final class Core extends JavaPlugin {
 
         TreasuresManager.setup();
 
+        //region Runnables
         (new BukkitRunnable() {
             public void run() {
                 for(Player player : Bukkit.getOnlinePlayers()){
@@ -61,10 +62,12 @@ public final class Core extends JavaPlugin {
                 for(FastBoard board : scoreboards.values()) updateBoard(board);
             }
         }).runTaskTimer(getInstance(), 20L, 20L);
+        //endregion
     }
     public void onDisable() {
         super.onDisable();
 
+        //region Kick players from Treasures world
         for(Player player : TreasuresManager.getWorld().getPlayers()){
             player.sendMessage(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw());
             player.teleport(getServer().getWorlds().get(0).getSpawnLocation());
@@ -80,11 +83,11 @@ public final class Core extends JavaPlugin {
             player.getInventory().addItem(ticketClone);
             //player.getInventory().addItem(TreasuresManager.TICKET);
         }
+        //endregion
     }
 
     private void updateBoard(FastBoard board) {
-        assert !board.isDeleted();
-        //if(board.isDeleted()) return;
+        if(board.isDeleted()) return;
         Player player = board.getPlayer();
         Rank rank = Rank.getRank(player);
 
