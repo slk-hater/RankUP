@@ -21,9 +21,9 @@ public class PlayerTeleport implements Listener {
 
         if(to == null || to.getWorld() == null) return;
         if(from.getWorld() == null) return;
-        if(to.getWorld().equals(from.getWorld())) return;
-
+        // TODO : Verify if is teleporting inside Treasures world to Treasures world
         if(to.getWorld().equals(TreasuresManager.getWorld())){
+            if(to.getWorld().equals(from.getWorld())) return;
             TreasuresManager.setupTimer();
             TreasuresManager.TIME_MAP.put(player, LocalDateTime.now());
 
