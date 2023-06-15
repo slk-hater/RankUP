@@ -14,13 +14,14 @@ import org.slk.rankup.treasures.TreasuresManager;
 
 import java.util.Random;
 
-public class PlayerInteract implements Listener {
+public class PlayerInteractWithTicket implements Listener {
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event){
         Player player = event.getPlayer();
         Action action = event.getAction();
         ItemStack heldItem = event.getItem();
 
+        if(player.getWorld().equals(TreasuresManager.getWorld())) return;
         if(heldItem == null) return;
         if(!action.toString().contains("RIGHT_CLICK")) return;
         if(!heldItem.getItemMeta().hasCustomModelData() || heldItem.getItemMeta().getCustomModelData() != CustomModelDataEnum.TICKET.get()) return;

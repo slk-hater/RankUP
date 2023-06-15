@@ -22,6 +22,7 @@ public class TreasuresManager {
     public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
     public static HashMap<Player, Integer> CUSTOM_DURATION_MAP = new HashMap<>();
     static Timer TIMER;
+    public static HashMap<Player, Location> LOCKED_TREASURE = new HashMap<>();
 
     public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fTesouros\n&7Duração &f" + DURATION_MINUTES + " minutos");
     static{
@@ -64,6 +65,7 @@ public class TreasuresManager {
 
         TIMER = new Timer();
         TIMER.scheduleAtFixedRate(new TimerTask() {
+            Random rnd = new Random();
             @Override
             public void run() {
             if(getWorld().getPlayers().size() == 0) {
@@ -74,6 +76,8 @@ public class TreasuresManager {
             // TODO : idk if this works
             getWorld().getPlayers().forEach(player -> {
                 player.sendMessage("timer tick");
+
+                //region Check time left
                 Duration diff = getTimeLeft(player);
 
                 if(!CUSTOM_DURATION_MAP.containsKey(player)) {
@@ -93,6 +97,16 @@ public class TreasuresManager {
                         CUSTOM_DURATION_MAP.remove(player);
                         player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
                         player.sendMessage(TreasuresMessages.LEAVE_WORLD_TIME.getRaw());
+                    }
+                }
+                //endregion
+
+                if(!LOCKED_TREASURE.containsKey(player)){
+                    double chance = Math.random();
+                    if (chance > 0.4) {
+                        Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 400)), rnd.nextInt(18, 25), rnd.nextInt((int) (player.getLocation().getZ() + 400)));
+                        getWorld().getBlockAt(loc).setType(Material.SAND);
+                        LOCKED_TREASURE.put(player, loc);
                     }
                 }
             });
