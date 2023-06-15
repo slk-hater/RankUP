@@ -27,7 +27,7 @@ public class TreasuresManager {
     static Timer TIMER;
     public static HashMap<Player, Location> LOCKED_TREASURE = new HashMap<>();
 
-    public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fMundo dos Tesouros\n&7Duração &f" + DURATION_MINUTES + " minutos");
+    public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fMundo dos Tesouros\n&7Duração &f" + DURATION_MINUTES + " minutos\n\n&8Clica com o botão direito para usar");
     static{
         ItemMeta meta = TICKET.getItemMeta();
         if(meta != null)
