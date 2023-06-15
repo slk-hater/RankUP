@@ -7,6 +7,8 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.reflections.Reflections;
@@ -70,7 +72,17 @@ public final class Core extends JavaPlugin {
         for(Player player : TreasuresManager.getWorld().getPlayers()){
             player.sendMessage(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw());
             player.teleport(getServer().getWorlds().get(0).getSpawnLocation());
-            player.getInventory().addItem(TreasuresManager.TICKET);
+
+            ItemStack ticketClone = TreasuresManager.TICKET.clone();
+            ItemMeta meta = ticketClone.getItemMeta();
+            if(meta == null || meta.getLore() == null) return;
+            meta.getLore().set(1, meta.getLore().get(1).replace(
+                    String.valueOf(TreasuresManager.DURATION_MINUTES),
+                    String.valueOf(TreasuresManager.getTimeLeft(player).toMinutes())
+            ));
+            ticketClone.setItemMeta(meta);
+            player.getInventory().addItem(ticketClone);
+            //player.getInventory().addItem(TreasuresManager.TICKET);
         }
     }
 

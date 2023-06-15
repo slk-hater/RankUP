@@ -8,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.slk.rankup.itemstacks.CustomModelDataEnum;
 import org.slk.rankup.treasures.TreasuresManager;
 
 import java.util.Random;
@@ -21,7 +22,7 @@ public class PlayerInteract implements Listener {
 
         if(heldItem == null) return;
         if(!action.toString().contains("RIGHT_CLICK")) return;
-        if(!heldItem.isSimilar(TreasuresManager.TICKET)) return;
+        if(!heldItem.getItemMeta().hasCustomModelData() || heldItem.getItemMeta().getCustomModelData() != CustomModelDataEnum.TICKET.get()) return;
 
         Random rnd = new Random();
         Location loc = new Location(TreasuresManager.getWorld(), rnd.nextInt(0, 4000), 0, rnd.nextInt(0, 4000));

@@ -7,6 +7,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.slk.rankup.Core;
+import org.slk.rankup.itemstacks.CustomModelDataEnum;
 import org.slk.rankup.utils.ItemStackBuilder;
 
 import java.time.Duration;
@@ -16,12 +17,19 @@ import java.util.*;
 public class TreasuresManager {
     static String NAME = "Treasures";
     static World TREASURES_WORLD;
-    static int DURATION_MINUTES = 10;
+    public static int DURATION_MINUTES = 10;
 
     public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
+    public static HashMap<Player, Integer> CUSTOM_DURATION_MAP = new HashMap<>();
     static Timer TIMER = new Timer();
 
     public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fTesouros\n&7Duração &f" + DURATION_MINUTES + " minutos");
+    static{
+        ItemMeta meta = TICKET.getItemMeta();
+        if(meta != null)
+            meta.setCustomModelData(CustomModelDataEnum.TICKET.get());
+        TICKET.setItemMeta(meta);
+    }
 
     public static Duration getTimeLeft(Player player){ return Duration.between(TIME_MAP.get(player), LocalDateTime.now()); }
     static void createWorld(){
