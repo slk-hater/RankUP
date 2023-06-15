@@ -94,10 +94,11 @@ public final class Core extends JavaPlugin {
 
         if(player.getWorld().equals(TreasuresManager.getWorld())){
             board.updateTitle(ColorUtils.colorize("&a&lRANK UP - TESOUROS"));
+            String color = TreasuresManager.getTimeLeft(player).toMinutesPart() > 3 ? "&e" : "&c";
             board.updateLines(
                     "",
                     ColorUtils.colorize(" &fTempo restante:"),
-                    ColorUtils.colorize("  &e" + TreasuresManager.getTimeLeft(player).toMinutesPart() + "m e " + TreasuresManager.getTimeLeft(player).toSecondsPart() + "s"),
+                    ColorUtils.colorize("  " + color + TreasuresManager.getTimeLeft(player).toMinutesPart() + "m e " + TreasuresManager.getTimeLeft(player).toSecondsPart() + "s"),
                     "",
                     ColorUtils.colorize(" &fT. Tesouros: " + ChatColor.of("#95D4FF") + "☘ 0"),
                     ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),

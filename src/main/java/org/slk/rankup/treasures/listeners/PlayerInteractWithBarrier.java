@@ -23,7 +23,7 @@ public class PlayerInteractWithBarrier implements Listener {
         if(heldItem == null) return;
         if(!heldItem.isSimilar(TreasuresManager.getItems().get(8))) return;
 
-        if(TreasuresManager.getTimeLeft(player).toMinutes() < 1){
+        if(TreasuresManager.getTimeLeft(player).toMinutes() > TreasuresManager.WARNING_MINUTE){
             player.sendMessage(ChatUtils.error(TreasuresMessages.LEAVE_WORLD_OPTIONAL.getRaw()));
             player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
 
@@ -36,6 +36,10 @@ public class PlayerInteractWithBarrier implements Listener {
             ));
             ticketClone.setItemMeta(meta);
             player.getInventory().addItem(ticketClone);
+        }
+        else{
+            player.sendMessage(ChatUtils.error(TreasuresMessages.LEAVE_WORLD_OPTIONAL_NO_TICKET.getRaw()));
+            player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
         }
     }
 }
