@@ -21,12 +21,13 @@ public class PlayerTeleport implements Listener {
 
         if(to == null || to.getWorld() == null) return;
         if(from.getWorld() == null) return;
+        if(to.getWorld().equals(from.getWorld())) return;
 
         if(to.getWorld().equals(TreasuresManager.getWorld())){
             TreasuresManager.setupTimer();
             TreasuresManager.TIME_MAP.put(player, LocalDateTime.now());
 
-            player.sendMessage("\n"+ChatUtils.good(TreasuresMessages.JOIN_WORLD.get(player))+"\n\n");
+            player.sendMessage("\n"+ChatUtils.good(TreasuresMessages.JOIN_WORLD.get(player))+"\n ");
             player.getInventory().clear();
             player.setFoodLevel(20);
             player.setHealth(20);
