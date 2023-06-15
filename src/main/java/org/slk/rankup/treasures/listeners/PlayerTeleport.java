@@ -19,6 +19,7 @@ public class PlayerTeleport implements Listener {
         if(from.getWorld() == null) return;
 
         if(to.getWorld().equals(TreasuresManager.getWorld())){
+            player.sendMessage("\nBem-vindo ao mundo de Tesouros, aqui vais encontrar diversas recompensas. Tens apenas &e10 minutos&r para encontrar o máximo de tesouros que conseguires e lembra-te que a &eBússola&r é a chave para o teu sucesso, boa sorte.\n");
             player.getInventory().clear();
             for(ItemStack item : TreasuresManager.getItems())
                 player.getInventory().addItem(item);
