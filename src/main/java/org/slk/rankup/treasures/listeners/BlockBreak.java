@@ -38,7 +38,7 @@ public class BlockBreak implements Listener {
         }
 
         double chance = Math.random();
-        if(chance > 0.2d){ // 80% chance
+        if(chance > 0.2D){ // 80% chance
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te uma gema!")));
             player.getTargetBlock(null, 4).setType(Material.AMETHYST_BLOCK);
             player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 0.3f, 1f);

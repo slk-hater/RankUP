@@ -69,48 +69,50 @@ public class TreasuresManager {
             final Random rnd = new Random();
             @Override
             public void run() {
-            if(getWorld().getPlayers().size() == 0) {
-                this.cancel();
-                TIMER = null;
-            }
-
-            // TODO : idk if this works
-            getWorld().getPlayers().forEach(player -> {
-                player.sendMessage("timer tick");
-
-                //region Check time left
-                Duration diff = getTimeLeft(player);
-
-                if(!CUSTOM_DURATION_MAP.containsKey(player)) {
-                    if (diff.toMinutes() >= DURATION_MINUTES / 2 && diff.toMinutes() < DURATION_MINUTES)
-                        player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
-                    else if (diff.toMinutes() >= DURATION_MINUTES) {
-                        TIME_MAP.remove(player);
-                        player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                        player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
-                    }
-                } else {
-                    int minutes = CUSTOM_DURATION_MAP.get(player);
-                    if (diff.toMinutes() >= minutes / 2 && diff.toMinutes() < minutes)
-                        player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
-                    else if (diff.toMinutes() >= minutes) {
-                        TIME_MAP.remove(player);
-                        CUSTOM_DURATION_MAP.remove(player);
-                        player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                        player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
-                    }
+                if(getWorld().getPlayers().size() == 0) {
+                    this.cancel();
+                    TIMER = null;
                 }
-                //endregion
 
-                if(!LOCKED_TREASURE.containsKey(player)){
-                    double chance = Math.random();
-                    if (chance > 0.4) {
-                        Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 400)), rnd.nextInt(18, 25), rnd.nextInt((int) (player.getLocation().getZ() + 400)));
-                        getWorld().getBlockAt(loc).setType(Material.SAND);
-                        LOCKED_TREASURE.put(player, loc);
+                // TODO : idk if this works
+                getWorld().getPlayers().forEach(player -> {
+                    player.sendMessage("timer tick");
+
+                    //region Check time left
+                    Duration diff = getTimeLeft(player);
+
+                    if(!CUSTOM_DURATION_MAP.containsKey(player)) {
+                        if (diff.toMinutes() >= DURATION_MINUTES / 2 && diff.toMinutes() < DURATION_MINUTES)
+                            player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
+                        else if (diff.toMinutes() >= DURATION_MINUTES) {
+                            TIME_MAP.remove(player);
+                            player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
+                            player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
+                        }
+                    } else {
+                        int minutes = CUSTOM_DURATION_MAP.get(player);
+                        if (diff.toMinutes() >= minutes / 2 && diff.toMinutes() < minutes)
+                            player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
+                        else if (diff.toMinutes() >= minutes) {
+                            TIME_MAP.remove(player);
+                            CUSTOM_DURATION_MAP.remove(player);
+                            player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
+                            player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
+                        }
                     }
-                }
-            });
+                    //endregion
+
+                    //region Spawn treasure
+                    if(!LOCKED_TREASURE.containsKey(player)){
+                        double chance = Math.random();
+                        if (chance > 0.4D) { // 60% chance to spawn treasure
+                            Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 400)), rnd.nextInt(18, 25), rnd.nextInt((int) (player.getLocation().getZ() + 400)));
+                            getWorld().getBlockAt(loc).setType(Material.SAND);
+                            LOCKED_TREASURE.put(player, loc);
+                        }
+                    }
+                    //endregion
+                });
             }
         }, 20L*5, 20L*5);
     }
