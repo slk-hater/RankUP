@@ -59,7 +59,7 @@ public final class Core extends JavaPlugin {
                         Core.scoreboards.put(player, board);
                     }
                 }
-                for(FastBoard board : scoreboards.values()){ updateBoard(board); }
+                for(FastBoard board : scoreboards.values()) updateBoard(board);
             }
         }).runTaskTimer(getInstance(), 20L, 20L);
     }

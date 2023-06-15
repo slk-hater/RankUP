@@ -1,17 +1,18 @@
 package org.slk.rankup.treasures;
 
-import net.minecraft.FileUtils;
 import org.bukkit.*;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.util.FileUtil;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.slk.rankup.Core;
 import org.slk.rankup.utils.ItemStackBuilder;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class TreasuresManager {
     static String NAME = "Treasures";
     static World TREASURES_WORLD;
-
-    public static ItemStack PICKAXE = ItemStackBuilder.build(Material.NETHERITE_PICKAXE, 1, "&ePicareta", "");
 
     public static void createWorld(){
         World world = Bukkit.getServer().getWorld(NAME);
@@ -42,4 +43,20 @@ public class TreasuresManager {
     }
 
     public static World getWorld(){ return TREASURES_WORLD; }
+    public static List<ItemStack> getItems() {
+        List<ItemStack> items = new ArrayList<>();
+
+        ItemStack pickaxe = ItemStackBuilder.build(Material.NETHERITE_PICKAXE, 1, "&ePicareta", "");
+        ItemMeta meta = pickaxe.getItemMeta();
+        assert meta != null;
+        meta.setUnbreakable(true);
+        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
+        pickaxe.setItemMeta(meta);
+        items.add(pickaxe);
+
+        ItemStack compass = ItemStackBuilder.build(Material.COMPASS, 1, "&eBússola", "");
+        items.add(compass);
+
+        return items;
+    }
 }

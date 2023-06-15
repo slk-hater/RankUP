@@ -11,7 +11,6 @@ public class BlockPlace implements Listener {
     public void onBlockPlace(BlockPlaceEvent event){
         World world = event.getBlock().getWorld();
 
-        if(world.equals(TreasuresManager.getWorld()))
-            event.setCancelled(true);
+        event.setCancelled(world.equals(TreasuresManager.getWorld()));
     }
 }

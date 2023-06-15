@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
+import org.bukkit.inventory.ItemStack;
 import org.slk.rankup.treasures.TreasuresManager;
 
 public class PlayerTeleport implements Listener {
@@ -13,15 +14,16 @@ public class PlayerTeleport implements Listener {
         Player player = event.getPlayer();
         Location to = event.getTo();
         Location from = event.getFrom();
+
         if(to == null || to.getWorld() == null) return;
-        if(from == null || from.getWorld() == null) return;
+        if(from.getWorld() == null) return;
 
         if(to.getWorld().equals(TreasuresManager.getWorld())){
             player.getInventory().clear();
-            player.getInventory().setItem(0, TreasuresManager.PICKAXE);
+            for(ItemStack item : TreasuresManager.getItems())
+                player.getInventory().addItem(item);
         }
-        if(from.getWorld().equals(TreasuresManager.getWorld())){
+        if(from.getWorld().equals(TreasuresManager.getWorld()))
             player.getInventory().clear();
-        }
     }
 }

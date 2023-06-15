@@ -11,7 +11,6 @@ public class BlockBreak implements Listener {
     public void onBlockBreak(BlockBreakEvent event){
         World world = event.getBlock().getWorld();
 
-        if(world.equals(TreasuresManager.getWorld()))
-            event.setDropItems(false);
+        event.setDropItems(world.equals(TreasuresManager.getWorld()));
     }
 }
