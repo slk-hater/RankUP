@@ -25,11 +25,10 @@ public class PlayerInteract implements Listener {
         if(!action.toString().contains("RIGHT_CLICK")) return;
         if(!heldItem.getItemMeta().hasCustomModelData() || heldItem.getItemMeta().getCustomModelData() != CustomModelDataEnum.TICKET.get()) return;
 
-        String duration = ChatColor.stripColor(heldItem.getItemMeta().getLore().get(1).replace("Duração ", "").replace(" minutos", ""));
+        int duration = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(1).replaceAll("[^0-9]", "")));
         player.sendMessage("duration of ticket is " + duration);
-        int d = Integer.parseInt(duration);
-        if(d != TreasuresManager.DURATION_MINUTES)
-            TreasuresManager.CUSTOM_DURATION_MAP.put(player, d);
+        if(duration != TreasuresManager.DURATION_MINUTES)
+            TreasuresManager.CUSTOM_DURATION_MAP.put(player, duration);
 
         Random rnd = new Random();
         Location loc = new Location(TreasuresManager.getWorld(), rnd.nextInt(0, 4000), 0, rnd.nextInt(0, 4000));
