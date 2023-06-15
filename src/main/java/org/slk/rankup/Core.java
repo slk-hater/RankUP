@@ -12,6 +12,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.reflections.Reflections;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.treasures.TreasuresManager;
+import org.slk.rankup.treasures.TreasuresMessages;
 import org.slk.rankup.utils.ColorUtils;
 import org.slk.rankup.utils.NumberUtils;
 
@@ -34,7 +35,7 @@ public final class Core extends JavaPlugin {
         loadEvents();
         loadCommands();
 
-        TreasuresManager.resetWorld();
+        TreasuresManager.setup();
 
         (new BukkitRunnable() {
             public void run() {
@@ -65,6 +66,11 @@ public final class Core extends JavaPlugin {
     }
     public void onDisable() {
         super.onDisable();
+
+        for(Player player : TreasuresManager.getWorld().getPlayers()){
+            player.sendMessage(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw());
+            player.teleport(getServer().getWorlds().get(0).getSpawnLocation());
+        }
         /*for(Player player : Bukkit.getOnlinePlayers()){
             player.kickPlayer(ChatUtils.colorize("\n&a&lRANK UP\n\n&fO servidor está a reiniciar!"));
         }*/

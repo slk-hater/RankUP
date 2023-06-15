@@ -1,20 +1,25 @@
 package org.slk.rankup.treasures;
 
 import org.bukkit.*;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.slk.rankup.Core;
 import org.slk.rankup.utils.ItemStackBuilder;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class TreasuresManager {
     static String NAME = "Treasures";
     static World TREASURES_WORLD;
+    static int MINUTES = 10;
+    static Timer TIMER = new Timer();
+    public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
 
-    public static void createWorld(){
+    static void createWorld(){
         World world = Bukkit.getServer().getWorld(NAME);
         if(world != null){
             TREASURES_WORLD = world;
@@ -29,7 +34,7 @@ public class TreasuresManager {
         wc.generatorSettings("{\"layers\": [{\"block\": \"bedrock\", \"height\": 1}, {\"block\": \"packed_mud\", \"height\": 180}], \"biome\":\"plains\"}");
         Bukkit.getServer().createWorld(wc);
     }
-    public static void deleteWorld(){
+    static void deleteWorld(){
         World world = Bukkit.getServer().getWorld(NAME);
         if(world == null) return;
 
@@ -37,9 +42,34 @@ public class TreasuresManager {
         Bukkit.unloadWorld(world, false);
         world.getWorldFolder().delete();
     }
-    public static void resetWorld(){
+    public static void setup(){
         deleteWorld();
         createWorld();
+    }
+    public static void setupTimer(){
+        TIMER.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                if(getWorld().getPlayers().size() == 0)
+                    this.cancel();
+
+                // TODO : idk if this works
+                getWorld().getPlayers().forEach(player -> {
+                    player.sendMessage("timer tick");
+                    LocalDateTime bef = TIME_MAP.get(player);
+                    LocalDateTime now = LocalDateTime.now();
+                    Duration diff = Duration.between(bef, now);
+
+                    if(diff.toMinutes() >= MINUTES/2 && diff.toMinutes() < MINUTES)
+                        player.sendMessage(TreasuresMessages.TIME_LEFT.get(player));
+                    else if(diff.toMinutes() >= MINUTES){
+                        TIME_MAP.remove(player);
+                        player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
+                        player.sendMessage(TreasuresMessages.LEAVE_WORLD_TIME.getRaw());
+                    }
+                });
+            }
+        }, 20L*5, 20L*5);
     }
 
     public static World getWorld(){ return TREASURES_WORLD; }

@@ -7,6 +7,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.slk.rankup.treasures.TreasuresManager;
+import org.slk.rankup.treasures.TreasuresMessages;
+
+import java.time.LocalDateTime;
 
 public class PlayerTeleport implements Listener {
     @EventHandler
@@ -19,7 +22,10 @@ public class PlayerTeleport implements Listener {
         if(from.getWorld() == null) return;
 
         if(to.getWorld().equals(TreasuresManager.getWorld())){
-            player.sendMessage("\nBem-vindo ao mundo de Tesouros, aqui vais encontrar diversas recompensas. Tens apenas &e10 minutos&r para encontrar o máximo de tesouros que conseguires e lembra-te que a &eBússola&r é a chave para o teu sucesso, boa sorte.\n");
+            TreasuresManager.setupTimer();
+            TreasuresManager.TIME_MAP.put(player, LocalDateTime.now());
+
+            player.sendMessage(TreasuresMessages.JOIN_WORLD.get(player));
             player.getInventory().clear();
             for(ItemStack item : TreasuresManager.getItems())
                 player.getInventory().addItem(item);
