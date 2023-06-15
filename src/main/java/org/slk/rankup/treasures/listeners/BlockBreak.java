@@ -25,25 +25,27 @@ public class BlockBreak implements Listener {
 
         event.setDropItems(world.equals(TreasuresManager.getWorld()));
 
-        if(block.getType().equals(Material.SAND)){
-            Player owner = null;
-            for(Player p : TreasuresManager.LOCKED_TREASURE.keySet())
-                if(TreasuresManager.LOCKED_TREASURE.get(p).equals(block.getLocation()))
-                    owner = p;
-            if(owner == null || !owner.equals(player)){
-                player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
-                return;
-            }
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te um tesouro!")));
-            player.playSound(player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.3f, 1f);
+        switch(block.getType()){
+            case SAND:
+                Player owner = null;
+                for(Player p : TreasuresManager.LOCKED_TREASURE.keySet())
+                    if(TreasuresManager.LOCKED_TREASURE.get(p).equals(block.getLocation()))
+                        owner = p;
+                if(owner == null || !owner.equals(player)){
+                    player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
+                    return;
+                }
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te um tesouro!")));
+                player.playSound(player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.3f, 1f);
+                break;
+            case AMETHYST_BLOCK:
+                player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te uma gema!")));
+                player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 0.3f, 1f);
+                break;
         }
 
         double chance = Math.random();
-        if(chance > 0.2D){ // 80% chance
-            player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te uma gema!")));
+        if(chance > 0.2D) // 80% chance
             player.getTargetBlock(null, 4).setType(Material.AMETHYST_BLOCK);
-            player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 0.3f, 1f);
-            // TODO : Gem break check
-        }
     }
 }
