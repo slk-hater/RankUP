@@ -83,7 +83,6 @@ public final class Core extends JavaPlugin {
             ));
             ticketClone.setItemMeta(meta);
             player.getInventory().addItem(ticketClone);
-            //player.getInventory().addItem(TreasuresManager.TICKET);
         }
         //endregion
     }
