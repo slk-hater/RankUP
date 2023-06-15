@@ -43,13 +43,13 @@ public class EnchantingBook {
         String translatedModifier;
         switch(bookModifier){
             case FORTUNE:
-                translatedModifier = "FORTUNA";
+                translatedModifier = "Fortuna";
                 break;
             case UNBREAKABLE:
-                translatedModifier = "INQUEBRÁVEL";
+                translatedModifier = "Inquebrável";
                 break;
             default:
-                translatedModifier = "EFICIÊNCIA";
+                translatedModifier = "Eficiência";
                 break;
         }
         ItemMeta meta = is.getItemMeta();

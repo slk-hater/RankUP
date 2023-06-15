@@ -25,12 +25,6 @@ public class RankUPCommand extends Command {
         Rank rank = Rank.getRank(player);
         Rank nextRank = rank.getNextRank();
         if(nextRank == null){
-            player.getInventory().addItem(new FireworkBox().getItemStack());
-            player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.COMMON, EnchantingBook.ModifierType.EFFICIENCY).getItemStack());
-            player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.UNCOMMON, EnchantingBook.ModifierType.FORTUNE).getItemStack());
-            player.getInventory().addItem(new EnchantingBook(EnchantingBook.RarityType.RARE, EnchantingBook.ModifierType.UNBREAKABLE).getItemStack());
-            //player.sendMessage(ChatUtils.error("Já estás no último rank!"));
-
             PlayerPrestigeEvent event = new PlayerPrestigeEvent(player, 1);
             Bukkit.getPluginManager().callEvent(event);
             if (!event.isCancelled()) {
