@@ -15,6 +15,7 @@ import org.reflections.Reflections;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.treasures.TreasuresManager;
 import org.slk.rankup.treasures.TreasuresMessages;
+import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.ColorUtils;
 import org.slk.rankup.utils.NumberUtils;
 
@@ -30,6 +31,7 @@ public final class Core extends JavaPlugin {
     public static Map<Player, FastBoard> scoreboards = new HashMap<>();
 
     public static Core getInstance() { return instance; }
+
     public void onEnable() {
         super.onEnable();
         instance = this;
@@ -69,7 +71,7 @@ public final class Core extends JavaPlugin {
 
         //region Kick players from Treasures world
         for(Player player : TreasuresManager.getWorld().getPlayers()){
-            player.sendMessage(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw());
+            player.sendMessage(ChatUtils.error(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw()));
             player.teleport(getServer().getWorlds().get(0).getSpawnLocation());
 
             ItemStack ticketClone = TreasuresManager.TICKET.clone();

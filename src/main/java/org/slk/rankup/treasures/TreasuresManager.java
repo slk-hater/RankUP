@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.slk.rankup.Core;
 import org.slk.rankup.itemstacks.CustomModelDataEnum;
+import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.ItemStackBuilder;
 
 import java.time.Duration;
@@ -82,21 +83,21 @@ public class TreasuresManager {
 
                 if(!CUSTOM_DURATION_MAP.containsKey(player)) {
                     if (diff.toMinutes() >= DURATION_MINUTES / 2 && diff.toMinutes() < DURATION_MINUTES)
-                        player.sendMessage(TreasuresMessages.TIME_LEFT.get(player));
+                        player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
                     else if (diff.toMinutes() >= DURATION_MINUTES) {
                         TIME_MAP.remove(player);
                         player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                        player.sendMessage(TreasuresMessages.LEAVE_WORLD_TIME.getRaw());
+                        player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
                     }
                 } else {
                     int minutes = CUSTOM_DURATION_MAP.get(player);
                     if (diff.toMinutes() >= minutes / 2 && diff.toMinutes() < minutes)
-                        player.sendMessage(TreasuresMessages.TIME_LEFT.get(player));
+                        player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
                     else if (diff.toMinutes() >= minutes) {
                         TIME_MAP.remove(player);
                         CUSTOM_DURATION_MAP.remove(player);
                         player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                        player.sendMessage(TreasuresMessages.LEAVE_WORLD_TIME.getRaw());
+                        player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
                     }
                 }
                 //endregion

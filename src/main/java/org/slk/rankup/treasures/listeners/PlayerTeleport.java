@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.ItemStack;
 import org.slk.rankup.treasures.TreasuresManager;
 import org.slk.rankup.treasures.TreasuresMessages;
+import org.slk.rankup.utils.ChatUtils;
 
 import java.time.LocalDateTime;
 
@@ -25,7 +26,7 @@ public class PlayerTeleport implements Listener {
             TreasuresManager.setupTimer();
             TreasuresManager.TIME_MAP.put(player, LocalDateTime.now());
 
-            player.sendMessage(TreasuresMessages.JOIN_WORLD.get(player));
+            player.sendMessage(ChatUtils.good(TreasuresMessages.JOIN_WORLD.get(player)));
             player.getInventory().clear();
             for(ItemStack item : TreasuresManager.getItems())
                 player.getInventory().addItem(item);

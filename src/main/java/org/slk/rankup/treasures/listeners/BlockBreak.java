@@ -31,7 +31,7 @@ public class BlockBreak implements Listener {
                 if(TreasuresManager.LOCKED_TREASURE.get(p).equals(block.getLocation()))
                     owner = p;
             if(owner == null || !owner.equals(player)){
-                ChatUtils.error("Este tesouro não é teu!");
+                player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
                 return;
             }
             player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te um tesouro!")));
