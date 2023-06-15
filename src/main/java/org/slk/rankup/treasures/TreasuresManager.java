@@ -1,5 +1,6 @@
 package org.slk.rankup.treasures;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemFlag;
@@ -16,8 +17,11 @@ public class TreasuresManager {
     static String NAME = "Treasures";
     static World TREASURES_WORLD;
     static int MINUTES = 10;
-    static Timer TIMER = new Timer();
+
     public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
+    static Timer TIMER = new Timer();
+
+    public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#B7FF27") + "Passagem", "&7Destino &fTesouros\n&7Duração &f" + MINUTES + " minutos");
 
     public static Duration getTimeLeft(Player player){ return Duration.between(TIME_MAP.get(player), LocalDateTime.now()); }
     static void createWorld(){

@@ -70,6 +70,7 @@ public final class Core extends JavaPlugin {
         for(Player player : TreasuresManager.getWorld().getPlayers()){
             player.sendMessage(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw());
             player.teleport(getServer().getWorlds().get(0).getSpawnLocation());
+            player.getInventory().addItem(TreasuresManager.TICKET);
         }
         /*for(Player player : Bukkit.getOnlinePlayers()){
             player.kickPlayer(ChatUtils.colorize("\n&a&lRANK UP\n\n&fO servidor está a reiniciar!"));
