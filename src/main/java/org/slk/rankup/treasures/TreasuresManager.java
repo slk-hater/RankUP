@@ -36,8 +36,8 @@ public class TreasuresManager {
     }
 
     public static Duration getTimeLeft(Player player){
-        if(!CUSTOM_DURATION_MAP.containsKey(player)) return Duration.between(TIME_MAP.get(player), LocalDateTime.now());
-        else return Duration.between(TIME_MAP.get(player), LocalDateTime.now().minusMinutes(CUSTOM_DURATION_MAP.get(player)));
+        if(!CUSTOM_DURATION_MAP.containsKey(player)) return Duration.between(LocalDateTime.now(), TIME_MAP.get(player).plusMinutes(DURATION_MINUTES));
+        else return Duration.between(LocalDateTime.now(), TIME_MAP.get(player).plusMinutes(DURATION_MINUTES).minusMinutes(CUSTOM_DURATION_MAP.get(player)));
     }
     static void createWorld(){
         World world = Bukkit.getServer().getWorld(NAME);
