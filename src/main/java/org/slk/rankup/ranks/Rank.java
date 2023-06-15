@@ -61,7 +61,7 @@ public enum Rank {
     public static Stream<Rank> getRanks() { return Stream.of(Rank.values()); }
     public static Rank getDefaultRank() { return getRanks().filter(Rank::isDefault).findFirst().orElse(getRanks().findFirst().orElse(null)); }
     public static int getNextRankProgressPercentage(Player player){
-        double money = 7500;
+        double money = 25000;
         Rank nextRank = getRank(player).getNextRank();
         if(nextRank != null) { return (int) ((money*100)/nextRank.getPrice()); }
         return -1;
