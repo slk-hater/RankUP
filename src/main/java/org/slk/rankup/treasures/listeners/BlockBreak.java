@@ -34,7 +34,10 @@ public class BlockBreak implements Listener {
                     block.setType(Material.AIR);
                     break;
                 }
-                if(!owner.equals(player)) player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
+                if(!owner.equals(player)) {
+                    player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
+                    break;
+                }
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#95D4FF") + "Encontras-te um tesouro!")));
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.3f, 1f);
                 TreasuresManager.LOCKED_TREASURE.remove(player);
