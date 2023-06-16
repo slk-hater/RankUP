@@ -100,7 +100,7 @@ public class TreasuresManager {
                         WARNED_PLAYERS.add(player);
                         player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
                     }
-                    if (diff.toMinutes() >= minutes) {
+                    if (diff.toMinutes() < minutes && diff.toSecondsPart() <= 0) {
                         JOINED_DATE_MAP.remove(player);
                         CUSTOM_DURATION_MAP.remove(player);
                         WARNED_PLAYERS.remove(player);

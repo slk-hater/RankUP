@@ -41,13 +41,13 @@ public class BlockBreak implements Listener {
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.3f, 1f);
                 TreasuresManager.LOCKED_TREASURE.remove(player);
             }
-            case AMETHYST_CLUSTER -> {
+            case AMETHYST_BLOCK -> {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te uma gema!")));
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 0.3f, 1f);
             }
             default -> {
                 if (Math.random() < TreasuresManager.CHANCE_GEM) break;
-                player.getTargetBlock(null, 4).setType(Material.AMETHYST_CLUSTER);
+                player.getTargetBlock(null, 4).setType(Material.AMETHYST_BLOCK);
             }
         }
     }
