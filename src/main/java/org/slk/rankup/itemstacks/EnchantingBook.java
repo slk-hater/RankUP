@@ -26,32 +26,25 @@ public class EnchantingBook {
         this.bookRarity = bookRarity;
         this.bookModifier = bookModifier;
         String translatedRarity;
-        switch(bookRarity){
-            case UNCOMMON:
+        switch (bookRarity) {
+            case UNCOMMON -> {
                 this.is = UNCOMMON_SKULL;
                 translatedRarity = "INCOMUM";
-                break;
-            case RARE:
+            }
+            case RARE -> {
                 this.is = RARE_SKULL;
                 translatedRarity = "RARO";
-                break;
-            default:
+            }
+            default -> {
                 this.is = COMMON_SKULL;
                 translatedRarity = "COMUM";
-                break;
+            }
         }
-        String translatedModifier;
-        switch(bookModifier){
-            case FORTUNE:
-                translatedModifier = "Fortuna";
-                break;
-            case UNBREAKABLE:
-                translatedModifier = "Inquebrável";
-                break;
-            default:
-                translatedModifier = "Eficiência";
-                break;
-        }
+        String translatedModifier = switch (bookModifier) {
+            case FORTUNE -> "Fortuna";
+            case UNBREAKABLE -> "Inquebrável";
+            default -> "Eficiência";
+        };
         ItemMeta meta = is.getItemMeta();
         assert meta != null;
         meta.setDisplayName(ColorUtils.colorize(ChatColor.of("#00DFA2") + "Livro de encantamento"));

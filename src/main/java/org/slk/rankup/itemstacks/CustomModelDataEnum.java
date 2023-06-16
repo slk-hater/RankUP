@@ -3,7 +3,8 @@ package org.slk.rankup.itemstacks;
 public enum CustomModelDataEnum {
     FIREWORK_BOX(6000),
     ENCHATING_BOOK(6001),
-    TICKET(6002);
+    TICKET(6002),
+    MINER(6003);
 
     private final int value;
 
