@@ -1,8 +1,6 @@
 package org.slk.rankup.treasures.listeners;
 
-import com.google.gson.stream.JsonReader;
 import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
@@ -10,12 +8,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
-import org.slk.rankup.Core;
 import org.slk.rankup.treasures.TreasuresManager;
 import org.slk.rankup.treasures.TreasuresMessages;
+import org.slk.rankup.treasures.TreasuresNamespacedKey;
 import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.Serialization;
 
@@ -35,9 +31,9 @@ public class PlayerTeleport implements Listener {
         if(from.getWorld().equals(TreasuresManager.getWorld()) && !to.getWorld().equals(from.getWorld())) {
             // TODO : Load previous inventory
             player.getInventory().clear();
-            if(!player.getPersistentDataContainer().has(new NamespacedKey(Core.getInstance(), "inventoryBase64"), PersistentDataType.STRING)) return;
+            if(!player.getPersistentDataContainer().has(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING)) return;
             try {
-                String base64 = player.getPersistentDataContainer().get(new NamespacedKey(Core.getInstance(), "inventoryBase64"), PersistentDataType.STRING);
+                String base64 = player.getPersistentDataContainer().get(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING);
                 player.sendMessage(" " + base64 + " ");
                 Inventory inv = Serialization.fromBase64(base64);
                 player.getInventory().setContents(inv.getContents());
@@ -54,7 +50,7 @@ public class PlayerTeleport implements Listener {
             // TODO : Save inventory to load after
             String base64 = Serialization.toBase64(player.getInventory());
             player.sendMessage(" " + base64 + " ");
-            player.getPersistentDataContainer().set(new NamespacedKey(Core.getInstance(), "inventoryBase64"), PersistentDataType.STRING, base64);
+            player.getPersistentDataContainer().set(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING, base64);
             player.getInventory().clear();
 
             player.sendMessage("\n" + ChatUtils.good(TreasuresMessages.JOIN_WORLD.get(player)) + "\n ");

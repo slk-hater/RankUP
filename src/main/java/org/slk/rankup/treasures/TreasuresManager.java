@@ -14,7 +14,6 @@ import org.slk.rankup.itemstacks.CustomModelDataEnum;
 import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.ItemStackBuilder;
 
-import java.io.IOException;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
