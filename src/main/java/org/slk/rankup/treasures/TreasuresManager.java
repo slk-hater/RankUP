@@ -27,7 +27,7 @@ public class TreasuresManager {
     public static double CHANCE_TREASURE = 0.4D; // 60%
     public static double CHANCE_GEM = 0.8D; // 20%
 
-    public static HashMap<Player, LocalDateTime> TIME_MAP = new HashMap<>();
+    public static HashMap<Player, LocalDateTime> JOINED_DATE_MAP = new HashMap<>();
     public static HashMap<Player, Integer> CUSTOM_DURATION_MAP = new HashMap<>();
     static BukkitTask TIMER;
     public static HashMap<Player, Location> LOCKED_TREASURE = new HashMap<>();
@@ -41,8 +41,8 @@ public class TreasuresManager {
     }
 
     public static Duration getTimeLeft(Player player){
-        if(!CUSTOM_DURATION_MAP.containsKey(player)) return Duration.between(LocalDateTime.now(), TIME_MAP.get(player).plusMinutes(DURATION_MINUTES));
-        else return Duration.between(LocalDateTime.now(), TIME_MAP.get(player).plusMinutes(CUSTOM_DURATION_MAP.get(player)));
+        if(!CUSTOM_DURATION_MAP.containsKey(player)) return Duration.between(LocalDateTime.now(), JOINED_DATE_MAP.get(player).plusMinutes(DURATION_MINUTES));
+        else return Duration.between(LocalDateTime.now(), JOINED_DATE_MAP.get(player).plusMinutes(CUSTOM_DURATION_MAP.get(player)));
     }
     static void createWorld(){
         World world = Bukkit.getServer().getWorld(NAME);
@@ -70,9 +70,8 @@ public class TreasuresManager {
         if(world != null) Bukkit.unloadWorld(world, false);
 
         Core.getInstance().getLogger().info("A deletar o mundo de Tesouros...");
-        try {
-            FileUtils.deleteDirectory(world.getWorldFolder());
-        }catch(Exception ignored) { }
+        try { FileUtils.deleteDirectory(world.getWorldFolder()); }
+        catch(Exception e) { e.printStackTrace(); }
     }
     public static void setup(){
         deleteWorld();
@@ -101,7 +100,7 @@ public class TreasuresManager {
                             player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
                         else*/
                     if (diff.toMinutes() >= minutes) {
-                        TIME_MAP.remove(player);
+                        JOINED_DATE_MAP.remove(player);
                         CUSTOM_DURATION_MAP.remove(player);
                         player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
                         player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
