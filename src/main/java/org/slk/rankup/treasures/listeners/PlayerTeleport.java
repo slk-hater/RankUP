@@ -42,8 +42,7 @@ public class PlayerTeleport implements Listener {
             return;
         }
 
-        if(to.getWorld().equals(TreasuresManager.getWorld())) {
-            if (to.getWorld().equals(from.getWorld())) return;
+        if(to.getWorld().equals(TreasuresManager.getWorld()) && !from.getWorld().equals(to.getWorld())) {
             TreasuresManager.setupTimer();
             TreasuresManager.JOINED_DATE_MAP.put(player, LocalDateTime.now());
 

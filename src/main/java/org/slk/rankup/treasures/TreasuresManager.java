@@ -94,7 +94,7 @@ public class TreasuresManager {
 
                     int minutes;
                     if(!CUSTOM_DURATION_MAP.containsKey(player)) minutes = DURATION_MINUTES;
-                    else  minutes = CUSTOM_DURATION_MAP.get(player);
+                    else minutes = CUSTOM_DURATION_MAP.get(player);
                         /*if (diff.toMinutes() <= minutes / 2 && diff.toMinutes() < minutes)
                             player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
                         else*/
