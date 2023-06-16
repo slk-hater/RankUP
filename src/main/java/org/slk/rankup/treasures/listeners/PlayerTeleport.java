@@ -29,7 +29,6 @@ public class PlayerTeleport implements Listener {
         if(to == null || to.getWorld() == null) return;
         if(from.getWorld() == null) return;
 
-        // ?!
         if(from.getWorld().equals(TreasuresManager.getWorld()) && !to.getWorld().equals(from.getWorld())) {
             player.getInventory().clear();
             if(!player.getPersistentDataContainer().has(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING)) return;
