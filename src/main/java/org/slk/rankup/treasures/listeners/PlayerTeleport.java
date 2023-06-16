@@ -35,7 +35,6 @@ public class PlayerTeleport implements Listener {
         if(from.getWorld().equals(TreasuresManager.getWorld()) && !to.getWorld().equals(from.getWorld())) {
             // TODO : Load previous inventory
             player.getInventory().clear();
-
             if(!player.getPersistentDataContainer().has(new NamespacedKey(Core.getInstance(), "inventoryBase64"), PersistentDataType.STRING)) return;
             try {
                 String base64 = player.getPersistentDataContainer().get(new NamespacedKey(Core.getInstance(), "inventoryBase64"), PersistentDataType.STRING);
