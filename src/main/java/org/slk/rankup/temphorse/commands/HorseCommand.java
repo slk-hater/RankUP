@@ -1,21 +1,16 @@
 package org.slk.rankup.temphorse.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 import org.slk.rankup.temphorse.HorsesManager;
 import org.slk.rankup.utils.ChatUtils;
 
 import java.util.List;
-import java.util.Random;
 
 public class HorseCommand extends Command {
     public HorseCommand(){
