@@ -34,7 +34,7 @@ public class BlockBreak implements Listener {
                     block.setType(Material.AIR);
                     break;
                 }
-                if(!owner.equals(player)) {
+                else if(!owner.equals(player)) {
                     player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
                     break;
                 }
