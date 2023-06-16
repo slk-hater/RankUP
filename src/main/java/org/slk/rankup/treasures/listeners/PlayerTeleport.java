@@ -8,6 +8,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.slk.rankup.treasures.TreasuresManager;
 import org.slk.rankup.treasures.TreasuresMessages;
@@ -16,6 +17,7 @@ import org.slk.rankup.utils.ChatUtils;
 import org.slk.rankup.utils.Serialization;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
 
 public class PlayerTeleport implements Listener {
     @EventHandler
@@ -29,14 +31,14 @@ public class PlayerTeleport implements Listener {
 
         // ?!
         if(from.getWorld().equals(TreasuresManager.getWorld()) && !to.getWorld().equals(from.getWorld())) {
-            // TODO : Load previous inventory
             player.getInventory().clear();
             if(!player.getPersistentDataContainer().has(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING)) return;
             try {
                 String base64 = player.getPersistentDataContainer().get(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING);
-                player.sendMessage(" " + base64 + " ");
-                Inventory inv = Serialization.fromBase64(base64);
-                player.getInventory().setContents(inv.getContents());
+                ItemStack[] items = Serialization.itemStackArrayFromBase64(base64.split("//")[0]);
+                ItemStack[] armor = Serialization.itemStackArrayFromBase64(base64.split("//")[1]);
+                player.getInventory().setContents(items);
+                player.getInventory().setArmorContents(armor);
             }
             catch (Exception e) { e.printStackTrace(); }
             return;
@@ -46,10 +48,9 @@ public class PlayerTeleport implements Listener {
             TreasuresManager.setupTimer();
             TreasuresManager.JOINED_DATE_MAP.put(player, LocalDateTime.now());
 
-            // TODO : Save inventory to load after
-            String base64 = Serialization.toBase64(player.getInventory());
-            player.sendMessage(" " + base64 + " ");
-            player.getPersistentDataContainer().set(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING, base64);
+            String[] base64 = Serialization.playerInventoryToBase64(player.getInventory());
+            String res = base64[0] + "//" + base64[1];
+            player.getPersistentDataContainer().set(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING, res);
             player.getInventory().clear();
 
             player.sendMessage("\n" + ChatUtils.good(TreasuresMessages.JOIN_WORLD.get(player)) + "\n ");
