@@ -2,9 +2,6 @@ package org.slk.rankup.treasures;
 
 import org.bukkit.entity.Player;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-
 public enum TreasuresMessages {
     JOIN_WORLD("Bem-vindo ao mundo de Tesouros, aqui vais encontrar diversas recompensas. Tens apenas &e%timeLeft% minutos&r para encontrar o máximo" +
             " de tesouros que conseguires e lembra-te que a &eBússola&r é a chave para o teu sucesso, boa sorte."),
