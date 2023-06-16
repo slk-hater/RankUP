@@ -26,10 +26,11 @@ public class TreasuresManager {
     public static double CHANCE_TREASURE = 0.4D; // 60%
     public static double CHANCE_GEM = 0.8D; // 20%
 
+    static BukkitTask TIMER;
     public static HashMap<Player, LocalDateTime> JOINED_DATE_MAP = new HashMap<>();
     public static HashMap<Player, Integer> CUSTOM_DURATION_MAP = new HashMap<>();
-    static BukkitTask TIMER;
     public static HashMap<Player, Location> LOCKED_TREASURE = new HashMap<>();
+    static List<Player> WARNED_PLAYERS = new ArrayList<>();
 
     public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fMundo dos Tesouros\n&7Duração &f" + DURATION_MINUTES + " minutos\n\n&8Clica com o botão direito para usar");
     static{
@@ -95,12 +96,14 @@ public class TreasuresManager {
                     int minutes;
                     if(!CUSTOM_DURATION_MAP.containsKey(player)) minutes = DURATION_MINUTES;
                     else minutes = CUSTOM_DURATION_MAP.get(player);
-                        /*if (diff.toMinutes() <= minutes / 2 && diff.toMinutes() < minutes)
-                            player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
-                        else*/
+                    if (diff.toMinutes() <= minutes / 2 && diff.toMinutes() < minutes && !WARNED_PLAYERS.contains(player)) {
+                        WARNED_PLAYERS.add(player);
+                        player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
+                    }
                     if (diff.toMinutes() >= minutes) {
                         JOINED_DATE_MAP.remove(player);
                         CUSTOM_DURATION_MAP.remove(player);
+                        WARNED_PLAYERS.remove(player);
                         player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
                         player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
                         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
@@ -109,12 +112,11 @@ public class TreasuresManager {
 
                     //region Spawn treasure
                     if(!LOCKED_TREASURE.containsKey(player)){
-                        double chance = Math.random();
-                        if (chance > CHANCE_TREASURE) {
-                            Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 200)), rnd.nextInt(92, 103), rnd.nextInt((int) (player.getLocation().getZ() + 200)));
-                            getWorld().getBlockAt(loc).setType(Material.SAND);
-                            LOCKED_TREASURE.put(player, loc);
-                        }
+                        if (Math.random() < CHANCE_TREASURE) return;
+
+                        Location loc = new Location(getWorld(), rnd.nextInt((int) (player.getLocation().getX() + 200)), rnd.nextInt(92, 103), rnd.nextInt((int) (player.getLocation().getZ() + 200)));
+                        getWorld().getBlockAt(loc).setType(Material.SAND);
+                        LOCKED_TREASURE.put(player, loc);
                     }
                     //endregion
                 }

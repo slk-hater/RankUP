@@ -30,12 +30,11 @@ public class BlockBreak implements Listener {
                 for(Player p : TreasuresManager.LOCKED_TREASURE.keySet())
                     if(TreasuresManager.LOCKED_TREASURE.get(p).equals(block.getLocation()))
                         owner = p;
-                if(owner == null || !owner.equals(player)){
-                    player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
-                    if(owner != null)
-                        player.sendMessage("debug: " + owner.getName());
-                    return;
+                if(owner == null) {
+                    block.setType(Material.AIR);
+                    break;
                 }
+                if(!owner.equals(player)) player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#95D4FF") + "Encontras-te um tesouro!")));
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.3f, 1f);
                 TreasuresManager.LOCKED_TREASURE.remove(player);
@@ -45,9 +44,8 @@ public class BlockBreak implements Listener {
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 0.3f, 1f);
                 break;
             default:
-                double chance = Math.random();
-                if(chance >= TreasuresManager.CHANCE_GEM)
-                    player.getTargetBlock(null, 4).setType(Material.AMETHYST_CLUSTER);
+                if(Math.random() < TreasuresManager.CHANCE_GEM) break;
+                player.getTargetBlock(null, 4).setType(Material.AMETHYST_CLUSTER);
                 break;
         }
     }
