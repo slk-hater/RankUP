@@ -31,7 +31,6 @@ public class BlockBreak implements Listener {
                     if(TreasuresManager.LOCKED_TREASURE.get(p).equals(block.getLocation()))
                         owner = p;
                 if(owner == null) {
-                    event.setCancelled(true);
                     block.setType(Material.AIR);
                     break;
                 }
