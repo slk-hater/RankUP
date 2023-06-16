@@ -19,6 +19,7 @@ public class InventoryCloseInCustomAnvil implements Listener {
         InventoryView view = event.getView();
 
         if(!view.getTitle().equals(CustomAnvilInventory.NAME)) return;
+
         List<Integer> keepSlots = CustomAnvilInventory.KEEP_SLOTS;
 
         for(int keepSlot : keepSlots){
