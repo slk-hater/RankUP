@@ -38,7 +38,7 @@ public class HorseCommand extends Command {
         horse.setBreed(false);
         horse.setCanPickupItems(false);
         horse.setOwner(player);
-        horse.getInventory().setArmor(new ItemStack(Material.LEATHER_HORSE_ARMOR));
+        horse.getInventory().setArmor(new ItemStack(Material.IRON_HORSE_ARMOR));
         horse.getInventory().setSaddle(new ItemStack(Material.SADDLE));
         horse.addPassenger(player);
         HorsesManager.getMap().put(player, horse);
