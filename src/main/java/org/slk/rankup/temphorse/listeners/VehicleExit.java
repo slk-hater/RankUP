@@ -14,9 +14,11 @@ public class VehicleExit implements Listener {
         if(!(event.getVehicle() instanceof Horse horse)) return;
 
         HorsesManager.getMap().remove(player);
+        horse.teleport(horse.getLocation().add(0, -300, 0));
         horse.getInventory().clear();
         horse.setInvisible(true);
         horse.setSilent(true);
+        horse.setCollidable(false);
         horse.setHealth(0);
     }
 }
