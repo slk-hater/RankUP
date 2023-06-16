@@ -124,7 +124,7 @@ public final class Core extends JavaPlugin {
             board.updateTitle(ColorUtils.colorize("&a&lRANK UP"));
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#3498DB") + "★ 0"),
+                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ 0"),
                     ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
                     ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
                     ColorUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
