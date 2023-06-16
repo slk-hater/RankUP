@@ -30,11 +30,10 @@ public class HorseCommand extends Command {
             return true;
         }
 
-        Random random = new Random();
         player.playSound(player, Sound.ENTITY_HORSE_AMBIENT, 0.3f, 1f);
         Horse horse = (Horse) player.getWorld().spawnEntity(player.getLocation(), EntityType.HORSE);
-        horse.setColor(Horse.Color.values()[random.nextInt(Horse.Color.values().length)]);
-        horse.setStyle(Horse.Style.values()[random.nextInt(Horse.Style.values().length)]);
+        horse.setColor(Horse.Color.values()[(int)Math.round(Math.random()*Horse.Color.values().length)]);
+        horse.setStyle(Horse.Style.values()[(int)Math.round(Math.random()*Horse.Style.values().length)]);
         horse.setCustomName("Cavalo de " + player.getName());
         horse.setCustomNameVisible(true);
         horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue()+0.1);
