@@ -24,32 +24,31 @@ public class BlockBreak implements Listener {
 
         event.setDropItems(false);
 
-        switch(block.getType()){
-            case SAND:
+        switch (block.getType()) {
+            case SAND -> {
                 Player owner = null;
-                for(Player p : TreasuresManager.LOCKED_TREASURE.keySet())
-                    if(TreasuresManager.LOCKED_TREASURE.get(p).equals(block.getLocation()))
+                for (Player p : TreasuresManager.LOCKED_TREASURE.keySet())
+                    if (TreasuresManager.LOCKED_TREASURE.get(p).equals(block.getLocation()))
                         owner = p;
-                if(owner == null) {
+                if (owner == null) {
                     block.setType(Material.AIR);
                     break;
-                }
-                else if(!owner.equals(player)) {
+                } else if (!owner.equals(player)) {
                     player.sendMessage(ChatUtils.error("Este tesouro não é teu!"));
                     break;
                 }
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#95D4FF") + "Encontras-te um tesouro!")));
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_XYLOPHONE, 0.3f, 1f);
                 TreasuresManager.LOCKED_TREASURE.remove(player);
-                break;
-            case AMETHYST_CLUSTER:
+            }
+            case AMETHYST_CLUSTER -> {
                 player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(ColorUtils.colorize(ChatColor.of("#625589") + "Encontras-te uma gema!")));
                 player.playSound(player, Sound.BLOCK_NOTE_BLOCK_PLING, 0.3f, 1f);
-                break;
-            default:
-                if(Math.random() < TreasuresManager.CHANCE_GEM) break;
+            }
+            default -> {
+                if (Math.random() < TreasuresManager.CHANCE_GEM) break;
                 player.getTargetBlock(null, 4).setType(Material.AMETHYST_CLUSTER);
-                break;
+            }
         }
     }
 }
