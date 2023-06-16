@@ -94,24 +94,18 @@ public class TreasuresManager {
                     //region Check time left
                     Duration diff = getTimeLeft(player);
 
-                    if(!CUSTOM_DURATION_MAP.containsKey(player)) {
-                        /*if (diff.toMinutes() == DURATION_MINUTES / 2 && diff.toMinutes() < DURATION_MINUTES)
-                            player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
-                        else*/if (diff.toMinutes() >= DURATION_MINUTES) {
-                            TIME_MAP.remove(player);
-                            player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                            player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
-                        }
-                    } else {
-                        int minutes = CUSTOM_DURATION_MAP.get(player);
+                    int minutes;
+                    if(!CUSTOM_DURATION_MAP.containsKey(player)) minutes = DURATION_MINUTES;
+                    else  minutes = CUSTOM_DURATION_MAP.get(player);
                         /*if (diff.toMinutes() <= minutes / 2 && diff.toMinutes() < minutes)
                             player.sendMessage(ChatUtils.info(TreasuresMessages.TIME_LEFT.get(player)));
-                        else*/if (diff.toMinutes() >= minutes) {
-                            TIME_MAP.remove(player);
-                            CUSTOM_DURATION_MAP.remove(player);
-                            player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
-                            player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
-                        }
+                        else*/
+                    if (diff.toMinutes() >= minutes) {
+                        TIME_MAP.remove(player);
+                        CUSTOM_DURATION_MAP.remove(player);
+                        player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
+                        player.sendMessage(ChatUtils.info(TreasuresMessages.LEAVE_WORLD_TIME.getRaw()));
+                        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
                     }
                     //endregion
 
