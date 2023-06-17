@@ -32,7 +32,7 @@ public class TreasuresManager {
     public static HashMap<Player, Location> LOCKED_TREASURE = new HashMap<>();
     static List<Player> WARNED_PLAYERS = new ArrayList<>();
 
-    public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fMundo dos Tesouros\n&7Duração &f" + DURATION_MINUTES + " minutos\n\n&8Clica com o botão direito para usar");
+    public static ItemStack TICKET = ItemStackBuilder.build(Material.PAPER, 1, ChatColor.of("#BFFF40") + "Passagem", "&7Destino &fMundo dos Tesouros\n&7Duração &f" + DURATION_MINUTES + " minutos\n\n&8Botão direito para usar");
     static{
         ItemMeta meta = TICKET.getItemMeta();
         if(meta != null)

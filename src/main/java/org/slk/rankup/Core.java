@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.reflections.Reflections;
+import org.slk.rankup.miners.MinersManager;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.treasures.TreasuresManager;
 import org.slk.rankup.treasures.TreasuresMessages;
@@ -40,6 +41,7 @@ public final class Core extends JavaPlugin {
         loadCommands();
 
         TreasuresManager.setup();
+        MinersManager.setup();
 
         //region Runnables
         (new BukkitRunnable() {
