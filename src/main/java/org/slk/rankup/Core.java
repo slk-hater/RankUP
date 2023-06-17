@@ -127,7 +127,7 @@ public final class Core extends JavaPlugin {
                     ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ 0"),
                     ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
                     ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
-                    ColorUtils.colorize("      " + Rank.getNextRankProgressSymbols(player)),
+                    ColorUtils.colorize("       " + Rank.getNextRankProgressSymbols(player)),
                     "",
                     ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(25000)),
                     ColorUtils.colorize(" &fGemas: " + ChatColor.of("#7859b1") + "♦ 0"),

@@ -13,6 +13,7 @@ import java.util.List;
 
 public class Fuel {
     static final int BASE_DURATION = 60;
+    static String DESCRIPTION = "&7Duração &f%duration%";
 
     int duration;
     final ItemStack is;
@@ -20,8 +21,8 @@ public class Fuel {
     public Fuel(){
         this.is = ItemStackBuilder.build(Material.COAL,
                 1,
-                ChatColor.of("#36454F")+"Combustível",
-                "&7Aplicavél a &fMineradores\n&7Duração &f"+getDuration());
+                ChatColor.of("#36454F")+"Combustível fóssil",
+                DESCRIPTION.replace("%duration%", String.valueOf(getDuration())));
         ItemMeta meta = getItemStack().getItemMeta();
         if(meta == null) return;
         meta.setCustomModelData(CustomModelDataEnum.FUEL.get());
@@ -45,7 +46,7 @@ public class Fuel {
 
         ItemMeta meta = getItemStack().getItemMeta();
         if(meta == null) return;
-        String lore = "&7Aplicavél a &fMineradores\n&7Duração &f" + durationStr;
+        String lore = DESCRIPTION.replace("%duration%", durationStr);
         List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
         loreRes.replaceAll(ColorUtils::colorize);
         meta.setLore(loreRes);

@@ -14,7 +14,7 @@ import java.util.UUID;
 public class Miner {
     public enum MinerType {BASIC, ADVANCED}
 
-    static ItemStack SKULL = ItemStackBuilder.getSkull(
+    public static ItemStack SKULL = ItemStackBuilder.getSkull(
             "http://textures.minecraft.net/texture/fc82742b2a17eebdeaad2b95e566a5f0250c3557429f6a39a79b6ab8bf8",
             UUID.fromString("da05b761-b174-4ef6-b5e3-de5342f41fc8"));
     static int BASE_SPEED = 1;
@@ -32,6 +32,7 @@ public class Miner {
         ItemMeta meta = getItemStack().getItemMeta();
         if(meta == null) return;
         meta.setCustomModelData(CustomModelDataEnum.MINER.get());
+        getItemStack().setItemMeta(meta);
     }
 
     public static int getBaseSpeed() { return BASE_SPEED; }
