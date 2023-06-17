@@ -40,12 +40,13 @@ public class Miner {
     public MinerType getType() { return this.minerType; }
     public void setType(MinerType minerType) {
         this.minerType = minerType;
-        ItemMeta meta = is.getItemMeta();
+        ItemMeta meta = getItemStack().getItemMeta();
         if (meta == null) return;
         switch (minerType) {
             case ADVANCED -> meta.setDisplayName(ChatColor.of("#f5f190") + "Minerador avançado");
             default -> meta.setDisplayName(ChatColor.of("#f5f190") + "Minerador básico");
         }
+        this.getItemStack().setItemMeta(meta);
     }
     public int getSpeed() { return this.speed; }
     public void setSpeed(int speed) {
@@ -53,10 +54,11 @@ public class Miner {
         ItemMeta meta = getItemStack().getItemMeta();
         if(meta == null) return;
         String blocks = speed == 1 ? "bloco" : "blocos";
-        String lore = "&7Velocidade &f" + speed + " " + blocks + "/s\n&8Clica com o botão direito no chão para colocar";
+        String lore = "&7Velocidade &f" + speed + " " + blocks + "/s\n\n&8Botão direito no chão para posicionar";
         List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
         loreRes.replaceAll(ColorUtils::colorize);
         meta.setLore(loreRes);
+        getItemStack().setItemMeta(meta);
     }
     public ItemStack getItemStack() { return this.is; }
 }

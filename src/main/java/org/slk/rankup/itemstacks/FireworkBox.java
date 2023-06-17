@@ -12,32 +12,47 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-public class FireworkBox implements IPlaceable {
+public class FireworkBox {
     static ItemStack IS = ItemStackBuilder.getSkull("http://textures.minecraft.net/texture/b55ea43e592785d016acdeea9a4a6f9cf22c2753e695405e8c83d2e09ebcf647", UUID.fromString("4db1d6a8-0975-4b1c-bc5e-ea61edf2a11b"));
-    public static final int DURATION = 25;
+    static final int BASE_DURATION = 25;
+    static final int MAX_DURATION = 300;
+
+    int duration;
+    final ItemStack is;
 
     public FireworkBox() {
-        ItemMeta meta = IS.getItemMeta();
+        this.is = IS.clone();
+
+        ItemMeta meta = this.is.getItemMeta();
         assert meta != null;
         meta.setDisplayName(ColorUtils.colorize(ChatColor.of("#F46D75") + "Caixa de foguetes"));
-        String lore = "&7Duração &f" + DURATION + "s";
+        meta.setCustomModelData(CustomModelDataEnum.FIREWORK_BOX.get());
+        this.is.setItemMeta(meta);
+
+        setDuration(BASE_DURATION);
+    }
+    public static int getBaseDuration() { return BASE_DURATION; }
+    public static int getMaxDuration() { return MAX_DURATION; }
+
+    public int getDuration() { return this.duration; }
+    public void setDuration(int seconds) {
+        this.duration = Math.min(seconds, MAX_DURATION);
+        String durationStr = "&e";
+        int h = getDuration()/3600;
+        int r = getDuration()-h * 3600;
+        int m = r/60;
+        r = r - m * 60;
+        int s = r;
+        if(h > 0) durationStr += h + "h ";
+        if(m > 0) durationStr += m + "m ";
+        if(s > 0) durationStr += s + "s ";
+        ItemMeta meta = getItemStack().getItemMeta();
+        if(meta == null) return;
+        String lore = "&7Duração &f" + durationStr + "\n\n&8Botão direito no chão para posicionar";
         List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
         loreRes.replaceAll(ColorUtils::colorize);
         meta.setLore(loreRes);
-        meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
-        meta.setCustomModelData(CustomModelDataEnum.FIREWORK_BOX.get());
-        IS.setItemMeta(meta);
+        getItemStack().setItemMeta(meta);
     }
-
-    public ItemStack getItemStack() { return IS; }
-
-    @Override
-    public void onPlaced() {
-
-    }
-
-    @Override
-    public void onDestroyed() {
-
-    }
+    public ItemStack getItemStack() { return this.is; }
 }

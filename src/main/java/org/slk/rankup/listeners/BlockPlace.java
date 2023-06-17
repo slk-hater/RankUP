@@ -1,5 +1,6 @@
 package org.slk.rankup.listeners;
 
+import net.md_5.bungee.api.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -27,12 +28,13 @@ public class BlockPlace implements Listener {
         /*IPlaceable placeable = (IPlaceable) is;
         Bukkit.broadcastMessage(placeable.toString());*/
         if(meta.getCustomModelData() == CustomModelDataEnum.FIREWORK_BOX.get()){
+            int duration = Integer.parseInt(ChatColor.stripColor(meta.getLore().get(0)).replaceAll("[^0-9]", ""));
             (new BukkitRunnable() {
                 public int tick = 0;
                 public void run() {
                     tick++;
                     if(block.getType() == Material.AIR) this.cancel();
-                    if(tick >= FireworkBox.DURATION) {
+                    if(tick >= duration) {
                         block.setType(Material.AIR);
                         block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.GUNPOWDER, new Random().nextInt(1,3)));
                         this.cancel();
