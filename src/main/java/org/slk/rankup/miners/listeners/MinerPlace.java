@@ -67,9 +67,9 @@ public class MinerPlace implements Listener {
         as.setBoots(boots);
 
         Miner.MinerType reverseType;
-        if (ChatColor.stripColor(heldItemMeta.getDisplayName().split(" ")[1]).toUpperCase().equals("AVANÇADO")) reverseType = Miner.MinerType.ADVANCED;
+        if (ChatColor.stripColor(heldItemMeta.getLore().get(1)).toUpperCase().equals("AVANÇADO")) reverseType = Miner.MinerType.ADVANCED;
         else reverseType = Miner.MinerType.BASIC;
-        int speed = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(0)).replaceAll("[^0-9]", ""));
+        int speed = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(1)).replaceAll("[^0-9]", ""));
 
         YamlConfiguration configuration = MinersManager.getConfiguration();
         configuration.set("miners."+as.getLocation()+".owner", player.getName());
