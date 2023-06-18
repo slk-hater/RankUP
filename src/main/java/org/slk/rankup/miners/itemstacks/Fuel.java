@@ -34,7 +34,7 @@ public class Fuel {
     public int getDuration() { return this.duration; }
     public void setDuration(int seconds) {
         this.duration = seconds;
-        String durationStr = "&e";
+        String durationStr = "&f";
         int h = getDuration()/3600;
         int r = getDuration()-h * 3600;
         int m = r/60;

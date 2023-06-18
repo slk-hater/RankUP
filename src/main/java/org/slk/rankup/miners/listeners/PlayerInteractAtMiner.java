@@ -12,7 +12,7 @@ public class PlayerInteractAtMiner implements Listener {
     @EventHandler
     public void onPlayerInteractAtMiner(PlayerInteractAtEntityEvent event){
         if(!(event.getRightClicked() instanceof ArmorStand as)) return;
-        if(MinersManager.getConfiguration().get("miners."+as.getLocation()) == null) return;
+        if(!MinersManager.hasMiner(as)) return;
 
         // TODO : Upgrades (Control remoto de maquina, velocidade, eficiencia combustivel)
         Player player = event.getPlayer();
