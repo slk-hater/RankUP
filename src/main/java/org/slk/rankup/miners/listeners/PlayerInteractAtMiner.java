@@ -1,12 +1,12 @@
 package org.slk.rankup.miners.listeners;
 
-import org.bukkit.Bukkit;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.slk.rankup.miners.MinersManager;
+import org.slk.rankup.miners.inventories.MinerDashboardInventory;
 
 public class PlayerInteractAtMiner implements Listener {
     @EventHandler
@@ -14,8 +14,9 @@ public class PlayerInteractAtMiner implements Listener {
         if(!(event.getRightClicked() instanceof ArmorStand as)) return;
         if(MinersManager.getConfiguration().get("miners."+as.getLocation()) == null) return;
 
+        // TODO : Upgrades (Control remoto de maquina, velocidade, eficiencia combustivel)
         Player player = event.getPlayer();
         event.setCancelled(true);
-        player.openInventory(Bukkit.createInventory(player, 9*1, "Minerador"));
+        player.openInventory(MinerDashboardInventory.cloneInventory());
     }
 }

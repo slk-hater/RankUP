@@ -72,8 +72,11 @@ public class MinerPlace implements Listener {
         int speed = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(0)).replaceAll("[^0-9]", ""));
 
         YamlConfiguration configuration = MinersManager.getConfiguration();
+        configuration.set("miners."+as.getLocation()+".owner", player.getName());
+        configuration.set("miners."+as.getLocation()+".enabled", false);
         configuration.set("miners."+as.getLocation()+".type", reverseType.toString());
         configuration.set("miners."+as.getLocation()+".speed", speed);
+        configuration.set("miners."+as.getLocation()+".fuel", 0);
         try{ configuration.save(MinersManager.getDataFile()); }
         catch(Exception e) { e.printStackTrace(); }
     }
