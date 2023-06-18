@@ -21,6 +21,8 @@ public class MinerDashboardInventory {
                 inv.setItem(i, FILL_ITEMSTACK);
             }
         }
+        //https://minecraft-heads.com/custom-heads/decoration/17952-spruce-crate
+        //https://minecraft-heads.com/custom-heads/blocks/23062-coal-ore
         inv.setItem(0, ItemStackBuilder.build(Material.GREEN_STAINED_GLASS_PANE, 1, "&aLigar", "&8Clica para ligar o minerador"));
         inv.setItem(10, ItemStackBuilder.build(Material.NETHER_STAR, 1, "&eAprimoramentos", "&8Página de aprimoramentos"));
         inv.setItem(12, ItemStackBuilder.build(Material.COAL, 1, "&eCombustível", "&8Página de manuseio de combustível"));
