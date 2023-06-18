@@ -11,6 +11,6 @@ public class ArmorStandDamage implements Listener {
     public void onArmorStandDamage(EntityDamageEvent event){
         if(!(event.getEntity() instanceof ArmorStand as)) return;
 
-        event.setCancelled(MinersManager.hasMiner(as));
+        event.setCancelled(MinersManager.hasMiner(as.getLocation()));
     }
 }

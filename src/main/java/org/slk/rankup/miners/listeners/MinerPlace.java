@@ -44,6 +44,6 @@ public class MinerPlace implements Listener {
         else type = Miner.MinerType.BASIC;
         int speed = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(1)).replaceAll("[^0-9]", ""));
 
-        MinersManager.saveMiner(as, player, type, speed);
+        MinersManager.createMiner(as.getLocation(), player, type, speed);
     }
 }

@@ -4,6 +4,7 @@ import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Particle;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -15,8 +16,11 @@ import org.slk.rankup.miners.itemstacks.Miner;
 import org.slk.rankup.utils.ColorUtils;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MinersManager {
+    public static Map<Player, Location> MANAGING_MAP = new HashMap<>();
     static File DATA_FILE = new File("data/miners", "data.yml");
 
     public static void setup(){
@@ -32,6 +36,10 @@ public class MinersManager {
         if(!DATA_FILE.exists()) setup();
         return YamlConfiguration.loadConfiguration(DATA_FILE);
     }
+    public static void saveConfiguration(){
+        try { getConfiguration().save(DATA_FILE); }
+        catch(Exception e) { e.printStackTrace(); }
+    }
 
     public static ArmorStand spawnMiner(Location location){
         ArmorStand as = (ArmorStand) location.getWorld().spawnEntity(location.add(0.5, 0.9, 0.5), EntityType.ARMOR_STAND);
@@ -43,8 +51,9 @@ public class MinersManager {
         as.setCanPickupItems(false);
         as.setCustomName(ColorUtils.colorize("&eMinerador"));
         as.setCustomNameVisible(true);
+        as.setRemoveWhenFarAway(false);
         as.setHelmet(Miner.SKULL);
-        as.setItemInHand(new ItemStack(Material.DIAMOND_PICKAXE));
+        as.setItemInHand(new ItemStack(Material.GOLDEN_PICKAXE));
 
         ItemStack chestplate = new ItemStack(Material.LEATHER_CHESTPLATE);
         LeatherArmorMeta meta = (LeatherArmorMeta) chestplate.getItemMeta();
@@ -67,16 +76,22 @@ public class MinersManager {
         as.getLocation().getWorld().spawnParticle(Particle.CLOUD, as.getLocation(), 100);
         return as;
     }
-    public static void saveMiner(ArmorStand as, Player player, Miner.MinerType type, int speed){
+    public static void createMiner(Location location, Player player, Miner.MinerType type, int speed){
         YamlConfiguration configuration = MinersManager.getConfiguration();
-        configuration.set("miners."+as.getLocation()+".owner", player.getName());
-        configuration.set("miners."+as.getLocation()+".enabled", false);
-        configuration.set("miners."+as.getLocation()+".type", type.toString());
-        configuration.set("miners."+as.getLocation()+".speed", speed);
-        configuration.set("miners."+as.getLocation()+".fuel", 0);
-        configuration.set("miners."+as.getLocation()+".remoteControl", false);
+        configuration.set("miners."+location+".owner", player.getName());
+        configuration.set("miners."+location+".enabled", false);
+        configuration.set("miners."+location+".type", type.toString());
+        configuration.set("miners."+location+".speed", speed);
+        configuration.set("miners."+location+".fuel", 0);
+        configuration.set("miners."+location+".remoteControl", false);
+        configuration.set("miners."+location+".storage", 0);
+        configuration.set("miners."+location+".maxStorage", 500);
         try{ configuration.save(MinersManager.getDataFile()); }
         catch(Exception e) { e.printStackTrace(); }
     }
-    public static boolean hasMiner(ArmorStand as){ return MinersManager.getConfiguration().get("miners."+as.getLocation()) != null; }
+    public static boolean hasMiner(Location location){ return MinersManager.getConfiguration().get("miners."+location) != null; }
+    public static ConfigurationSection getMinerConfiguration(Location location){
+        YamlConfiguration configuration = MinersManager.getConfiguration();
+        return configuration.getConfigurationSection("miners."+location);
+    }
 }

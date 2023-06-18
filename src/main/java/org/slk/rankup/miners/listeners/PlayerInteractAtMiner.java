@@ -13,12 +13,13 @@ public class PlayerInteractAtMiner implements Listener {
     @EventHandler
     public void onPlayerInteractAtMiner(PlayerInteractAtEntityEvent event){
         if(!(event.getRightClicked() instanceof ArmorStand as)) return;
-        if(!MinersManager.hasMiner(as)) return;
+        if(!MinersManager.hasMiner(as.getLocation())) return;
 
-        // TODO : Upgrades (Control remoto de maquina, velocidade, eficiencia combustivel)
+        // TODO : Upgrades (Control remoto de maquina, velocidade, capacidade de items)
         Player player = event.getPlayer();
         event.setCancelled(true);
         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
+        MinersManager.MANAGING_MAP.put(player, as.getLocation());
         player.openInventory(MinerDashboardInventory.cloneInventory());
     }
 }

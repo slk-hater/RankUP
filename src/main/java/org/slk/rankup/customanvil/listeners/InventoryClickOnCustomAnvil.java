@@ -25,7 +25,7 @@ public class InventoryClickOnCustomAnvil implements Listener {
         InventoryAction action = event.getAction();
         int clickedSlot = event.getSlot();
 
-        if(clickedInventory == null) return;
+        if(event.getClickedInventory() == null) return;
         //if(clickedInventory != topInventory) return;
         if(!view.getTitle().equals(CustomAnvilInventory.NAME)) return;
         if(event.isShiftClick()) {
