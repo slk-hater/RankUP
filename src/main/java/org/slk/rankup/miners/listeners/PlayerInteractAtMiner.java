@@ -1,5 +1,6 @@
 package org.slk.rankup.miners.listeners;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +18,7 @@ public class PlayerInteractAtMiner implements Listener {
         // TODO : Upgrades (Control remoto de maquina, velocidade, eficiencia combustivel)
         Player player = event.getPlayer();
         event.setCancelled(true);
+        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
         player.openInventory(MinerDashboardInventory.cloneInventory());
     }
 }
