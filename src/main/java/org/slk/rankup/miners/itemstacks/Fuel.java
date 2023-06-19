@@ -19,7 +19,7 @@ public class Fuel {
     final ItemStack is;
 
     public Fuel(){
-        this.is = ItemStackBuilder.build(Material.COAL,
+        this.is = ItemStackBuilder.build(Material.CHARCOAL,
                 1,
                 ChatColor.of("#36454F")+"Combustível fóssil",
                 DESCRIPTION.replace("%duration%", String.valueOf(getDuration())));
