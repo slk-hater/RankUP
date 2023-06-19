@@ -34,7 +34,7 @@ public class DashboardInventoryClickOnMiner implements Listener {
             case GREEN_STAINED_GLASS_PANE -> {
                 if (config.getInt("miners." + asLoc + ".fuel") <= 0) {
                     player.playSound(player, Sound.ENTITY_VILLAGER_NO, 0.3f, 1f);
-                    player.sendMessage(ChatUtils.error("Este minerador não tem combustível!"));
+                    player.sendMessage(ChatUtils.error("Este minerador não tem combustível suficiente!"));
                     return;
                 }
                 player.playSound(player, Sound.ENTITY_VILLAGER_YES, 0.3f, 1f);
