@@ -2,20 +2,16 @@ package org.slk.rankup.miners.listeners;
 
 import net.md_5.bungee.api.ChatColor;
 import org.bukkit.*;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.slk.rankup.itemstacks.CustomModelDataEnum;
 import org.slk.rankup.miners.MinersManager;
 import org.slk.rankup.miners.itemstacks.Miner;
-import org.slk.rankup.utils.ColorUtils;
 
 public class MinerPlace implements Listener {
     @EventHandler
