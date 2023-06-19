@@ -41,9 +41,9 @@ public class EnchantingBook {
             }
         }
         String translatedModifier = switch (bookModifier) {
-            case FORTUNE -> "Fortuna";
-            case UNBREAKABLE -> "Inquebrável";
-            default -> "Eficiência";
+            case FORTUNE -> "FORTUNA";
+            case UNBREAKABLE -> "INQUEBRÁVEL";
+            default -> "EFICIÊNCIA";
         };
         ItemMeta meta = is.getItemMeta();
         assert meta != null;
