@@ -39,7 +39,7 @@ public final class Core extends JavaPlugin {
         loadEvents();
         loadCommands();
 
-        TreasuresManager.setup();
+        // --> TreasuresManager.setup();
         MinersManager.setup();
 
         //region Runnables

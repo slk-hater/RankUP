@@ -23,7 +23,7 @@ public class PlayerInteractAtMiner implements Listener {
         MinersManager.MANAGING_MAP.put(player, as.getLocation());
 
         Inventory inventory = DashboardMinerInventory.cloneInventory();
-        if(MinersManager.getConfiguration().getBoolean("miners"+as.getLocation()+".enabled"))
+        if(MinersManager.getConfiguration().getBoolean("miners."+as.getLocation()+".enabled"))
             inventory.setItem(0, DashboardMinerInventory.ENABLED_ITEMSTACK);
         player.openInventory(inventory);
     }

@@ -35,7 +35,7 @@ public class MinerPlace implements Listener {
         ArmorStand as = MinersManager.spawnMiner(location);
         player.playSound(player, Sound.ENTITY_VILLAGER_CELEBRATE, 0.3f, 1f);
 
-        int speed = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(1)).replaceAll("[^0-9]", ""));
+        int speed = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(0)).replaceAll("[^0-9]", ""));
 
         MinersManager.createMinerConfiguration(as.getLocation(), player, speed);
     }
