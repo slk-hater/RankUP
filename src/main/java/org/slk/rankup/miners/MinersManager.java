@@ -72,7 +72,7 @@ public class MinersManager {
         as.getLocation().getWorld().spawnParticle(Particle.CLOUD, as.getLocation(), 100);
         return as;
     }
-    public static void createMiner(Location location, Player player, Miner.MinerType type, int speed){
+    public static void createMinerConfiguration(Location location, Player player, Miner.MinerType type, int speed){
         YamlConfiguration configuration = MinersManager.getConfiguration();
         configuration.set("miners."+location+".owner", player.getName());
         configuration.set("miners."+location+".enabled", false);
