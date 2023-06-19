@@ -44,7 +44,7 @@ public class MinersManager {
         as.setVisible(true);
         as.setInvulnerable(true);
         as.setCollidable(false);
-        as.setCanPickupItems(false);
+        //as.setCanPickupItems(false);
         as.setCustomName(ColorUtils.colorize("&eMinerador"));
         as.setCustomNameVisible(true);
         as.setRemoveWhenFarAway(false);
