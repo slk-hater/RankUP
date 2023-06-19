@@ -72,11 +72,10 @@ public class MinersManager {
 
         return as;
     }
-    public static void createMinerConfiguration(Location location, Player player, Miner.MinerType type, int speed){
+    public static void createMinerConfiguration(Location location, Player player, int speed){
         YamlConfiguration configuration = MinersManager.getConfiguration();
         configuration.set("miners."+location+".owner", player.getName());
         configuration.set("miners."+location+".enabled", false);
-        configuration.set("miners."+location+".type", type.toString());
         configuration.set("miners."+location+".speed", speed);
         configuration.set("miners."+location+".fuel", 0);
         configuration.set("miners."+location+".remoteControl", false);
