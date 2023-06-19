@@ -149,4 +149,22 @@ public class TreasuresManager {
 
         return items;
     }
+    public static void kickPlayers(){
+        for (Player player : TreasuresManager.getWorld().getPlayers()) {
+            player.sendMessage(ChatUtils.error(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw()));
+            player.teleport(Bukkit.getServer().getWorlds().get(0).getSpawnLocation());
+
+            if(TreasuresManager.getTimeLeft(player).toSeconds() <= 30) return;
+
+            ItemStack ticketClone = TreasuresManager.TICKET.clone();
+            ItemMeta meta = ticketClone.getItemMeta();
+            if (meta == null || meta.getLore() == null) return;
+            meta.getLore().set(1, meta.getLore().get(1).replace(
+                    String.valueOf(TreasuresManager.DURATION_MINUTES),
+                    String.valueOf(Math.round(TreasuresManager.getTimeLeft(player).toMinutes()))
+            ));
+            ticketClone.setItemMeta(meta);
+            player.getInventory().addItem(ticketClone);
+        }
+    }
 }

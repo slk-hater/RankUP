@@ -24,7 +24,6 @@ import java.lang.reflect.Field;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public final class Core extends JavaPlugin {
     private static Core instance;
@@ -71,22 +70,7 @@ public final class Core extends JavaPlugin {
     public void onDisable() {
         super.onDisable();
 
-        //region Kick players from Treasures world
-        for (Player player : TreasuresManager.getWorld().getPlayers()) {
-            player.sendMessage(ChatUtils.error(TreasuresMessages.LEAVE_WORLD_FORCE.getRaw()));
-            player.teleport(getServer().getWorlds().get(0).getSpawnLocation());
-
-            ItemStack ticketClone = TreasuresManager.TICKET.clone();
-            ItemMeta meta = ticketClone.getItemMeta();
-            if (meta == null || meta.getLore() == null) return;
-            meta.getLore().set(1, meta.getLore().get(1).replace(
-                    String.valueOf(TreasuresManager.DURATION_MINUTES),
-                    String.valueOf(Math.round(TreasuresManager.getTimeLeft(player).toMinutes()))
-            ));
-            ticketClone.setItemMeta(meta);
-            player.getInventory().addItem(ticketClone);
-        }
-        //endregion
+        TreasuresManager.kickPlayers();
     }
 
     private void updateBoard(FastBoard board) {
@@ -155,9 +139,7 @@ public final class Core extends JavaPlugin {
             Field cmdMap = Bukkit.getPluginManager().getClass().getDeclaredField("commandMap");
             cmdMap.setAccessible(true);
             map = (CommandMap) cmdMap.get(Bukkit.getPluginManager());
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        }catch (Exception e) { e.printStackTrace(); }
 
         Reflections reflector = new Reflections("org.slk.rankup");
         try{
@@ -166,8 +148,6 @@ public final class Core extends JavaPlugin {
                 assert map != null;
                 map.register(cls.getSimpleName().toLowerCase(), command);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        } catch (Exception e) { e.printStackTrace(); }
     }
 }
