@@ -15,7 +15,7 @@ public class PlayerInteractAtMiner implements Listener {
         if(!(event.getRightClicked() instanceof ArmorStand as)) return;
         if(!MinersManager.hasMiner(as.getLocation())) return;
 
-        // TODO : Upgrades (Control remoto de maquina, velocidade, capacidade de items)
+        // TODO : Upgrades (Speed, remote control, storage capacity, gem mining unlock)
         Player player = event.getPlayer();
         event.setCancelled(true);
         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
