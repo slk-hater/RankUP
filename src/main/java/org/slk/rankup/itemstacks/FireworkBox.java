@@ -37,7 +37,7 @@ public class FireworkBox {
     public int getDuration() { return this.duration; }
     public void setDuration(int seconds) {
         this.duration = Math.min(seconds, MAX_DURATION);
-        String durationStr = "&e";
+        String durationStr = "";
         int h = getDuration()/3600;
         int r = getDuration()-h * 3600;
         int m = r/60;
