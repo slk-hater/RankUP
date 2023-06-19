@@ -10,7 +10,7 @@ public class RemoteControlMinersInventory {
     public static String NAME = "Mineradores - Controlo remoto";
     static Inventory inv = Bukkit.createInventory(null, SIZE, NAME);
     static{
-        inv.setItem(13, ItemStackBuilder.build(Material.COBWEB, 1, "&cSem mineradores", "&8Nenhum minerador ativo foi encontrado"));
+        inv.setItem(13, ItemStackBuilder.build(Material.COBWEB, 1, "&cSem mineradores", "&8Nenhum minerador foi encontrado"));
     }
 
     public static Inventory cloneInventory() {

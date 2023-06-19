@@ -39,6 +39,7 @@ public class MinersManager {
 
     public static ArmorStand spawnMiner(Location location){
         ArmorStand as = (ArmorStand) location.getWorld().spawnEntity(location.add(0.5, 0.9, 0.5), EntityType.ARMOR_STAND);
+        as.getLocation().getWorld().spawnParticle(Particle.CLOUD, as.getLocation(), 100);
         as.setSmall(true);
         as.setGravity(false);
         as.setVisible(true);
@@ -69,7 +70,6 @@ public class MinersManager {
         boots.setItemMeta(meta);
         as.setBoots(boots);
 
-        as.getLocation().getWorld().spawnParticle(Particle.CLOUD, as.getLocation(), 100);
         return as;
     }
     public static void createMinerConfiguration(Location location, Player player, Miner.MinerType type, int speed){
@@ -86,8 +86,4 @@ public class MinersManager {
         catch(Exception e) { e.printStackTrace(); }
     }
     public static boolean hasMiner(Location location){ return MinersManager.getConfiguration().get("miners."+location) != null; }
-    public static ConfigurationSection getMinerConfiguration(Location location){
-        YamlConfiguration configuration = MinersManager.getConfiguration();
-        return configuration.getConfigurationSection("miners."+location);
-    }
 }
