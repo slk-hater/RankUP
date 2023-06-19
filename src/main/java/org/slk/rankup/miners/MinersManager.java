@@ -36,10 +36,6 @@ public class MinersManager {
         if(!DATA_FILE.exists()) setup();
         return YamlConfiguration.loadConfiguration(DATA_FILE);
     }
-    public static void saveConfiguration(){
-        try { getConfiguration().save(DATA_FILE); }
-        catch(Exception e) { e.printStackTrace(); }
-    }
 
     public static ArmorStand spawnMiner(Location location){
         ArmorStand as = (ArmorStand) location.getWorld().spawnEntity(location.add(0.5, 0.9, 0.5), EntityType.ARMOR_STAND);

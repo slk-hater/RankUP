@@ -7,7 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractAtEntityEvent;
 import org.slk.rankup.miners.MinersManager;
-import org.slk.rankup.miners.inventories.MinerDashboardInventory;
+import org.slk.rankup.miners.inventories.DashboardMinerInventory;
 
 public class PlayerInteractAtMiner implements Listener {
     @EventHandler
@@ -20,6 +20,6 @@ public class PlayerInteractAtMiner implements Listener {
         event.setCancelled(true);
         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
         MinersManager.MANAGING_MAP.put(player, as.getLocation());
-        player.openInventory(MinerDashboardInventory.cloneInventory());
+        player.openInventory(DashboardMinerInventory.cloneInventory());
     }
 }
