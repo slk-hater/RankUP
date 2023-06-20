@@ -44,6 +44,7 @@ public class RemoteControlMinersInventory {
             List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
             loreRes.replaceAll(ColorUtils::colorize);
             meta.setLore(loreRes);
+            skull.setItemMeta(meta);
 
             inventory.setItem(i, skull);
         }
