@@ -26,7 +26,6 @@ public class RemoteControlMinersInventory {
         YamlConfiguration config = MinersManager.getConfiguration();
         Inventory inventory = Bukkit.createInventory(null, SIZE, NAME);
         for(int i=0; i<miners.size(); i++){
-            if(i==7 || i==7*2 || i==7*3 || i==7*4) continue;
             ArmorStand as = miners.get(i);
 
             String onOrOff;
