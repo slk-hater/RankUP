@@ -34,15 +34,15 @@ public class Fuel {
     public int getDuration() { return this.duration; }
     public void setDuration(int seconds) {
         this.duration = seconds;
-        String durationStr = "&f";
-        int h = getDuration()/3600;
+        String durationStr = ChatColor.of("#36454F")+"0,4J";
+        /*int h = getDuration()/3600;
         int r = getDuration()-h * 3600;
         int m = r/60;
         r = r - m * 60;
         int s = r;
         if(h > 0) durationStr += h + "h ";
         if(m > 0) durationStr += m + "m ";
-        if(s > 0) durationStr += s + "s ";
+        if(s > 0) durationStr += s + "s ";*/
 
         ItemMeta meta = getItemStack().getItemMeta();
         if(meta == null) return;
