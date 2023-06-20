@@ -1,22 +1,53 @@
 package org.slk.rankup.miners.inventories;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.ArmorStand;
 import org.bukkit.inventory.Inventory;
-import org.slk.rankup.utils.ItemStackBuilder;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.slk.rankup.miners.MinersManager;
+import org.slk.rankup.miners.itemstacks.Miner;
+import org.slk.rankup.utils.ColorUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class RemoteControlMinersInventory {
-    public static int SIZE = 9*3;
+    public static int SIZE;
     public static String NAME = "Mineradores - Controlo remoto";
-    static Inventory inv = Bukkit.createInventory(null, SIZE, NAME);
-    static{
-        inv.setItem(13, ItemStackBuilder.build(Material.COBWEB, 1, "&cSem mineradores", "&8Nenhum minerador foi encontrado"));
-    }
 
-    public static Inventory cloneInventory() {
-        Inventory newInv = Bukkit.createInventory(null, SIZE, NAME);
-        newInv.setContents(inv.getContents());
-        return newInv;
+    public static Inventory build(List<ArmorStand> miners){
+        if(miners.size() <= 7) SIZE = 9*3;
+        else if(miners.size() <= 7*2) SIZE = 9*4;
+        else if(miners.size() <= 7*3) SIZE = 9*5;
+        else if(miners.size() <= 7*4) SIZE = 9*6;
+
+        YamlConfiguration config = MinersManager.getConfiguration();
+        Inventory inventory = Bukkit.createInventory(null, SIZE, NAME);
+        for(int i=0; i<miners.size(); i++){
+            if(i==7 || i==7*2 || i==7*3 || i==7*4) continue;
+            ArmorStand as = miners.get(i);
+
+            String onOrOff;
+            if(config.getBoolean("miners."+as.getLocation()+".enabled")) onOrOff = "&a&lLIGADO";
+            else onOrOff = "&c&lDESLIGADO";
+            String lore = "\n" + onOrOff +
+                    "\n&7Velocidade &r" + config.getInt("miners."+as.getLocation()+".speed") +
+                    "\n&7Combustível &r" + config.getInt("miners."+as.getLocation()+".fuel") +
+                    "\n&7Recursos &r(" + config.getInt("miners."+as.getLocation()+".storage") + "/" + config.getInt("miners."+as.getLocation()+".maxStorage") + ")" +
+                    "\n&7Coordenadas:\n &f" + as.getLocation();
+
+            ItemStack skull = Miner.SKULL;
+            ItemMeta meta = skull.getItemMeta();
+            assert meta != null;
+            meta.setDisplayName(ColorUtils.colorize("&eMinerador"));
+            List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
+            loreRes.replaceAll(ColorUtils::colorize);
+            meta.setLore(loreRes);
+
+            inventory.setItem(i, skull);
+        }
+        return inventory;
     }
-    public static Inventory getInventory() { return inv; }
 }
