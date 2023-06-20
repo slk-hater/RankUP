@@ -13,7 +13,7 @@ import java.util.List;
 
 public class Fuel {
     static final int BASE_DURATION = 60;
-    static String DESCRIPTION = "&7Energia &f%duration%";
+    static String DESCRIPTION = "&7Produz &f%duration%";
 
     int duration;
     final ItemStack is;
