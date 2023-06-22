@@ -9,7 +9,7 @@ public enum TreasuresMessages {
     LEAVE_WORLD_TIME("O teu tempo no mundo dos Tesouros acabou!"),
     LEAVE_WORLD_OPTIONAL("Sais-te do mundo de Tesouros ainda com tempo restante, recebeste uma passagem nova com a duração restante."),
     LEAVE_WORLD_OPTIONAL_NO_TICKET("Sais-te do mundo de Tesouros opcionalmente, como não te restava muito tempo, não vais receber uma passagem nova."),
-    LEAVE_WORLD_FORCE("Foste forçado a sair do mundo de Tesouros, não te preocupes, recebeste uma passagem nova com a duração restante.");
+    LEAVE_WORLD_FORCE("Foste forçado a sair do mundo de Tesouros pelo Servidor, não te preocupes, recebeste uma passagem nova com a duração restante.");
 
     private final String message;
     TreasuresMessages(String message){
