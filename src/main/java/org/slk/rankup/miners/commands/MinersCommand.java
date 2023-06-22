@@ -1,16 +1,13 @@
 package org.slk.rankup.miners.commands;
 
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
-import org.slk.rankup.miners.MinersManager;
 import org.slk.rankup.miners.MinersNamespacedKey;
 import org.slk.rankup.miners.inventories.RemoteControlMinersInventory;
 import org.slk.rankup.miners.inventories.RemoteControlNoMinersInventory;
