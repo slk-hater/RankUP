@@ -24,7 +24,7 @@ public class EntitySpawn implements Listener {
                 nearbyEnt.setCustomName(ColorUtils.colorize("&7[" + (quantity+1) + "]"));
             }
             else{
-                nearbyEnt.setCustomName(ColorUtils.colorize("&7[1]"));
+                nearbyEnt.setCustomName(ColorUtils.colorize("&7[2]"));
             }
         }
     }
