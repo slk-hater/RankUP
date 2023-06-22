@@ -1,20 +1,20 @@
-package org.slk.rankup.temphorse.listeners;
+package org.slk.rankup.mounts.listeners;
 
 import org.bukkit.entity.Horse;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.vehicle.VehicleExitEvent;
-import org.slk.rankup.temphorse.HorsesManager;
+import org.slk.rankup.mounts.MountsManager;
 
-public class VehicleExit implements Listener {
+public class MountExit implements Listener {
     @EventHandler
-    public void onVehicleExit(VehicleExitEvent event){
+    public void onMountExit(VehicleExitEvent event){
         if(!(event.getExited() instanceof Player player)) return;
         if(!(event.getVehicle() instanceof Horse horse)) return;
-        if(!HorsesManager.getMap().containsValue(horse)) return;
+        if(!MountsManager.getMap().containsValue(horse)) return;
 
-        HorsesManager.getMap().remove(player);
+        MountsManager.getMap().remove(player);
         horse.teleport(horse.getLocation().subtract(0, 100, 0));
         horse.getInventory().clear();
         horse.setCustomNameVisible(false);

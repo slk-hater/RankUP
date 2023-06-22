@@ -1,4 +1,4 @@
-package org.slk.rankup.temphorse.commands;
+package org.slk.rankup.mounts.commands;
 
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -7,15 +7,15 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
-import org.slk.rankup.temphorse.HorsesManager;
+import org.slk.rankup.mounts.MountsManager;
 import org.slk.rankup.utils.ChatUtils;
 
 import java.util.List;
 
-public class HorseCommand extends Command {
-    public HorseCommand(){
-        super("horse");
-        setAliases(List.of("mount", "montada", "cavalo"));
+public class MountCommand extends Command {
+    public MountCommand(){
+        super("mount");
+        setAliases(List.of("montada", "horse", "cavalo"));
     }
 
     @Override
@@ -39,7 +39,7 @@ public class HorseCommand extends Command {
         horse.setOwner(player);
         horse.getInventory().setSaddle(new ItemStack(Material.SADDLE));
         horse.addPassenger(player);
-        HorsesManager.getMap().put(player, horse);
+        MountsManager.getMap().put(player, horse);
         return true;
     }
 }

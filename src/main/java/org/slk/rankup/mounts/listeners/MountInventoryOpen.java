@@ -1,17 +1,17 @@
-package org.slk.rankup.temphorse.listeners;
+package org.slk.rankup.mounts.listeners;
 
 import org.bukkit.entity.Horse;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.HorseInventory;
-import org.slk.rankup.temphorse.HorsesManager;
+import org.slk.rankup.mounts.MountsManager;
 
-public class InventoryOpen implements Listener {
+public class MountInventoryOpen implements Listener {
     @EventHandler
-    public void onInventoryOpen(InventoryOpenEvent event){
+    public void onMountInventoryOpen(InventoryOpenEvent event){
         if(!(event.getInventory() instanceof HorseInventory inventory)) return;
 
-        event.setCancelled(HorsesManager.getMap().containsValue((Horse) inventory.getHolder()));
+        event.setCancelled(MountsManager.getMap().containsValue((Horse) inventory.getHolder()));
     }
 }
