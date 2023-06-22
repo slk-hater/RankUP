@@ -23,6 +23,9 @@ public class EntitySpawn implements Listener {
                 int quantity = Integer.parseInt(ChatColor.stripColor(nearbyEnt.getCustomName()).replace("[", "").replace("]", ""));
                 nearbyEnt.setCustomName(ColorUtils.colorize("&7[" + (quantity+1) + "]"));
             }
+            else{
+                nearbyEnt.setCustomName(ColorUtils.colorize("&7[1]"));
+            }
         }
     }
 }
