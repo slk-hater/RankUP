@@ -10,9 +10,9 @@ import org.bukkit.inventory.Inventory;
 import org.slk.rankup.miners.MinersManager;
 import org.slk.rankup.miners.inventories.DashboardMinerInventory;
 
-public class PlayerInteractAtMiner implements Listener {
+public class InteractAtMiner implements Listener {
     @EventHandler
-    public void onPlayerInteractAtMiner(PlayerInteractAtEntityEvent event){
+    public void onInteractAtMiner(PlayerInteractAtEntityEvent event){
         if(!(event.getRightClicked() instanceof ArmorStand as)) return;
         if(!MinersManager.hasMiner(as.getLocation())) return;
 

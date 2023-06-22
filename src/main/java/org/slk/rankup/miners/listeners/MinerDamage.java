@@ -6,9 +6,9 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.slk.rankup.miners.MinersManager;
 
-public class ArmorStandDamage implements Listener {
+public class MinerDamage implements Listener {
     @EventHandler
-    public void onArmorStandDamage(EntityDamageEvent event){
+    public void onMinerDamage(EntityDamageEvent event){
         if(!(event.getEntity() instanceof ArmorStand as)) return;
 
         event.setCancelled(MinersManager.hasMiner(as.getLocation()));

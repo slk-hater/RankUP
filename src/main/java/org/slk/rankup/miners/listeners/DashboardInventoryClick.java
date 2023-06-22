@@ -14,9 +14,9 @@ import org.slk.rankup.miners.MinersManager;
 import org.slk.rankup.miners.inventories.DashboardMinerInventory;
 import org.slk.rankup.utils.ChatUtils;
 
-public class DashboardInventoryClickOnMiner implements Listener {
+public class DashboardInventoryClick implements Listener {
     @EventHandler(ignoreCancelled = true, priority = EventPriority.HIGH)
-    public void onDashboardInventoryClickOnMiner(InventoryClickEvent event){
+    public void onDashboardInventoryClick(InventoryClickEvent event){
         if(event.getClickedInventory() == null) return;
         if(!event.getView().getTitle().equals(DashboardMinerInventory.NAME)) return;
         if(!event.getClickedInventory().equals(event.getView().getTopInventory())) return;
