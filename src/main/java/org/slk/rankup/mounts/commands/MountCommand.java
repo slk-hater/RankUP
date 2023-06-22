@@ -8,6 +8,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.slk.rankup.mounts.MountsManager;
+import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
 
 import java.util.List;
@@ -30,7 +31,8 @@ public class MountCommand extends Command {
         horse.setColor(Horse.Color.values()[(int)Math.round(Math.random()*Horse.Color.values().length)-1]);
         horse.setStyle(Horse.Style.values()[(int)Math.round(Math.random()*Horse.Style.values().length)-1]);
         horse.setCustomNameVisible(true);
-        horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue()+0.1);
+        if(Rank.getRank(player).equals(Rank.getLastRank()))
+            horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue()+0.1);
         horse.setAI(false);
         horse.setAdult();
         horse.setTamed(true);
