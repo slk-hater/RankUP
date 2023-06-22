@@ -18,8 +18,10 @@ public class EntityDeath implements Listener {
         Location location = mob.getLocation();
         assert location.getWorld() != null;
         int quantity = Integer.parseInt(ChatColor.stripColor(mob.getCustomName()).replace("[", "").replace("]", ""));
-        Entity newEnt = location.getWorld().spawnEntity(location, mob.getType());
-        newEnt.setCustomName(ColorUtils.colorize("&7[" + (quantity-1) + "]"));
-        newEnt.setCustomNameVisible(true);
+        if(quantity >= 2) {
+            Entity newEnt = location.getWorld().spawnEntity(location, mob.getType());
+            newEnt.setCustomName(ColorUtils.colorize("&7[" + (quantity-1) + "]"));
+            newEnt.setCustomNameVisible(true);
+        }
     }
 }
