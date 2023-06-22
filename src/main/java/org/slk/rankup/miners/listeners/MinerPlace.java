@@ -23,8 +23,7 @@ public class MinerPlace implements Listener {
         ItemMeta heldItemMeta = heldItem.getItemMeta();
 
         if(heldItemMeta == null) return;
-        if(!heldItemMeta.hasCustomModelData()) return;
-        if(heldItemMeta.getCustomModelData() != CustomModelDataEnum.MINER.get()) return;
+        if(!heldItemMeta.hasCustomModelData() || heldItemMeta.getCustomModelData() != CustomModelDataEnum.MINER.get()) return;
 
         event.setCancelled(true);
 
