@@ -29,7 +29,6 @@ public class HorseCommand extends Command {
         Horse horse = (Horse) player.getWorld().spawnEntity(player.getLocation(), EntityType.HORSE);
         horse.setColor(Horse.Color.values()[(int)Math.round(Math.random()*Horse.Color.values().length)-1]);
         horse.setStyle(Horse.Style.values()[(int)Math.round(Math.random()*Horse.Style.values().length)-1]);
-        horse.setCustomName("Cavalo de " + player.getName());
         horse.setCustomNameVisible(true);
         horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(horse.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue()+0.1);
         horse.setAI(false);
@@ -38,7 +37,6 @@ public class HorseCommand extends Command {
         horse.setBreed(false);
         horse.setCanPickupItems(false);
         horse.setOwner(player);
-        horse.getInventory().setArmor(new ItemStack(Material.IRON_HORSE_ARMOR));
         horse.getInventory().setSaddle(new ItemStack(Material.SADDLE));
         horse.addPassenger(player);
         HorsesManager.getMap().put(player, horse);
