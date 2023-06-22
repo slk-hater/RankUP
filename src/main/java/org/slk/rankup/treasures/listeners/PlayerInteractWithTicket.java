@@ -24,8 +24,9 @@ public class PlayerInteractWithTicket implements Listener {
         if(player.getWorld().equals(TreasuresManager.getWorld())) return;
         if(heldItem == null) return;
         if(!action.toString().contains("RIGHT_CLICK")) return;
-        if(!heldItem.getItemMeta().hasCustomModelData() || heldItem.getItemMeta().getCustomModelData() != CustomModelDataEnum.TICKET.get()) return;
+        if(heldItem.getItemMeta() == null || !heldItem.getItemMeta().hasCustomModelData() || heldItem.getItemMeta().getCustomModelData() != CustomModelDataEnum.TICKET.get()) return;
 
+        assert heldItem.getItemMeta().getLore() != null;
         int duration = Integer.parseInt(ChatColor.stripColor(heldItem.getItemMeta().getLore().get(1)).replaceAll("[^0-9]", ""));
         if(duration != TreasuresManager.DURATION_MINUTES)
             TreasuresManager.CUSTOM_DURATION_MAP.put(player, duration);

@@ -34,6 +34,7 @@ public class PlayerTeleport implements Listener {
             if(!player.getPersistentDataContainer().has(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING)) return;
             try {
                 String base64 = player.getPersistentDataContainer().get(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING);
+                assert base64 != null;
                 ItemStack[] items = Serialization.itemStackArrayFromBase64(base64.split("//")[0]);
                 ItemStack[] armor = Serialization.itemStackArrayFromBase64(base64.split("//")[1]);
                 player.getInventory().setContents(items);
@@ -48,8 +49,7 @@ public class PlayerTeleport implements Listener {
             TreasuresManager.JOINED_DATE_MAP.put(player, LocalDateTime.now());
 
             String[] base64 = Serialization.playerInventoryToBase64(player.getInventory());
-            String res = base64[0] + "//" + base64[1];
-            player.getPersistentDataContainer().set(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING, res);
+            player.getPersistentDataContainer().set(TreasuresNamespacedKey.INVENTORY.get(), PersistentDataType.STRING, base64[0] + "//" + base64[1]);
             player.getInventory().clear();
 
             player.sendMessage("\n" + ChatUtils.good(TreasuresMessages.JOIN_WORLD.get(player)) + "\n ");
