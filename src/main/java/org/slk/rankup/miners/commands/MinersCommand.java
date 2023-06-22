@@ -18,6 +18,7 @@ import org.slk.rankup.utils.ChatUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class MinersCommand extends Command {
     public MinersCommand(){
@@ -35,11 +36,11 @@ public class MinersCommand extends Command {
         }
 
         List<ArmorStand> playerMiners = new ArrayList<>();
-        for(Entity entity : Bukkit.getWorld("Terrenos").getEntities()) {
+        for(Entity entity : Bukkit.getWorld("flat").getEntities()) {
             if(!(entity instanceof ArmorStand as)) continue;
             if(!as.getPersistentDataContainer().has(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING)) continue;
 
-            if(as.getPersistentDataContainer().get(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING) == player.getName())
+            if(Objects.equals(as.getPersistentDataContainer().get(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING), player.getName()))
                 playerMiners.add(as);
         }
 
