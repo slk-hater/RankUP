@@ -45,6 +45,5 @@ public class BlockPlace implements Listener {
         }
         else if(meta.getCustomModelData() == CustomModelDataEnum.ENCHATING_BOOK.get())
             event.setCancelled(true);
-
     }
 }
