@@ -33,11 +33,9 @@ public class MinersCommand extends Command {
         }
 
         List<ArmorStand> playerMiners = new ArrayList<>();
-        for(Entity entity : Bukkit.getWorld("flat").getEntities()) {
-            if(!(entity instanceof ArmorStand as)) continue;
+        for(ArmorStand as : Bukkit.getWorld("flat").getEntitiesByClass(ArmorStand.class)) {
             if(!as.getPersistentDataContainer().has(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING)) continue;
-
-            if(Objects.equals(as.getPersistentDataContainer().get(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING), player.getName()))
+            else if(Objects.equals(as.getPersistentDataContainer().get(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING), player.getName()))
                 playerMiners.add(as);
         }
 
