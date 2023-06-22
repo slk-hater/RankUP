@@ -12,14 +12,13 @@ import org.slk.rankup.utils.ColorUtils;
 public class EntityDeath implements Listener {
     @EventHandler
     public void onEnitityDeath(EntityDeathEvent event){
-        Entity entity = event.getEntity();
-        if(!(entity instanceof Mob)) return;
-        if(!entity.isCustomNameVisible() || entity.getCustomName() == null) return;
+        if(!(event.getEntity() instanceof Mob mob)) return;
+        if(!mob.isCustomNameVisible() || mob.getCustomName() == null) return;
 
-        Location location = entity.getLocation();
+        Location location = mob.getLocation();
         assert location.getWorld() != null;
-        int quantity = Integer.parseInt(ChatColor.stripColor(entity.getCustomName()).replace("[", "").replace("]", ""));
-        Entity newEnt = location.getWorld().spawnEntity(location, entity.getType());
+        int quantity = Integer.parseInt(ChatColor.stripColor(mob.getCustomName()).replace("[", "").replace("]", ""));
+        Entity newEnt = location.getWorld().spawnEntity(location, mob.getType());
         newEnt.setCustomName(ColorUtils.colorize("&7[" + (quantity-1) + "]"));
         newEnt.setCustomNameVisible(true);
     }

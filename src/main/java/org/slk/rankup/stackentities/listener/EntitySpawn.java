@@ -13,13 +13,12 @@ import org.slk.rankup.utils.ColorUtils;
 public class EntitySpawn implements Listener {
     @EventHandler
     public void onEntitySpawn(EntitySpawnEvent event){
-        Entity entity = event.getEntity();
-        if(!(entity instanceof Mob)) return;
+        if(!(event.getEntity() instanceof Mob mob)) return;
 
         Location location = event.getLocation();
         assert location.getWorld() != null;
         for(Entity nearbyEnt : location.getWorld().getNearbyEntities(location, StackEntitiesManager.RADIUS, StackEntitiesManager.RADIUS, StackEntitiesManager.RADIUS)){
-            if(!nearbyEnt.getClass().equals(entity.getClass())) continue;
+            if(!nearbyEnt.getClass().equals(mob.getClass())) continue;
             event.setCancelled(true);
 
             if(nearbyEnt.isCustomNameVisible() && nearbyEnt.getCustomName() != null){
