@@ -29,7 +29,7 @@ public class MinerPlace implements Listener {
         event.setCancelled(true);
 
         if(player.getInventory().getItemInMainHand().getAmount()>1) player.getInventory().getItemInMainHand().setAmount(player.getInventory().getItemInMainHand().getAmount()-1);
-        else player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
+        else if(player.getGameMode().equals(GameMode.SURVIVAL)) player.getInventory().setItemInMainHand(new ItemStack(Material.AIR));
 
         Location location = event.getBlock().getLocation();
         if(location.getWorld() == null) return;

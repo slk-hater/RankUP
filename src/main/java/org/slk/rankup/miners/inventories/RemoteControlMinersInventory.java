@@ -25,7 +25,10 @@ public class RemoteControlMinersInventory {
 
         YamlConfiguration config = MinersManager.getConfiguration();
         Inventory inventory = Bukkit.createInventory(null, SIZE, NAME);
-        for(int i=0; i<miners.size(); i++){
+
+        for(int i=10; i<miners.size(); i++){
+            if(i==17 || i==18 || i==26 || i==27 || i==35 || i==36 || i>43) continue;
+
             ArmorStand as = miners.get(i);
 
             String onOrOff;
@@ -48,6 +51,7 @@ public class RemoteControlMinersInventory {
 
             inventory.setItem(i, skull);
         }
+
         return inventory;
     }
 }

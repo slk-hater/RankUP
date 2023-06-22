@@ -4,7 +4,8 @@ import org.bukkit.NamespacedKey;
 import org.slk.rankup.Core;
 
 public enum MinersNamespacedKey {
-    OWNERSHIP("minersOwnership");
+    OWNERSHIP("minersOwnership"),
+    FUEL("fuelProduction");
 
     private final String key;
 
