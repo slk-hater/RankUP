@@ -11,14 +11,15 @@ import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 public class FlyCommand extends Command {
-    static List<World> ALLOWED_WORLDS = List.of(new World[]{Bukkit.getWorld("Terrenos")});
+    static List<World> ALLOWED_WORLDS = List.of(Objects.requireNonNull(Bukkit.getWorld("Terrenos")));
     public FlyCommand(){
         super("fly");
         setLabel("fly");
         setDescription("Fly");
-        setAliases(List.of(new String[]{"voar", "flight"}));
+        setAliases(List.of("voar", "flight"));
     }
 
     @Override
