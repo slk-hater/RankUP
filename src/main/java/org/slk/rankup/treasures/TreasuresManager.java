@@ -145,7 +145,7 @@ public class TreasuresManager {
         for(int i=0; i<6; i++)
             items.add(new ItemStack(Material.RED_STAINED_GLASS_PANE, 1));
 
-        items.add(ItemStackBuilder.build(Material.BARRIER, 1, "&cSair", "&8Clica com o botão direito para sair do mundo dos Tesouros\n&8Apenas receberás uma passagem de volta com a restante duração\n &8se o teu tempo restante for mais do que &l" + WARNING_MINUTE + "&8 minutos!"));
+        items.add(ItemStackBuilder.build(Material.BARRIER, 1, "&4Sair", "&8Clica com o botão direito para sair do mundo dos Tesouros\n&cApenas receberás uma passagem de volta com a restante duração\n &cse o teu tempo restante for mais do que &l" + WARNING_MINUTE + "&c minutos!"));
 
         return items;
     }
