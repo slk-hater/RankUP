@@ -1,5 +1,6 @@
 package org.slk.rankup.stackentities.listener;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -19,9 +20,11 @@ public class EntityDeath implements Listener {
         assert location.getWorld() != null;
         int quantity = Integer.parseInt(ChatColor.stripColor(mob.getCustomName()).replace("[", "").replace("]", ""));
         if(quantity >= 2) {
-            Entity newEnt = location.getWorld().spawnEntity(location, mob.getType());
+            mob.setHealth(mob.getMaxHealth());
+            mob.setInvulnerable(false);
+            /*Entity newEnt = location.getWorld().spawnEntity(location.add(5,0,0), mob.getType(), true);
             newEnt.setCustomName(ColorUtils.colorize("&7[" + (quantity-1) + "]"));
-            newEnt.setCustomNameVisible(true);
+            newEnt.setCustomNameVisible(true);*/
         }
     }
 }

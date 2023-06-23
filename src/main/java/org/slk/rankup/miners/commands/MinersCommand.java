@@ -5,7 +5,6 @@ import org.bukkit.Sound;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.slk.rankup.miners.MinersNamespacedKey;
@@ -15,14 +14,13 @@ import org.slk.rankup.utils.ChatUtils;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 public class MinersCommand extends Command {
     public MinersCommand(){
         super("miners");
         setLabel("miners");
         setDescription("Remote control miners");
-        setAliases(List.of("mineradores"));
+        setAliases(List.of("mineradores", "minions"));
     }
 
     @Override
@@ -35,7 +33,7 @@ public class MinersCommand extends Command {
         List<ArmorStand> playerMiners = new ArrayList<>();
         for(ArmorStand as : Bukkit.getWorld("flat").getEntitiesByClass(ArmorStand.class)) {
             if(!as.getPersistentDataContainer().has(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING)) continue;
-            else if(Objects.equals(as.getPersistentDataContainer().get(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING), player.getName()))
+            else if(as.getPersistentDataContainer().get(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING) == player.getName())
                 playerMiners.add(as);
         }
 

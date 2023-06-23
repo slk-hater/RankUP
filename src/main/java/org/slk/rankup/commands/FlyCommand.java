@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class FlyCommand extends Command {
-    static List<World> ALLOWED_WORLDS = List.of(Objects.requireNonNull(Bukkit.getWorld("Terrenos")));
+    //static List<World> ALLOWED_WORLDS = List.of(Bukkit.getWorld("Terrenos"));
     public FlyCommand(){
         super("fly");
         setLabel("fly");
@@ -36,13 +36,18 @@ public class FlyCommand extends Command {
             player.sendMessage(ChatUtils.error("Não tens permissão para usar este comando!"));
             return true;
         }
-        if(!ALLOWED_WORLDS.contains(player.getWorld())){
+        /*if(!ALLOWED_WORLDS.contains(player.getWorld())){
             player.sendMessage(ChatUtils.error("Não podes usar este comando neste mundo!"));
             return true;
-        }
+        }*/
 
-        player.playSound(player, Sound.ITEM_ELYTRA_FLYING, 0.3f, 1f);
-        player.setFlying(!player.isFlying());
+        player.playSound(player, Sound.BLOCK_NOTE_BLOCK_HARP, 0.3f, 1f);
+        if (!player.getAllowFlight()) {
+            player.setAllowFlight(true);
+            player.setFlying(true);
+        } else if (player.getAllowFlight()) {
+            player.setAllowFlight(false);
+        }
         if(player.isFlying()) player.sendMessage(ChatUtils.good("Voo ligado."));
         else player.sendMessage(ChatUtils.good("Voo desligado."));
 

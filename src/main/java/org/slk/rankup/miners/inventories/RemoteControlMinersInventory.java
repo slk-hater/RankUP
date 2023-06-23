@@ -26,8 +26,8 @@ public class RemoteControlMinersInventory {
         YamlConfiguration config = MinersManager.getConfiguration();
         Inventory inventory = Bukkit.createInventory(null, SIZE, NAME);
 
-        for(int i=10; i<miners.size(); i++){
-            if(i==17 || i==18 || i==26 || i==27 || i==35 || i==36 || i>43) continue;
+        for(int i=0; i<miners.size(); i++){
+            if(i+10==17 || i+10==18 || i+10==26 || i+10==27 || i+10==35 || i+10==36 || i+10>43) continue;
 
             ArmorStand as = miners.get(i);
 
@@ -35,10 +35,10 @@ public class RemoteControlMinersInventory {
             if(config.getBoolean("miners."+as.getLocation()+".enabled")) onOrOff = "&a&lLIGADO";
             else onOrOff = "&c&lDESLIGADO";
             String lore = "\n" + onOrOff +
-                    "\n&7Velocidade &r" + config.getInt("miners."+as.getLocation()+".speed") +
-                    "\n&7Combustível &r" + config.getInt("miners."+as.getLocation()+".fuel") +
-                    "\n&7Recursos &r(" + config.getInt("miners."+as.getLocation()+".storage") + "/" + config.getInt("miners."+as.getLocation()+".maxStorage") + ")" +
-                    "\n&7Coordenadas:\n &f" + as.getLocation();
+                    "\n&7Velocidade &f" + config.getInt("miners."+as.getLocation()+".speed") +
+                    "\n&7Combustível &f" + config.getInt("miners."+as.getLocation()+".fuel") +
+                    "\n&7Recursos &f(" + config.getInt("miners."+as.getLocation()+".storage") + "/" + config.getInt("miners."+as.getLocation()+".maxStorage") + ")" +
+                    "\n&7Coordenadas:\n &f(" + as.getLocation().getWorld().getName() + "), X: " + as.getLocation().getX() + ", Y: " + as.getLocation().getY() + " e Z: " + as.getLocation().getZ();
 
             ItemStack skull = Miner.SKULL;
             ItemMeta meta = skull.getItemMeta();
@@ -49,7 +49,7 @@ public class RemoteControlMinersInventory {
             meta.setLore(loreRes);
             skull.setItemMeta(meta);
 
-            inventory.setItem(i, skull);
+            inventory.setItem(i+10, skull);
         }
 
         return inventory;
