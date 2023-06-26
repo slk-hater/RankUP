@@ -2,6 +2,7 @@ package org.slk.rankup.miners.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Sound;
+import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.ArmorStand;
@@ -31,10 +32,12 @@ public class MinersCommand extends Command {
         }
 
         List<ArmorStand> playerMiners = new ArrayList<>();
-        for(ArmorStand as : Bukkit.getWorld("flat").getEntitiesByClass(ArmorStand.class)) {
-            if(!as.getPersistentDataContainer().has(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING)) continue;
-            else if(as.getPersistentDataContainer().get(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING) == player.getName())
+        for(World world : Bukkit.getWorlds()) {
+            for (ArmorStand as : world.getEntitiesByClass(ArmorStand.class)) {
+                if (!as.getPersistentDataContainer().has(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING)) continue;
+                else if (as.getPersistentDataContainer().get(MinersNamespacedKey.OWNERSHIP.get(), PersistentDataType.STRING) != player.getName()) continue;
                 playerMiners.add(as);
+            }
         }
 
         player.playSound(player, Sound.BLOCK_NOTE_BLOCK_BASS, 0.3f, 1f);
