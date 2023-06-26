@@ -6,6 +6,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.slk.rankup.itemstacks.CustomModelDataEnum;
 import org.slk.rankup.utils.ColorUtils;
 import org.slk.rankup.utils.ItemStackBuilder;
+import org.slk.rankup.utils.ItemStackUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +41,7 @@ public class Miner {
     public void setSpeed(int speed) {
         this.speed = Math.min(speed, MAX_SPEED);
         String blocks = speed == 1 ? "bloco" : "blocos";
-
-        ItemMeta meta = getItemStack().getItemMeta();
-        if(meta == null) return;
-        String lore = DESCRIPTION.replace("%speed%", getSpeed()+" "+blocks);
-        List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
-        loreRes.replaceAll(ColorUtils::colorize);
-        meta.setLore(loreRes);
-        getItemStack().setItemMeta(meta);
+        ItemStackUtils.changeItemLore(is, DESCRIPTION.replace("%speed%", getSpeed()+" "+blocks));
     }
     public ItemStack getItemStack() { return this.is; }
 }

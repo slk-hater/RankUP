@@ -9,6 +9,8 @@ import org.slk.rankup.itemstacks.CustomModelDataEnum;
 import org.slk.rankup.miners.MinersNamespacedKey;
 import org.slk.rankup.utils.ColorUtils;
 import org.slk.rankup.utils.ItemStackBuilder;
+import org.slk.rankup.utils.ItemStackUtils;
+import org.slk.rankup.utils.NumberUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,23 +39,7 @@ public class Fuel {
     public int getDuration() { return this.duration; }
     public void setDuration(int seconds) {
         this.duration = seconds;
-        String durationStr = ChatColor.of("#36454F")+"0,4J";
-        /*int h = getDuration()/3600;
-        int r = getDuration()-h * 3600;
-        int m = r/60;
-        r = r - m * 60;
-        int s = r;
-        if(h > 0) durationStr += h + "h ";
-        if(m > 0) durationStr += m + "m ";
-        if(s > 0) durationStr += s + "s ";*/
-
-        ItemMeta meta = getItemStack().getItemMeta();
-        if(meta == null) return;
-        String lore = DESCRIPTION.replace("%duration%", durationStr);
-        List<String> loreRes = new ArrayList<>(List.of(lore.split("\n")));
-        loreRes.replaceAll(ColorUtils::colorize);
-        meta.setLore(loreRes);
-        getItemStack().setItemMeta(meta);
+        ItemStackUtils.changeItemLore(is, DESCRIPTION.replace("%duration%", "&f" + NumberUtils.secondsToFormatted(seconds)));
     }
     public ItemStack getItemStack() { return this.is; }
 
