@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.utils.ChatUtils;
+import org.slk.rankup.utils.GradientChatColor;
 
 import java.util.List;
 import java.util.Objects;
@@ -50,6 +51,7 @@ public class FlyCommand extends Command {
         }
         if(player.isFlying()) player.sendMessage(ChatUtils.good("Voo ligado."));
         else player.sendMessage(ChatUtils.good("Voo desligado."));
+        GradientChatColor.sendGradientMessage(player, "teste teste teste");
 
         return true;
     }
