@@ -84,9 +84,7 @@ public final class Core extends JavaPlugin {
             String color = TreasuresManager.getTimeLeft(player).toMinutesPart() > 3 ? "&e" : "&c";
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fTempo restante:"),
-                    ColorUtils.colorize("     " + color + TreasuresManager.getTimeLeft(player).toMinutesPart() + "m e " + TreasuresManager.getTimeLeft(player).toSecondsPart() + "s"),
-                    "",
+                    ColorUtils.colorize(" &fTempo restante: " + color + TreasuresManager.getTimeLeft(player).toMinutesPart() + "m e " + TreasuresManager.getTimeLeft(player).toSecondsPart() + "s"),
                     ColorUtils.colorize(" &fT. Tesouros: " + ChatColor.of("#95D4FF") + "☘ " + PlayerDataManager.getPlayerData(player).get("totalTreasures")),
                     ColorUtils.colorize(" &fGemas: " + ChatColor.of("#7859b1") + "♦ " + PlayerDataManager.getPlayerData(player).get("gems")),
                     ""
