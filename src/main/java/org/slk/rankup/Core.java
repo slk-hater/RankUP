@@ -13,6 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.reflections.Reflections;
 import org.slk.rankup.miners.MinersManager;
+import org.slk.rankup.playerdata.PlayerDataManager;
 import org.slk.rankup.ranks.Rank;
 import org.slk.rankup.treasures.TreasuresManager;
 import org.slk.rankup.treasures.TreasuresMessages;
@@ -86,8 +87,8 @@ public final class Core extends JavaPlugin {
                     ColorUtils.colorize(" &fTempo restante:"),
                     ColorUtils.colorize("     " + color + TreasuresManager.getTimeLeft(player).toMinutesPart() + "m e " + TreasuresManager.getTimeLeft(player).toSecondsPart() + "s"),
                     "",
-                    ColorUtils.colorize(" &fT. Tesouros: " + ChatColor.of("#95D4FF") + "☘ 0"),
-                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#625589") + "0"),
+                    ColorUtils.colorize(" &fT. Tesouros: " + ChatColor.of("#95D4FF") + "☘ " + PlayerDataManager.getPlayerData(player).get("totalTreasures")),
+                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#7859b1") + "♦ " + PlayerDataManager.getPlayerData(player).get("gems")),
                     ""
             );
             return;
@@ -97,12 +98,12 @@ public final class Core extends JavaPlugin {
             board.updateTitle(ColorUtils.colorize("&a&lRANK UP"));
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ 0"),
+                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ " + PlayerDataManager.getPlayerData(player).get("prestiges")),
                     ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
                     "",
-                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(25000)),
-                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#7859b1") + "♦ 0"),
-                    ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "♦ 0"),
+                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format((long) PlayerDataManager.getPlayerData(player).get("money"))),
+                    ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "♦ " + PlayerDataManager.getPlayerData(player).get("crystals")),
+                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#7859b1") + "♦ " + PlayerDataManager.getPlayerData(player).get("gems")),
                     ""
             );
         }
@@ -110,14 +111,14 @@ public final class Core extends JavaPlugin {
             board.updateTitle(ColorUtils.colorize("&a&lRANK UP"));
             board.updateLines(
                     "",
-                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ 0"),
+                    ColorUtils.colorize(" &fPrestígio: " + ChatColor.of("#17A589") + "★ " + PlayerDataManager.getPlayerData(player).get("prestiges")),
                     ColorUtils.colorize(" &fRank: " + rank.getPrefix()),
                     ColorUtils.colorize(" &fProgresso (" + Rank.getNextRankProgressPercentage(player) + "%)"),
                     ColorUtils.colorize("       " + Rank.getNextRankProgressSymbols(player)),
                     "",
-                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format(25000)),
-                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#7859b1") + "♦ 0"),
-                    ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "♦ 0"),
+                    ColorUtils.colorize(" &fDinheiro: " + ChatColor.of("#85bb65") + "$" + NumberUtils.format((long) PlayerDataManager.getPlayerData(player).get("money"))),
+                    ColorUtils.colorize(" &fCristais: " + ChatColor.of("#5BB2FF") + "♦ " + PlayerDataManager.getPlayerData(player).get("crystals")),
+                    ColorUtils.colorize(" &fGemas: " + ChatColor.of("#7859b1") + "♦ " + PlayerDataManager.getPlayerData(player).get("gems")),
                     ""
             );
         }

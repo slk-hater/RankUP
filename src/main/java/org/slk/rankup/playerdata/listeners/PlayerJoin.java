@@ -22,5 +22,6 @@ public class PlayerJoin implements Listener {
         playerData.put("money", (long)5000);
         playerData.put("crystals", 0);
         playerData.put("gems", 0);
+        playerData.put("totalTreasures", 0);
     }
 }
