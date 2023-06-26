@@ -28,4 +28,17 @@ public class NumberUtils {
         boolean hasDecimal = truncated < 100 && (truncated / 10d) != (truncated / 10);
         return hasDecimal ? (truncated / 10d) + suffix : (truncated / 10) + suffix;
     }
+    public static String secondsToFormatted(int seconds){
+        String durationStr = "";
+        int h = seconds/3600;
+        int r = seconds-h * 3600;
+        int m = r/60;
+        r = r - m * 60;
+        int s = r;
+
+        if(h > 0) durationStr += h + "h ";
+        if(m > 0) durationStr += m + "m ";
+        if(s > 0) durationStr += s + "s ";
+        return durationStr;
+    }
 }
