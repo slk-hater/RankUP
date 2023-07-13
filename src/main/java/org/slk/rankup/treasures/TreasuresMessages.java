@@ -7,8 +7,8 @@ public enum TreasuresMessages {
             " de tesouros que conseguires e lembra-te que a &eBússola&r é a chave para o teu sucesso, boa sorte."),
     TIME_LEFT("Restam-te apenas &e%timeLeft% minutos&r no mundo de Tesouros!"),
     LEAVE_WORLD_TIME("O teu tempo no mundo dos Tesouros acabou!"),
-    LEAVE_WORLD_OPTIONAL("Sais-te do mundo de Tesouros ainda com tempo restante, recebeste uma passagem nova com a duração restante."),
-    LEAVE_WORLD_OPTIONAL_NO_TICKET("Sais-te do mundo de Tesouros opcionalmente, como não te restava muito tempo, há uma penalização e não vais receber uma passagem nova."),
+    LEAVE_WORLD_OPTIONAL("Saís-te do mundo de Tesouros ainda com tempo restante, recebeste uma passagem nova com a duração restante."),
+    LEAVE_WORLD_OPTIONAL_NO_TICKET("Saís-te do mundo de Tesouros opcionalmente, como não te restava muito tempo, há uma penalização e não vais receber uma passagem nova."),
     LEAVE_WORLD_FORCE("Foste forçado a sair do mundo de Tesouros pelo Servidor, não te preocupes, recebeste uma passagem nova com a duração restante.");
 
     private final String message;
